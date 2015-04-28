@@ -6,11 +6,8 @@ fi
 
 echo "piget framework will be installed"
 echo "Installing git-core"
-apt-get install git-core
+apt-get -q -y install git-core
 
-
-echo 
-#wget https://raw.githubusercontent.com/madnerds/piget/master/lazass -O /opt/scripts/lazass
 mkdir /opt/piget
 git clone https://github.com/pigetnet/core /opt/piget/core
 if [[ $? -ne 0 ]]
