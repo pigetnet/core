@@ -1,0 +1,13 @@
+#!/bin/bash
+messagebox "Clone $1 inside $2"
+console
+git clone --depth=1 https://github.com/$1 $2
+giterror=$?
+console
+if [[ $giterror == 128 ]]
+	then
+	nlbecho "ALREADY CLONED"
+	minibox_SKIP
+	messagebox "Update $1"
+	git --work-tree=$2 --git-dir=$2/.git pull origin master
+fi

@@ -1,0 +1,2 @@
+#!/bin/bash
+nlbecho $(hostname -I |cut -f1 -d' ') $ERR

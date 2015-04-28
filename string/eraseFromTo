@@ -1,0 +1,6 @@
+#!/bin/bash
+#Erase from string to string
+#$1: File to read
+#$2: First String
+#$3: Last String
+cat $1|sed -e "/$2/,/$3/d"

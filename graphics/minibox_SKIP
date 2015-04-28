@@ -1,0 +1,6 @@
+#!/bin/bash
+echo -ne " ["
+echo -ne $INFO
+echo -ne "SKIPPED"
+echo -ne $NORMAL
+echo "]"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+read -r -p "$1:" answer
+
+if [ -z $answer ]
+	then
+	{
+		colecho "No answer provided" $ERR
+		exit 1
+	}
+fi
+
+export USERANSWER=$answer

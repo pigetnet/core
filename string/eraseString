@@ -1,0 +1,7 @@
+#!/bin/bash
+##Erase string
+#$1: File to read
+#$2: String
+cat $1|sed "s/$2//"
+
+

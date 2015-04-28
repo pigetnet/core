@@ -1,0 +1,5 @@
+#!/bin/bash
+colecho "THIS WILL OVERWRITE $1 !" $ERR
+colecho "(A backup will be made at $1.backup.TIMESTAMP)" $WARN
+TIMESTAMP=$(date +%Y%m%d)'_'$(date +%H%M%S)
+cp $1 $1'.backup.'$TIMESTAMP

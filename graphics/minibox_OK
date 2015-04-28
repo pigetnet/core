@@ -1,0 +1,6 @@
+#!/bin/bash
+echo -ne " ["
+echo -ne $OK
+echo -ne "OK"
+echo -ne $NORMAL
+echo "]"

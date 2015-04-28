@@ -1,0 +1,5 @@
+#!/bin/bash
+messagebox "Restarting $1"
+console
+service $1 restart
+console

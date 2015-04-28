@@ -1,0 +1,6 @@
+#!/bin/bash
+echo -ne " ["
+echo -ne $WARN
+echo -ne "WARNING"
+echo -ne $NORMAL
+echo "]"

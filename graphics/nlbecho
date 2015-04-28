@@ -1,0 +1,4 @@
+#!/bin/bash
+echo -ne $2
+echo -ne "$1 "
+echo -ne $NORMAL

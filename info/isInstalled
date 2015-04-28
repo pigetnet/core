@@ -1,0 +1,2 @@
+#!/bin/bash
+dpkg-query -l "$1" | grep "ii" > /dev/null 2>&1

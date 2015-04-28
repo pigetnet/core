@@ -1,0 +1,8 @@
+#!/bin/bash
+getLine $1 $2
+if [ $line != -1 ]
+then
+	sed -i ''"$line"'s/.*/'"$3"'/' $1
+else
+	addLineAfter "$1" "$4" "$3"
+fi

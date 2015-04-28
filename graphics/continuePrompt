@@ -1,0 +1,14 @@
+#!/bin/bash
+read -r -p "Continue? [Y/n] " response
+
+case $response in
+[yY])
+	echo "Resuming..."
+;;
+*)
+	echo ""
+	colecho "Stopped..." $info
+	echo -ne $NORMAL
+	exit 0
+;;
+esac

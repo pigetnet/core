@@ -1,0 +1,27 @@
+#!/bin/bash
+export DEBIAN_FRONTEND=noninteractive
+messagebox "INSTALL: $1"
+
+dpkg -s "$1"|grep "Status: install ok installed" > /dev/null 2>&1
+#IS THE PACKAGE ALREADY INSTALLED ?
+if [[ $? == 1 ]]
+	then
+		console
+		apt-get -q -y install "$1"
+		aptgetErrorManager $?
+		console
+		isInstalled $1
+#WAS THE PACKAGE INSTALLED ?
+	if [[ $? == 0 ]]
+		then
+			echo -ne "RESULT: $1"
+			minibox_OK
+		else
+			echo -ne "RESULT: $1"
+			minibox_ERROR
+			read
+		fi
+	else
+		echo -ne "RESULT: $1"
+		minibox_SKIP
+	fi

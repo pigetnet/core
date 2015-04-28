@@ -1,0 +1,6 @@
+#!/bin/bash
+echo -ne " ["
+echo -ne $ERR
+echo -ne "ERROR"
+echo -ne $NORMAL
+echo "]"

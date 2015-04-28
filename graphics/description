@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Create a description box, Use it to describe your SCRIPT
+echo -ne $WARN
+echo "__________________________________"
+echo "__________________________________"
+echo "$1"
+echo "__________________________________"
+echo "__________________________________"
+echo -ne $NORMAL

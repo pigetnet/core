@@ -1,0 +1,5 @@
+#!/bin/bash
+#Create a console box use it to show COMMAND OUTPUT
+echo -ne $OK
+echo "/////////////////////"
+echo -ne $NORMAL

@@ -1,0 +1,17 @@
+#!/bin/bash
+messagebox "INTERNET CONNECTIVITY"
+console
+ping -c1 www.google.com && internet=1 || internet=0
+console
+if [[ $internet == 1 ]]
+	then
+		echo -ne "INTERNET"
+		minibox_OK
+	else
+		echo -ne "INTERNET"
+		minibox_ERROR
+		echo -ne $ERR
+		echo "NO INTERNET CONNECTIVITY DETECTED SCRIPT STOPPED"
+		echo -ne $NORMAL
+		exit 1
+fi

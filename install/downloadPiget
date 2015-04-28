@@ -1,0 +1,19 @@
+#!/bin/bash
+wget https://github.com/piget/raw/master/$1 -O $2
+
+if [[ -f $2 ]]
+	then
+		if [[ $? -eq 8 ]]
+			then
+				rm -f $2
+				echo "Wrong script name!"
+		fi
+	else
+       	        chmod +x $2
+		echo "OK!"
+	fi
+else
+	echo "Script $2 doesn't not exists"
+fi
+
+echo "----------------------------------------------"

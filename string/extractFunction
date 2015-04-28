@@ -1,0 +1,4 @@
+#!/bin/bash
+#$1: File to read
+#$2: Function name
+sed -n "/^$2()\(\)/,/^}/p" $1
