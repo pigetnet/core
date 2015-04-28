@@ -1,0 +1,24 @@
+#!/bin/bash
+
+filename=$2
+wgeterror=$1
+if [[ -f $filename ]]
+        then
+
+		case $wgeterror in
+			0)
+			chmod +x $filename
+			;;
+
+			2)
+			errorBox "Wrong wget commands"
+			;;
+
+			*)
+			rm -f $filename
+			errorBox "$wgeterror - File not founded on Github"
+			;;
+		esac
+else
+        errorBox "$wgeterror - $Wrong filename"
+fi

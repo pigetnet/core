@@ -1,0 +1,3 @@
+#!/bin/bash
+nlbecho "Usage:" $ERR;echo "$1"
+

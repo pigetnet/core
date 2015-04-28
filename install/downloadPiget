@@ -1,19 +1,26 @@
 #!/bin/bash
-wget https://github.com/piget/raw/master/$1 -O $2
+#Download a simple file on pigetnet account
+#$1 repo/file
+#$2 dir/filename
 
-if [[ -f $2 ]]
-	then
-		if [[ $? -eq 8 ]]
-			then
-				rm -f $2
-				echo "Wrong script name!"
-		fi
-	else
-       	        chmod +x $2
-		echo "OK!"
-	fi
+if [ $# -eq 3 ]
+then
+	reponame=$1
+	source=$2
+	destination=$3
+	
 else
-	echo "Script $2 doesn't not exists"
+	errorBox "1 - Wrong arguments"
+	usage "downloadPiget reponame filename destination"
+	example "downloadPiget core graphics/colecho /tmp/test.sh"
+	exit 1
 fi
 
-echo "----------------------------------------------"
+
+description "Downloading $reponame/$source ==> $destination "
+
+console
+	wget https://raw.githubusercontent.com/pigetnet/$reponame/master/$source -O $destination
+	wgeterror=$?
+	wgetErrorManager $wgeterror $destination
+console
