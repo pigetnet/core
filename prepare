@@ -6,6 +6,7 @@ fi
 
 echo "piget framework will be installed"
 echo "Installing git-core"
+apt-get -q -y update
 apt-get -q -y install git-core
 
 mkdir /opt/piget
