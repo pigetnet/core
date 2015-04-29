@@ -7,7 +7,7 @@ if [[ -f $filename ]]
 
 		case $wgeterror in
 			0)
-			chmod +x $filename
+			nlbecho "File downloaded" $OK;minibox_OK
 			;;
 
 			2)
@@ -20,5 +20,5 @@ if [[ -f $filename ]]
 			;;
 		esac
 else
-        errorBox "$wgeterror - $Wrong filename"
+        errorBox "$wgeterror - Wrong filename"
 fi

@@ -1,12 +1,23 @@
 #!/bin/bash
 #$1: File to read
 #$2: String to search
-#return $line line number if no line then -1
-line=$(cat $1 |grep -n "$2"|awk '{print $1}'| head -n 1)
-if [ -z $line ]
- 	then
- 	colecho "Line not founded" $ERR
- 	line=-1
+#return $NewString line number if no line then -1
+
+filename=$1
+stringToSearch=$2
+
+if [ $# -eq 2 ];then
+	line=$(cat $filename |grep -n "$stringToSearch"|awk '{print $1}'| head -n 1)
+	if [ -z $line ];then
+ 		nlbecho "Line not founded" $ERR;minibox_WARNING
+ 		export NewString=-1
+	else
+		export NewString=$(echo $line|cut -d: -f1)
+		nlbecho "Line founded at $NewString" $OK;minibox_OK
+	fi
 else
-line=$(echo $line|cut -d: -f1)
+ 	errorBox "Wrong arguments"
+	usage "getLine fileToRead StringToSearch"
+	example 'getLine "/etc/rc.local" "# Print"'
+	exit 1
 fi

@@ -1,11 +1,16 @@
 #!/bin/bash
 
 # If no arguments is provided we check if it was set inside bootstrap
-description "Renaming your Raspberry pi"
+description "Naming your Raspberry pi"
+
 echo "This will configure"
 listecho "SAMBA -- For Windows"
 listecho "AVAHI -- For MacOS"
 listecho "DNSMASQ -- DNS small Server"
+
+description "This will erase all configuration for samba/dnsmasq!"
+echo "If you want to just rename your raspberry pi type renameMe"
+sleep 3
 
 if [ $# -eq 0 ]
 then
@@ -29,32 +34,22 @@ fi
 
 #Convert Name to Netbios convention to ensure compatibility
 #If no hostname was provided will be reset to default (raspberrypi)
-. ToNetbios $NEW_HOSTNAME
+. ToNetbios "$NEW_HOSTNAME"
 NEW_HOSTNAME=$NewString
 
 messagebox "New name will be $NEW_HOSTNAME"
 sleep 3
 
-#Get current hostname
-CURRENT_HOSTNAME=`cat /etc/hostname | tr -d " \t\n\r"`
-
-isInstalled samba
-generatesambaconf=$?
-
-messagebox "Change /etc/hostname to $NEW_HOSTNAME"
-echo $NEW_HOSTNAME > /etc/hostname
-sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_HOSTNAME/g" /etc/hosts
+resetHost $NEW_HOSTNAME
 
 description "Checking PreRequisites"
 installer samba
 installer samba-common-bin
 installer libnss-mdns
 
-if [ $generatesambaconf -eq 1 ]
-then
-	messagebox "Samba wasn't installed we are going to generate an minimal configuration"
-else
-	replaceline /etc/samba/smb.conf "netbios name" "        netbios name = $piname" "\[global\]"
-fi
+description "Resetting samba configuration to just broadcast name"
+resetSamba "$NEW_HOSTNAME"
 
+hostname $NEW_HOSTNAME
+resetDnsmasq "$NEW_HOSTNAME"
 

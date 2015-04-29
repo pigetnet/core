@@ -1,0 +1,44 @@
+#!/bin/bash
+description "Resetting dnsmasq"
+
+ipaddress=$(ipFirst)
+
+if [ -f /etc/dnsmasq.conf ];then
+
+#Check if hostname is compatible with netbios
+. ToNetbios $1
+NEW_HOSTNAME=$NewString
+
+description "Change /etc/dnsmasq.conf to $NEW_HOSTNAME"
+Backup dnsmasq.conf
+autoBackup /etc/dnsmasq.conf
+
+cat <<\EOF > /etc/dnsmasq.conf &&
+addn-hosts=/boot/bootstrap/config/hosts.txt
+expand-hosts
+domain=home
+local-ttl=300
+EOF
+
+console
+cat /etc/dnsmasq.conf
+console
+
+description "reset /boot/bootstrap/config/hosts.network to $ipaddress	$NEW_HOSTNAME"
+mkdir -p /boot/bootstrap/config
+autoBackup /boot/bootstrap/config/hosts.txt
+echo "$ipaddress	$NEW_HOSTNAME" > /boot/bootstrap/config/hosts.txt
+console
+cat /boot/bootstrap/config/hosts.network
+console
+
+restarter dnsmasq
+description "You must add $ipaddress as a altenative dns server"
+listecho "Directly on your computer/smartphone"
+listecho "On your router/box/dhcp server"
+
+else
+	nlbecho "dnsmasq is not installed" $WARN;minibox_SKIP
+fi
+
+

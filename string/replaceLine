@@ -1,8 +1,28 @@
 #!/bin/bash
-getLine $1 $2
-if [ $line != -1 ]
-then
-	sed -i ''"$line"'s/.*/'"$3"'/' $1
+#$1 filename
+#$2 stringToSearch
+#$3 stringToReplace
+#$4 elseAddAfterString
+
+filename="$1"
+stringToSearch="$2"
+stringToReplace="$3"
+elseAddAfterString="$4"
+
+if [ $# -eq 4 ];then
+	#Get Line
+	. getLine "$filename" "$stringToSearch"
+	line=$NewString
+	if [ $NewString != -1 ]
+	then
+		nlbecho "Replace Line $stringToSearch at $line with $stringToReplace" $OK;minibox_OK
+		sed -i "${line}s/.*/$stringToReplace/" $filename
+	else
+		nlbecho "Add after line $elseAddAfterString" $WARN;minixbox_WARNING
+		addLineAfter "$filename" "$elseAddAfterString" "$stringToReplace"
+	fi
 else
-	addLineAfter "$1" "$4" "$3"
+	errorBox "Wrong Arguments"
+	usage 'replaceLine "Filename" "StringToSearch" "StringToReplace" "ElseAddAfterString"'
+	example 'replaceLine "/etc/hosts" "127.0.0.1" "127.0.0.1 raspberrypi" "ff02::2         ip6-allrouters"'
 fi

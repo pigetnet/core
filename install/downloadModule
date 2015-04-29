@@ -1,0 +1,19 @@
+#!/bin/bash
+#Clone a gitrepo on pigetnet on github
+#$1 repo/file
+
+if [ $# -eq 1 ]
+then
+	reponame=$1
+else
+	errorBox "1 - Wrong arguments"
+	usage "downloadModule reponame"
+	example "downloadModule filesharing"
+	exit 1
+fi
+
+
+description "Downloading $reponame into /opt/pigetnet/$reponame"
+console
+	gitcloner https://https://github.com/pigetnet/$reponame /opt/pigetnet/
+console

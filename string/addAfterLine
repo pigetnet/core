@@ -1,0 +1,15 @@
+#!/bin/bash
+#$1 filename
+#$2 addAfterString
+#$3 stringToReplace
+
+if [ $# -eq 3 ];then
+	filename=$1
+	addAfterString=$2
+	stringToReplace=$3
+	sed -i 's/'"$addAfterString"'/'"$addAfterString"'\n'"$stringToReplace"'/' $filename
+else
+	errorBox "Wrong Arguments"
+	usage "addAfterLine filename addAfterString stringToReplace"
+	example 'addAfterLine "/etc/hosts" "raspberrypi" "192.168.0.254 router"'
+fi

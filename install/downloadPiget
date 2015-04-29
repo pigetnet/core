@@ -8,7 +8,6 @@ then
 	reponame=$1
 	source=$2
 	destination=$3
-	
 else
 	errorBox "1 - Wrong arguments"
 	usage "downloadPiget reponame filename destination"
@@ -20,7 +19,14 @@ fi
 description "Downloading $reponame/$source ==> $destination "
 
 console
-	wget https://raw.githubusercontent.com/pigetnet/$reponame/master/$source -O $destination
+	rm -f /tmp/wget.temp
+	wget https://raw.githubusercontent.com/pigetnet/$reponame/master/$source -O /tmp/wget.temp
 	wgeterror=$?
-	wgetErrorManager $wgeterror $destination
+	wgetErrorManager $wgeterror /tmp/wget.temp
+	if [ -s "/tmp/wget.temp" ]
+	then
+		mv /tmp/wget.temp $destination
+	else
+		rm -f /tmp/wget.temp
+	fi
 console
