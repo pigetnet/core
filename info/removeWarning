@@ -1,0 +1,3 @@
+#!/bin/bash
+filename=$1
+rm -f /boot/bootstrap/warning/$1

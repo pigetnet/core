@@ -1,0 +1,13 @@
+#!/bin/bash
+description "Add Root User"
+if [ -e /boot/bootstrap/config/rootpassword.txt ]
+then
+	messagebox "Founded a rootpassword in boot"
+	password=$(cat /boot/bootstrap/config/rootpassword.txt)
+	echo "root:$password" |chpasswd
+	messagebox "Removing bootstrapped password"
+	rm -f /boot/bootstrap/config/rootpassword.txt
+	colecho "Password succesfully changed";minibox_OK
+else
+	passwd root
+fi

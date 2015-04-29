@@ -1,13 +1,6 @@
 #!/bin/bash
-description "Checking if SDcard is resized"
-installer parted
-
-isresize=$(parted /dev/mmcblk0 unit GB print free | grep 'Free Space'|awk {'print $1'})
-echo $isresize
-if [[ $isresize == "0,00GB" ]]
-then
-        nlbecho "SDCARD ALREADY RESIZE";minibox_SKIP
-else
+resize_sdcard() {
+echo "Resizing SDCARD at reboot"
 
   # Get the starting offset of the root partition
   PART_START=$(parted /dev/mmcblk0 -ms unit s p | grep "^2" | cut -f 2 -d:)
@@ -58,6 +51,8 @@ esac
 EOF
   chmod +x /etc/init.d/resize2fs_once &&
   update-rc.d resize2fs_once defaults &&
+echo "SDCARD will be resize at reboot"
+}
 
-messagebox "SDCARD will be resize at reboot"
-fi
+resize_sdcard
+

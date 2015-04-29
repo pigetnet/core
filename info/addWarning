@@ -1,0 +1,13 @@
+#!/bin/bash
+filename=$1
+name=$2
+warning=$3
+action=$4
+
+rm -f /boot/bootstrap/warning/$1
+touch /boot/bootstrap/warning/$1.txt
+echo "____________$1_____________________" >> /boot/bootstrap/warning/$1.txt
+echo "WARNING: $2" >> /boot/bootstrap/warning/$1.txt
+echo "ACTION: $3" >> /boot/bootstrap/warning/$1.txt
+echo "-----------------------------------" >> /boot/bootstrap/warning/$1.txt
+echo "" >> /boot/bootstrap/warning/$1.txt
