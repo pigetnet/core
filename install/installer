@@ -2,7 +2,7 @@
 export DEBIAN_FRONTEND=noninteractive
 messagebox "INSTALL: $1"
 
-dpkg -s "$1"|grep "Status: install ok installed" > /dev/null 2>&1
+isInstalled $1
 #IS THE PACKAGE ALREADY INSTALLED ?
 if [[ $? == 1 ]]
 	then

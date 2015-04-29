@@ -1,0 +1,24 @@
+#!/bin/bash
+#Check if arguments correctly set
+
+if [[ $# -eq 1 ]]; then
+	#Remove uppercase and accents
+	. stripAccents $1
+	. upperToLower $NewString
+	. ToAlphaNumeric $NewString
+	. Trim $NewString
+	NewString=$(echo $NewString|cut -c1-16)
+
+	#Check if variable is empty
+	if [[ -z $NewString ]]; then
+		echo "RESET TO DEFAULT"
+		export NewString="raspberrypi"
+	else
+		export NewString=$NewString
+	fi
+else
+	echo "RESET TO DEFAULT"
+	export NewString="raspberrypi"
+fi
+
+

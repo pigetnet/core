@@ -1,0 +1,4 @@
+#!/bin/bash
+chmod +x /boot/bootstrap/projects/$1.txt
+/boot/bootstrap/projects/$1.txt
+

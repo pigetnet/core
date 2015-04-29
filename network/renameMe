@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# If no arguments is provided we check if it was set inside bootstrap
+description "Renaming your Raspberry pi"
+echo "This will configure"
+listecho "SAMBA -- For Windows"
+listecho "AVAHI -- For MacOS"
+listecho "DNSMASQ -- DNS small Server"
+
+if [ $# -eq 0 ]
+then
+	if [ -f /boot/bootstrap/config/name.txt ]
+	then
+		messagebox "BOOTSTRAP CONFIGURATION FOUNDED"
+		NEW_HOSTNAME=$(cat /boot/bootstrap/config/name.txt)
+	else
+		errorBox "No enough Arguments and no configuration"
+		usage "renameMe newname"
+		example "renameMe raspberrypi"
+		exit 1
+	fi
+fi
+
+#If an arguments is provided we will use it
+if [ $# -eq 1 ]
+then
+	NEW_HOSTNAME=$1
+fi
+
+#Convert Name to Netbios convention to ensure compatibility
+#If no hostname was provided will be reset to default (raspberrypi)
+. ToNetbios $NEW_HOSTNAME
+NEW_HOSTNAME=$NewString
+
+messagebox "New name will be $NEW_HOSTNAME"
+sleep 3
+
+#Get current hostname
+CURRENT_HOSTNAME=`cat /etc/hostname | tr -d " \t\n\r"`
+
+isInstalled samba
+generatesambaconf=$?
+
+messagebox "Change /etc/hostname to $NEW_HOSTNAME"
+echo $NEW_HOSTNAME > /etc/hostname
+sed -i "s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\t$NEW_HOSTNAME/g" /etc/hosts
+
+description "Checking PreRequisites"
+installer samba
+installer samba-common-bin
+installer libnss-mdns
+
+if [ $generatesambaconf -eq 1 ]
+then
+	messagebox "Samba wasn't installed we are going to generate an minimal configuration"
+else
+	replaceline /etc/samba/smb.conf "netbios name" "        netbios name = $piname" "\[global\]"
+fi
+
+
