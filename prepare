@@ -4,15 +4,21 @@ if [ $(id -u) -ne 0 ]; then
 	exit 1
 fi
 
+echo "---------------------------------"
 echo "piget framework will be installed"
-echo "Installing git-core"
-apt-get install git-core
+echo "---------------------------------"
 
+echo "Updating apt-get"
+apt-get -q -y update
 
-echo 
-#wget https://raw.githubusercontent.com/madnerds/piget/master/lazass -O /opt/scripts/lazass
+echo "Installing Prerequisite - git-core"
+apt-get -q -y install git-core
+
+echo "Making /opt/piget"
 mkdir /opt/piget
-git clone https://github.com/pigetnet/core /opt/piget/core
+
+echo "Cloning piget"
+git clone --depth 1 https://github.com/pigetnet/core /opt/piget/core
 if [[ $? -ne 0 ]]
 	then
 		echo "I wasn't able to download piget"
@@ -28,7 +34,3 @@ PATH=/opt/piget/core/info:$PATH
 chmod +x -R /opt/piget/core
 nlbecho "piget installed";minibox_OK
 #modifyBashStartup core
-
-
-
-
