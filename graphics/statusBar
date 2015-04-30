@@ -1,0 +1,19 @@
+lines=`tput lines`
+cols=`tput cols`
+tput sc
+non_scroll_line=$(($lines - 1))
+scroll_region="0 $(($lines - 2))"
+tput csr $scroll_region
+
+# Clear out the status line
+tput cup $non_scroll_line 0
+tput setb 7
+printf "%${cols}s"
+tput rc
+
+# Reprint the status line
+tput cup $non_scroll_line 0
+tput setb 7
+tput setf 4
+echo -en "$1"
+tput rc

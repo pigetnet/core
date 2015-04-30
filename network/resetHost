@@ -31,3 +31,4 @@ console
 cat /etc/hosts
 console
 hostname $NEW_HOSTNAME
+restarter avahi-daemon
