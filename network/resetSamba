@@ -1,5 +1,6 @@
 #!/bin/bash
 description "Resetting samba"
+installer samba-common
 
 if [ -f /etc/samba/smb.conf ];then
 

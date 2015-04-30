@@ -45,8 +45,8 @@ sleep 5
 resetHost $NEW_HOSTNAME
 
 description "Checking PreRequisites"
-installer samba
-installer samba-common-bin
+installer samba-common
+installer smbclient
 installer libnss-mdns
 
 description "Resetting samba configuration to just broadcast name"
