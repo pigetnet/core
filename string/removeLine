@@ -1,0 +1,24 @@
+#!/bin/bash
+#$1 filename
+#$2 stringToRemove
+
+filename="$1"
+stringToRemove="$2"
+
+if [ $# -eq 2 ];then
+        #Get Line
+        . getLine "$filename" "$stringToRemove"
+        line=$NewString
+        if [ $NewString != -1 ]
+        then
+                nlbecho "Remove Line where $stringToRemove at $line" $OK;minibox_OK
+                sed -i "${line}s+.*++" $filename
+        else
+                nlbecho "No line to remove" $WARN;minibox_WARNING
+        fi
+else
+        errorBox "Wrong Arguments"
+        usage 'removeLine "Filename" "StringToRemove"'
+        example 'removeLine "/etc/samba/" "netbios name"'
+fi
+

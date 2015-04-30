@@ -16,10 +16,10 @@ if [ $# -eq 4 ];then
 	if [ $NewString != -1 ]
 	then
 		nlbecho "Replace Line $stringToSearch at $line with $stringToReplace" $OK;minibox_OK
-		sed -i "${line}s/.*/$stringToReplace/" $filename
+		sed -i "${line}s+.*+$stringToReplace+" $filename
 	else
-		nlbecho "Add after line $elseAddAfterString" $WARN;minixbox_WARNING
-		addLineAfter "$filename" "$elseAddAfterString" "$stringToReplace"
+		nlbecho "Add after line $elseAddAfterString" $WARN;minibox_WARNING
+		addAfterLine "$filename" "$elseAddAfterString" "$stringToReplace"
 	fi
 else
 	errorBox "Wrong Arguments"

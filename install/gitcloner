@@ -3,6 +3,7 @@ messagebox "Clone $1 inside $2"
 console
 git clone --depth=1 https://github.com/$1 $2
 giterror=$?
+echo $giterror
 console
 if [[ $giterror == 128 ]]
 	then

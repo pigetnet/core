@@ -6,12 +6,15 @@ console
 if [[ $internet == 1 ]]
 	then
 		echo -ne "INTERNET"
+		export INTERNET=1
 		minibox_OK
+		exit 0
 	else
 		echo -ne "INTERNET"
 		minibox_ERROR
 		echo -ne $ERR
 		echo "NO INTERNET CONNECTIVITY DETECTED SCRIPT STOPPED"
 		echo -ne $NORMAL
+		export INTERNET=0
 		exit 1
 fi

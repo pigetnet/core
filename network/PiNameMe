@@ -37,8 +37,10 @@ fi
 . ToNetbios "$NEW_HOSTNAME"
 NEW_HOSTNAME=$NewString
 
+clear
 messagebox "New name will be $NEW_HOSTNAME"
-sleep 3
+sleep 5
+
 
 resetHost $NEW_HOSTNAME
 

@@ -15,5 +15,14 @@ fi
 
 description "Downloading $reponame into /opt/pigetnet/$reponame"
 console
-	gitcloner https://https://github.com/pigetnet/$reponame /opt/pigetnet/
+	isGithubRepo "pigetnet" $reponame
+	if [ $? -eq 0 ]
+	then
+		gitcloner pigetnet/$reponame /opt/piget/$reponame
+		addPath /opt/piget/$reponame
+		export PATH=/opt/piget/$reponame:$PATH
+		exit 0
+	else
+		exit 1
+	fi
 console

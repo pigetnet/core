@@ -1,2 +1,0 @@
-#!/bin/bash
-pdbedit -L|cut -d: -f1

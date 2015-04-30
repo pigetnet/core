@@ -10,7 +10,6 @@ if [ -f /etc/dnsmasq.conf ];then
 NEW_HOSTNAME=$NewString
 
 description "Change /etc/dnsmasq.conf to $NEW_HOSTNAME"
-Backup dnsmasq.conf
 autoBackup /etc/dnsmasq.conf
 
 cat <<\EOF > /etc/dnsmasq.conf &&
@@ -29,7 +28,7 @@ mkdir -p /boot/bootstrap/config
 autoBackup /boot/bootstrap/config/hosts.txt
 echo "$ipaddress	$NEW_HOSTNAME" > /boot/bootstrap/config/hosts.txt
 console
-cat /boot/bootstrap/config/hosts.network
+cat /boot/bootstrap/config/hosts.txt
 console
 
 restarter dnsmasq
