@@ -1,6 +1,6 @@
 #!/bin/bash
 description "Renaming samba to hostname"
-installer samba-common
+installer samba
 
 if [ -f /etc/samba/smb.conf ];then
 #Get hostname

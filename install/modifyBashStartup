@@ -1,2 +1,2 @@
 #!/bin/bash
-downloadPiget bashrc $1 /root/.bashrc
+downloadFile bashrc $1 /root/.bashrc

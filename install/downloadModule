@@ -12,7 +12,6 @@ else
 	exit 1
 fi
 
-
 description "Downloading $reponame into /opt/piget/$reponame"
 console
 	isGithubRepo "pigetnet" $reponame
