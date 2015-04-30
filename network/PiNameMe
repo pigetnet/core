@@ -10,7 +10,6 @@ listecho "DNSMASQ -- DNS small Server"
 
 description "This will erase all configuration for samba/dnsmasq!"
 echo "If you want to just rename your raspberry pi type renameMe"
-sleep 3
 
 if [ $# -eq 0 ]
 then
@@ -42,15 +41,21 @@ messagebox "New name will be $NEW_HOSTNAME"
 sleep 5
 
 
+###### HOSTNAME / HOSTS
 resetHost $NEW_HOSTNAME
 
+###### SAMBA
+
 description "Checking PreRequisites"
-installer samba-common
+installer samba
 installer smbclient
 
 description "Resetting samba configuration to just broadcast name"
 resetSamba "$NEW_HOSTNAME"
 
+########## DNSMASQ
+
+installer dnsmasq
 hostname $NEW_HOSTNAME
 resetDnsmasq "$NEW_HOSTNAME"
 
