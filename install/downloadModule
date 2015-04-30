@@ -13,7 +13,7 @@ else
 fi
 
 
-description "Downloading $reponame into /opt/pigetnet/$reponame"
+description "Downloading $reponame into /opt/piget/$reponame"
 console
 	isGithubRepo "pigetnet" $reponame
 	if [ $? -eq 0 ]
