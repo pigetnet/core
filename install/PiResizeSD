@@ -1,26 +1,51 @@
-#!/bin/bash
-resize_sdcard() {
-echo "Resizing SDCARD at reboot"
+#!/bin/sh
+do_expand_rootfs() {
+  if ! [ -h /dev/root ]; then
+    whiptail --msgbox "/dev/root does not exist or is not a symlink. Don't know how to expand" 20 60 2
+    return 0
+  fi
+
+  ROOT_PART=$(readlink /dev/root)
+  PART_NUM=${ROOT_PART#mmcblk0p}
+  if [ "$PART_NUM" = "$ROOT_PART" ]; then
+    whiptail --msgbox "/dev/root is not an SD card. Don't know how to expand" 20 60 2
+    return 0
+  fi
+
+  # NOTE: the NOOBS partition layout confuses parted. For now, let's only 
+  # agree to work with a sufficiently simple partition layout
+  if [ "$PART_NUM" -ne 2 ]; then
+    whiptail --msgbox "Your partition layout is not currently supported by this tool. You are probably using NOOBS, in which case your root filesystem is already expanded anyway." 20 60 2
+    return 0
+  fi
+
+  LAST_PART_NUM=$(parted /dev/mmcblk0 -ms unit s p | tail -n 1 | cut -f 1 -d:)
+
+  if [ "$LAST_PART_NUM" != "$PART_NUM" ]; then
+    whiptail --msgbox "/dev/root is not the last partition. Don't know how to expand" 20 60 2
+    return 0
+  fi
 
   # Get the starting offset of the root partition
-  PART_START=$(parted /dev/mmcblk0 -ms unit s p | grep "^2" | cut -f 2 -d:)
+  PART_START=$(parted /dev/mmcblk0 -ms unit s p | grep "^${PART_NUM}" | cut -f 2 -d:)
   [ "$PART_START" ] || return 1
   # Return value will likely be error for fdisk as it fails to reload the
   # partition table because the root fs is mounted
   fdisk /dev/mmcblk0 <<EOF
 p
 d
-2
+$PART_NUM
 n
 p
-2
+$PART_NUM
 $PART_START
 
 p
 w
 EOF
+  ASK_TO_REBOOT=1
 
-# now set up an init.d script
+  # now set up an init.d script
 cat <<\EOF > /etc/init.d/resize2fs_once &&
 #!/bin/sh
 ### BEGIN INIT INFO
@@ -38,7 +63,7 @@ cat <<\EOF > /etc/init.d/resize2fs_once &&
 case "$1" in
   start)
     log_daemon_msg "Starting resize2fs_once" &&
-    resize2fs /dev/mmcblk0p2 &&
+    resize2fs /dev/root &&
     rm /etc/init.d/resize2fs_once &&
     update-rc.d resize2fs_once remove &&
     log_end_msg $?
@@ -51,8 +76,7 @@ esac
 EOF
   chmod +x /etc/init.d/resize2fs_once &&
   update-rc.d resize2fs_once defaults &&
-echo "SDCARD will be resize at reboot"
+  echo "Root partition has been resized.\nThe filesystem will be enlarged upon the next reboot"
 }
 
-resize_sdcard
-
+do_expand_rootfs

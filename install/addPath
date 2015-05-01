@@ -3,8 +3,8 @@ if [ $# -eq 1 ]
 then
 	newpath=$1
 	description "Add $newpath to /root/.bashrc"
-	replaceLine "/root/.bashrc" "PATH=$newpath:\$PATH" "PATH=$newpath:\$PATH" "PATH=/opt/piget/core/string:\$PATH"
-	PATH=$newpath:$PATH
+	replaceLine "/root/.bashrc" "PATH=\$PATH:$newpath" "PATH=\$PATH:$newpath" "PATH=\$PATH:/opt/piget/core/string"
+	export PATH=$PATH:$newpath
 else
 	errorBox "Wrong Arguments"
 	usage 'addPath "newPath"'
