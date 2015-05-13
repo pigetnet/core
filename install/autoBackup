@@ -3,7 +3,7 @@ filename=$1
 basename=$(basename $filename)
 timestamp=$(date +%Y%m%d)'_'$(date +%H%M%S)
 
-colecho "THIS WILL OVERWRITE $filename !" $ERR
+colecho "THIS WILL OVERWRITE/ERASE $filename !" $ERR
 colecho "(A backup will be made at /boot/bootstrap/backups/$basename.backup.$timestamp)" $WARN
 mkdir -p /boot/bootstrap/backups
 cp $filename /boot/bootstrap/backups/$basename'.backup.'$timestamp

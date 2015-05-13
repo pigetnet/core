@@ -1,0 +1,30 @@
+#!/bin/bash
+#Easy coloring scripts
+export OK="\\033[1;32m"
+export NORMAL="\\033[0;39m"
+export ERR="\\033[1;31m"
+export INFO="\\033[1;34m"
+export WARN="\\033[1;33m"
+export PICOLOR="\\033[1;35m"
+export BLACK="\\033[0;30m"
+export BLUE="\\0034[0;34m"
+export GREEN="\\033[0;32m"
+
+#Piget core framework scripts
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+export PATH=$PATH:/opt/piget/core/graphics
+export PATH=$PATH:/opt/piget/core/install
+export PATH=$PATH:/opt/piget/core/network
+export PATH=$PATH:/opt/piget/core/info
+export PATH=$PATH:/opt/piget/core/string
+
+#http://stackoverflow.com/questions/4000613/bash-for-each-directory
+for D in /opt/piget/*; do
+    if [ -d "${D}" ]; then
+        moduleName=$(basename "${D}")
+	if [ "$moduleName" != "core" ]; then
+	#echo $moduleName   # your processing here
+	export PATH=$PATH:${D}
+	fi
+    fi
+done

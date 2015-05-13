@@ -1,4 +1,4 @@
 #!/bin/bash
 echo -ne $ERR
-echo "--- ERROR CODE: $1 ---"
+echo "--- ERROR : $1 ---"
 echo -ne $NORMAL

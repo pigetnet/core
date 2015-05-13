@@ -1,0 +1,19 @@
+#!/bin/bash
+#http://askubuntu.com/questions/197564/how-do-i-add-a-line-to-my-etc-apt-sources-list
+repo=$1
+key=$2
+
+if [ $# -eq 2 ]
+then
+	description "Add custom repositories $repo into sources.list"
+	autoBackup /etc/apt/sources.list
+	echo "$repo" | sudo tee -a /etc/apt/sources.list
+	cat /etc/apt/sources.list
+	description "Add key $key"
+	wget -O - $key | apt-key add -
+else
+	errorBox "Wrong Arguments"
+	usage "addAptRepository repoUrl keyUrl"
+	example 'addAptRepository "deb http://apt.pilight.org/ stable main" "http://apt.pilight.org/pilight.key"'
+fi
+

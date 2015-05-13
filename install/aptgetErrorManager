@@ -1,22 +1,11 @@
 #!/bin/bash
 apterror=$1
 case $apterror in 
-	100)
-	echo -ne $ERR
-	echo "" 
-	error_box $apterror
-	echo "DPKG SEEMS TO BE LOCKED !"
-	error_box $apterror
-	echo "RESTARTING INSTALLING..." 
-	rm /var/lib/dpkg/lock
-	rm /var/lib/apt/lists/* -vf
-;;
 	0)
 	echo "OK"
 ;;
 	*)
-	error_box $apterror
-	echo "UNKNOWN APT-GET ERROR!!!"
-	exit 1
+	errorBox $apterror
+	kill -9 `ps --pid $$ -oppid=`;exit
 ;;
 esac

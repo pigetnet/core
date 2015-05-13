@@ -8,7 +8,13 @@ if [[ $? == 1 ]]
 	then
 		console
 		apt-get -q -y install "$1"
-		aptgetErrorManager $?
+		aptgetErrorLevel=$?
+		if [[ $aptgetErrorLevel -ne 0 ]]
+			then
+				errorBox "apt-get install failed -" $aptgetErrorLevel
+				colecho "SCRIPT KILLED" $ERR
+				kill -9 `ps --pid $$ -oppid=`;exit
+		fi
 		console
 		isInstalled $1
 #WAS THE PACKAGE INSTALLED ?
