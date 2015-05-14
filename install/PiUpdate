@@ -6,8 +6,6 @@ messagebox "Update everything"
 console
 
 apt-get -q -y update
-aptgetErrorManager $?
 apt-get -q -y upgrade
-aptgetErrorManager $?
 installer rpi-update
 rpi-update
