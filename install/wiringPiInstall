@@ -4,24 +4,20 @@
 description "WiringPi Pi Installation"
 installer git-core
 
-
-messagebox "Confirm installation path"
 nlbecho "By default WiringPi will be installed in" 
-colecho "/opt/wiringpi/" $ERR
+colecho "/opt/wiringPi/" $ERR
 
 rm -rf /opt/wiringPi
 cd /opt/
 git clone git://git.drogon.net/wiringPi wiringPi
+
 messagebox "Build wiringpi"
 console
 cd opt/wiringPi/
 ./build
 console
-linebreak
-nextline
-nextline
+
 colecho "WiringPi installed!" $WARN
 echo "To compile a C++ program with it"
 echo "Type:"
 colecho "gcc program.cpp -o program -lwiringPi" $PICOLOR
-thank
