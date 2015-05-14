@@ -13,7 +13,7 @@ git clone git://git.drogon.net/wiringPi wiringPi
 
 messagebox "Build wiringpi"
 console
-cd opt/wiringPi/
+cd /opt/wiringPi/
 ./build
 console
 
