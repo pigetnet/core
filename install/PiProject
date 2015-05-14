@@ -1,4 +1,3 @@
 #!/bin/bash
-chmod +x /boot/bootstrap/projects/$1.txt
-/boot/bootstrap/projects/$1.txt
-
+chmod +x /boot/piget/projects/$1.sh
+/boot/piget/projects/$1.sh

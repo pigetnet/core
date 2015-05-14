@@ -1,4 +1,5 @@
 #!/bin/bash
+#
 if [ $# -eq 1 ]
 then
 	newpath=$1
@@ -7,6 +8,7 @@ then
 	export PATH=$PATH:$newpath
 else
 	errorBox "Wrong Arguments"
+	usageDescription "Add a path into /root/.bashrc"
 	usage 'addPath "newPath"'
 	example 'addPath "/opt/usercode"'
 fi

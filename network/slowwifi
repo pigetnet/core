@@ -1,0 +1,25 @@
+#!/bin/bash
+#DESCRIPTION_LAZASS: Change Page cache (fix slowliness)
+########## LAZASS LIBRARY ###################
+
+if [ -f lib/lazass ]
+	then
+	source lib/lazass
+else
+	echo "------------------------"
+	echo "LAZASS was not founded!"
+	echo "Installation aborted!"
+	echo "------------------------"
+	exit 1
+fi
+
+##########################################
+
+# MAIN PROGRAM ############################
+clear
+#Verify if you are root
+verify_root
+description "Fix wifi slowliness"
+messagebox "Modify vm.min_free_kbytes"
+backup_prompt /etc/sysctl.conf
+replaceline /etc/sysctl.conf "vm.min_free_kbytes" "vm.min_free_kbytes = 32768" "vm.swappiness=1"

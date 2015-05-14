@@ -1,14 +1,14 @@
 #!/bin/bash
-messagebox "Create directory $1"
+#Create a directory recursively (if it doesn't exists)
 if [ -d "$directory" ]
 then
-nlbecho "CREATE DIRECTORY $directory"
-minibox_SKIP
+	nlbecho "CREATE DIRECTORY $directory"
+	minibox_SKIP
 else
-mkdir -p $1
+	mkdir -p $1
 	if [[ $? == 0 ]]
 		then
-		nlbecho "CREATE DIRECTORY"
+		nlbecho "CREATED DIRECTORY"
 		minibox_OK
 		else
 		errorBox $?

@@ -1,3 +1,6 @@
+#!/bin/bash
+#Generate a status bar at the bottom (experimental)
+
 lines=`tput lines`
 cols=`tput cols`
 tput sc

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Generate an [SKIPPED] (without linebreak)
 echo -ne " ["
 echo -ne $INFO
 echo -ne "SKIPPED"

@@ -1,4 +1,5 @@
 #!/bin/bash
+#Check if internet is connected
 messagebox "INTERNET CONNECTIVITY"
 console
 ping -c1 www.google.com && internet=1 || internet=0

@@ -1,4 +1,5 @@
 #!/bin/bash
+# Generate an [WARNING] (without linebreak)
 echo -ne " ["
 echo -ne $WARN
 echo -ne "WARNING"

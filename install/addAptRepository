@@ -1,4 +1,5 @@
 #!/bin/bash
+# Add a repository
 #http://askubuntu.com/questions/197564/how-do-i-add-a-line-to-my-etc-apt-sources-list
 repo=$1
 key=$2
@@ -13,6 +14,7 @@ then
 	wget -O - $key | apt-key add -
 else
 	errorBox "Wrong Arguments"
+	usageDescription "add an APT Repository"
 	usage "addAptRepository repoUrl keyUrl"
 	example 'addAptRepository "deb http://apt.pilight.org/ stable main" "http://apt.pilight.org/pilight.key"'
 fi

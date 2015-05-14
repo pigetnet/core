@@ -1,4 +1,5 @@
 #!/bin/bash
+#Check if github repo username/repo exists
 username=$1
 repo=$2
 curl -silent https://api.github.com/repos/$username/$repo|grep "Not Found"

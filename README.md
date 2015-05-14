@@ -1,5 +1,18 @@
 # core
 Core functions for piget   
+This repositories contains scripts to bootstrap your Raspberry Pi   
+## Users functions
 
-To install piget copy this line into your terminal:   
-````wget smarturl.it/piget -O /tmp/piget;chmod +x /tmp/piget;/tmp/piget ````
+```` 
+
+````
+
+
+There are also a lot of functions to simplify unattended scripts
+There are listed here: 
+## Developer functions
+
+
+
+
+

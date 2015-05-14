@@ -1,2 +1,3 @@
 #!/bin/bash
+#Display lists of users
 cat /etc/passwd |grep "/bin/bash"|cut -d: -f1

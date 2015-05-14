@@ -1,13 +1,28 @@
 #!/bin/bash
-filename=$1
-name=$2
-warning=$3
-action=$4
+#Add a warning message (experimental)
 
-rm -f /boot/bootstrap/warning/$1
-touch /boot/bootstrap/warning/$1.txt
-echo "____________$1_____________________" >> /boot/bootstrap/warning/$1.txt
-echo "WARNING: $2" >> /boot/bootstrap/warning/$1.txt
-echo "ACTION: $3" >> /boot/bootstrap/warning/$1.txt
-echo "-----------------------------------" >> /boot/bootstrap/warning/$1.txt
-echo "" >> /boot/bootstrap/warning/$1.txt
+
+name=$1
+filename=/boot/piget/config/warning/$1.txt
+warning=$2
+action=$3
+
+if [ $# -eq 3 ];then
+	description "Add a warning message at $filename"
+	
+	createDir "/boot/piget/config/warning"
+	
+	rm -f $filename
+	touch $filename
+	echo "____________ $name _____________________" >> $filename
+	echo "WARNING: $warning" >> $filename
+	echo "ACTION: $action" >> $filename
+	echo "-----------------------------------" >> $filename
+	echo "" >> $filename
+	cat $filename
+else
+	errorBox "Wrong Arguments"
+	usageDescription "Add a warning in /boot/piget/warning/"
+	usage "addWarning filename warning action"
+	example 'addWarning "rootunsecure" "Secure root account" "passwd root"'
+fi

@@ -13,10 +13,10 @@ echo "If you want to just rename your raspberry pi type renameMe"
 
 if [ $# -eq 0 ]
 then
-	if [ -f /boot/bootstrap/config/name.txt ]
+	if [ -f /boot/piget/config/name.txt ]
 	then
 		messagebox "BOOTSTRAP CONFIGURATION FOUNDED"
-		NEW_HOSTNAME=$(cat /boot/bootstrap/config/name.txt)
+		NEW_HOSTNAME=$(cat /boot/piget/config/name.txt)
 	else
 		errorBox "No enough Arguments and no configuration"
 		usage "renameMe newname"

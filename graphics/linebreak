@@ -1,3 +1,4 @@
 #!/bin/bash
+# Generate a line
 echo -e $INFO"____________________________________"
 echo -e $NORMAL

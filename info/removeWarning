@@ -1,3 +1,4 @@
 #!/bin/bash
+#Remove Warning (experimental)
 filename=$1
-rm -f /boot/bootstrap/warning/$1
+rm -f /boot/piget/config/warning/$filename

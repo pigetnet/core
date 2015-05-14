@@ -1,5 +1,3 @@
 #!/bin/bash
-if [ -e /boot/bootstrap/warning/*.txt ]
-then
-	cat /boot/bootstrap/warning/*.txt
-fi
+#Display warning (experimental)
+cat /boot/piget/config/warning/*.txt

@@ -6,8 +6,8 @@ if [[ -f /etc/samba/smb.conf ]]
 	then
 		echo $smbname|sed 's/netbios name = //'
 	else
-	ipFirst
+	ipAddress
 fi
 else
-	ipFirst
+	ipAddress
 fi

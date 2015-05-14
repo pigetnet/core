@@ -1,8 +1,12 @@
 #!/bin/bash
+#You need addAfterLine / getLine
+
 #$1 filename
 #$2 stringToSearch
 #$3 stringToReplace
 #$4 elseAddAfterString
+
+
 
 filename="$1"
 stringToSearch="$2"

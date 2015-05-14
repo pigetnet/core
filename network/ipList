@@ -1,2 +1,3 @@
 #!/bin/bash
-nlbecho $(hostname -I) $ERR
+#Display all ip address
+echo $(hostname -I)

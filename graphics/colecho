@@ -1,4 +1,21 @@
 #!/bin/bash
-echo -ne $2
-echo $1
+# Colored echo
+# usage : colecho text color
+# example : colecho "hello world" $GREEN
+
+# Color available
+#$GREEN
+#$BLACK
+#$NORMAL
+#$BLUE
+#$PICOLOR
+#$INFO
+#$OK
+#$WARN
+#$ERR
+
+text=$1
+color=$2
+echo -ne $color
+echo $text
 echo -ne $NORMAL

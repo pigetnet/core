@@ -1,4 +1,5 @@
 #!/bin/bash
+#Display a continue prompt
 read -r -p "Continue? [Y/n] " response
 
 case $response in

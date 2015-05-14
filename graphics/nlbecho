@@ -1,4 +1,18 @@
 #!/bin/bash
+# Colored echo (without linebreak)
+# usage : colecho text color
+# example : colecho "hello world" $GREEN
+
+# Color available
+#$GREEN
+#$BLACK
+#$NORMAL
+#$BLUE
+#$PICOLOR
+#$INFO
+#$OK
+#$WARN
+#$ERR
 echo -ne $2
 echo -ne "$1 "
 echo -ne $NORMAL
