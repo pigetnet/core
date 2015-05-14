@@ -6,10 +6,6 @@ description "Naming your Raspberry pi"
 echo "This will configure"
 listecho "SAMBA -- For Windows"
 listecho "AVAHI -- For MacOS"
-listecho "DNSMASQ -- DNS small Server"
-
-description "This will erase all configuration for samba/dnsmasq!"
-echo "If you want to just rename your raspberry pi type renameMe"
 
 if [ $# -eq 0 ]
 then
@@ -18,9 +14,9 @@ then
 		messagebox "BOOTSTRAP CONFIGURATION FOUNDED"
 		NEW_HOSTNAME=$(cat /boot/piget/config/name.txt)
 	else
-		errorBox "No enough Arguments and no configuration"
-		usage "renameMe newname"
-		example "renameMe raspberrypi"
+		errorBox "No enough Arguments and no configuration inside /boot/piget/config/name.txt"
+		usage "PiNameMe newname"
+		example "PiNameMe raspberrypi"
 		exit 1
 	fi
 fi
@@ -37,6 +33,8 @@ fi
 NEW_HOSTNAME=$NewString
 
 clear
+description "This will erase samba configuration!"
+echo "If you want to rename your raspberry pi type PiRename"
 messagebox "New name will be $NEW_HOSTNAME"
 sleep 5
 
@@ -46,7 +44,6 @@ installer avahi-daemon
 resetHost $NEW_HOSTNAME
 
 ###### SAMBA
-
 description "Checking PreRequisites"
 installer samba
 installer smbclient
@@ -54,10 +51,9 @@ installer smbclient
 description "Resetting samba configuration to just broadcast name"
 resetSamba "$NEW_HOSTNAME"
 
-
 ########## DNSMASQ
 
-installer dnsmasq
-hostname $NEW_HOSTNAME
-resetDnsmasq "$NEW_HOSTNAME"
+#installer dnsmasq
+
+#resetDnsmasq "$NEW_HOSTNAME"
 
