@@ -9,6 +9,7 @@ messagebox "Confirm installation path"
 nlbecho "By default WiringPi will be installed in" 
 colecho "/opt/wiringpi/" $ERR
 
+rm -rf /opt/wiringPi
 cd /opt/
 git clone git://git.drogon.net/wiringPi wiringPi
 messagebox "Build wiringpi"

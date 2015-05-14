@@ -5,10 +5,8 @@
 for D in /opt/piget/*; do
 	if [ -d "${D}" ]; then
 		moduleName=$(basename "${D}")
-		if [ "$moduleName" != "core" ]; then
-		#echo $moduleName   # your processing here
+		echo $moduleName   # your processing here
 		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git pull origin master
 		git pull
-		fi
 	fi
 done
