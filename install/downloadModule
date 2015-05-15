@@ -21,6 +21,7 @@ console
 		addPath /opt/piget/$reponame
 		export PATH=/opt/piget/$reponame:$PATH
 	else
+		colecho "No repo founded" $ERR
 		exit 1
 	fi
 console

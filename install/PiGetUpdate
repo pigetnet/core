@@ -7,6 +7,8 @@ for D in /opt/piget/*; do
 	if [ -d "${D}" ]; then
 		moduleName=$(basename "${D}")
 		echo $moduleName   # your processing here
+		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git fetch --all
+		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git reset --hard origin/master
 		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git pull origin master
 	fi
 done
