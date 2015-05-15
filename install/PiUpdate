@@ -5,7 +5,16 @@ isConnected
 messagebox "Update everything"
 console
 
+#Update package
 apt-get -q -y update
 apt-get -q -y upgrade
+
+#Update firmware
 installer rpi-update
 rpi-update
+
+#Update Piget modules
+PiGetUpdate
+
+#Upgrade WiringPi (if installed)
+git --work-tree=/opt/wiringPi --git-dir=/opt/wiringPi/.git pull origin master

@@ -1,4 +1,5 @@
 #!/bin/bash
+#Update Piget Module
 #http://stackoverflow.com/questions/4000613/bash-for-each-directory
 #http://stackoverflow.com/questions/1125968/force-git-to-overwrite-local-files-on-pull
 
@@ -7,6 +8,5 @@ for D in /opt/piget/*; do
 		moduleName=$(basename "${D}")
 		echo $moduleName   # your processing here
 		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git pull origin master
-		git pull
 	fi
 done

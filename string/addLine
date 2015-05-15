@@ -1,0 +1,25 @@
+#!/bin/bash
+#You need addAfterLine / getLine
+
+#$1 filename
+#$2 stringToAdd
+
+filename="$1"
+stringToAdd="$2"
+
+if [ $# -eq 2 ];then
+	#Get Line
+	. getLine "$filename" "$stringToAdd"
+	line=$NewString
+	if [ $NewString != -1 ]
+	then
+		nlbecho "Nothing to do"$OK;minibox_OK
+	else
+		nlbecho "Add line $stringToAdd" $WARN;minibox_WARNING
+		echo "$stringToAdd" | sudo tee -a $filename
+	fi
+else
+	errorBox "Wrong Arguments"
+	usage 'addLine "Filename" "StringToAdd"'
+	example 'addLine "/etc/apt/sources.list" "deb http://apt.pilight.org/ stable main"'
+fi
