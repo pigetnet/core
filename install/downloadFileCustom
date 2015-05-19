@@ -1,17 +1,18 @@
 #!/bin/bash
-#Download a simple file on pigetnet account
+#Download a simple file on pigetnet account 
 #$1 repo/file
 #$2 dir/filename
 
 if [ $# -eq 3 ]
 then
-	reponame=$1
-	source=$2
-	destination=$3
+	username=$1
+	reponame=$2
+	source=$3
+	destination=$4
 else
 	errorBox "1 - Wrong arguments"
-	usage "downloadFile reponame filename destination"
-	example "downloadFile core graphics/colecho /tmp/test.sh"
+	usage "downloadFileCustom username reponame filename destination"
+	example "downloadFileCustom  graphics/colecho /tmp/test.sh"
 	exit 1
 fi
 
