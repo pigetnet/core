@@ -2,7 +2,7 @@
 #Clone a gitrepo on a custom repo on github
 #$1 repo/file
 
-if [ $# -eq 1 ]
+if [ $# -eq 2 ]
 then
 	username=$1
 	reponame=$2
@@ -18,7 +18,8 @@ console
 	isGithubRepo $username $reponame
 	if [ $? -eq 0 ]
 	then
-		gitcloner pigetnet/$reponame /opt/piget/$reponame
+		rm -rf /opt/piget/$reponame
+		gitcloner $username/$reponame /opt/piget/$reponame
 		addPath /opt/piget/$reponame
 		export PATH=/opt/piget/$reponame:$PATH
 	else
