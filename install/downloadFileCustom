@@ -3,7 +3,7 @@
 #$1 repo/file
 #$2 dir/filename
 
-if [ $# -eq 3 ]
+if [ $# -eq 4 ]
 then
 	username=$1
 	reponame=$2
@@ -17,11 +17,11 @@ else
 fi
 
 
-description "Downloading $reponame/$source ==> $destination "
+description "Downloading $username/$reponame/$source ==> $destination "
 
 console
 	rm -f /tmp/wget.temp
-	wget https://raw.githubusercontent.com/pigetnet/$reponame/master/$source -O /tmp/wget.temp
+	wget https://raw.githubusercontent.com/$username/$reponame/master/$source -O /tmp/wget.temp
 	wgeterror=$?
 	wgetErrorManager $wgeterror /tmp/wget.temp
 	if [ -s "/tmp/wget.temp" ]

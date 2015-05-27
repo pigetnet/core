@@ -50,8 +50,8 @@ installer samba
 installer smbclient
 
 description "Resetting samba configuration to just broadcast name"
-resetSamba "$NEW_HOSTNAME"
-
+replaceLine "/etc/samba/smb.conf" "netbios name =" "        netbios name = $NEW_HOSTNAME" "\[global\]"
+restarter samba
 ########## DNSMASQ
 
 #installer dnsmasq

@@ -1,5 +1,5 @@
 #!/bin/bash
-#Download a simple file on pigetnet account
+#Download a simple file on pigetnet gihub repositories
 #$1 repo/file
 #$2 dir/filename
 
