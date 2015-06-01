@@ -28,5 +28,8 @@ console
 		mv /tmp/wget.temp $destination
 	else
 		rm -f /tmp/wget.temp
+		echo "Here is a list of available files"
+		curl -s https://github.com/pigetnet/$reponame/ | grep js-directory-link | sed 's|.* title="\(.*\)".*|\1|'
+		exit 1
 	fi
 console
