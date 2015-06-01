@@ -30,7 +30,7 @@ console
 	else
 		rm -f /tmp/wget.temp
 		echo "Here is a list of available files"
-		curl -s https://github.com/pigetnet/$username/$reponame/ | grep js-directory-link | sed 's|.* title="\(.*\)".*|\1|'
+		curl -s https://github.com/$username/$reponame/ | grep js-directory-link | sed 's|.* title="\(.*\)".*|\1|'
 		exit 1
 	fi
 console
