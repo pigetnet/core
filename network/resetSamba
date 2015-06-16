@@ -17,6 +17,12 @@ cat <<\EOF > /etc/samba/smb.conf &&
 [global]
         workgroup = WORKGROUP
         browseable = yes
+        
+        load printers = no
+		printing = bsd
+		printcap name = /dev/null
+		disable spoolss = yes
+
 #======================= Name =========================
         #Name of your Raspberry Pi
         netbios name = TOREPLACE

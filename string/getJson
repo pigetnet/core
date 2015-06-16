@@ -1,0 +1,3 @@
+#!/bin/bash
+#http://stackoverflow.com/questions/1955505/parsing-json-with-sed-and-awk
+python -c "import json,sys;sys.stdout.write(json.dumps(json.load(sys.stdin)$1))" 
