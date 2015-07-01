@@ -1,0 +1,29 @@
+#!/bin/bash
+#You need getLine
+
+#$1 filename
+#$2 stringToSearch
+#$3 stringToReplace
+
+filename="$1"
+stringToSearch2="$2"
+stringToAdd="$3"
+
+if [ $# -eq 3 ];then
+	#Get Line
+	. getLine "$filename" "$stringToSearch2"
+	lineToFind=$NewString
+	if [ $lineToFind != -1 ]
+	then
+		. getLine "$filename" "$stringToAdd"
+		lineToNotFind=$NewString
+		if [ $lineToNotFind -eq -1 ];then
+			nlbecho "Add after line $stringToSearch2 at $lineToFind $stringToAdd" $OK;minibox_OK
+			sed -i "${lineToFind} a $stringToAdd" $filename
+		fi
+	fi
+else
+	errorBox "Wrong Arguments"
+	usage 'addAfterLineIfNotExists "Filename" "StringToSearch" "StringToAdd"'
+	example 'addAfterLineIfNotExists "/etc/hosts" "127.0.0.1" "127.0.0.1 raspberrypi"'
+fi

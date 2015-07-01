@@ -1,5 +1,5 @@
 #!/bin/bash
-#You need addAfterLine / getLine
+#You need getLine
 
 #$1 filename
 #$2 stringToAdd

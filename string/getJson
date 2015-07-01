@@ -1,3 +1,5 @@
-#!/bin/bash
+#!/usr/bin/python
 #http://stackoverflow.com/questions/1955505/parsing-json-with-sed-and-awk
-python -c "import json,sys;sys.stdout.write(json.dumps(json.load(sys.stdin)$1))" 
+import json,sys
+obj = json.load(sys.stdin)
+print obj[sys.argv[1]]
