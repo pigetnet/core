@@ -21,7 +21,6 @@ console
 		rm -rf /opt/piget/$reponame
 		gitcloner $username/$reponame /opt/piget/$reponame
 		addPath /opt/piget/$reponame
-		export PATH=/opt/piget/$reponame:$PATH
 	else
 		exit 1
 	fi
