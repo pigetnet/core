@@ -1,0 +1,11 @@
+#!/bin/bash
+port=$1
+message=$2
+
+if [ $# -eq 2 ];then
+	echo $2 > /dev/tcp/127.0.0.1/$1
+else
+	description "Wrong arguments"
+	usage 'socketSend message port'
+	example 'socketSend "hello world" 9060'
+fi
