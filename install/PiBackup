@@ -1,0 +1,4 @@
+#!/bin/bash
+description "Backup projects"
+/boot/piget/scripts/backup.sh
+
