@@ -1,0 +1,24 @@
+#!/bin/bash
+#Clone a gitrepo on pigetnet on github
+#$1 repo/file
+
+if [ $# -eq 1 ]
+then
+	reponame=$1
+else
+	/show/errorBox "1 - Wrong arguments"
+	/show/usage "downloadModule reponame"
+	/show/example "downloadModule samba"
+	exit 1
+fi
+
+/show/description "Github: pigetnet/$reponame => /opt/piget/$reponame"
+/show/isGithubRepo "pigetnet" $reponame
+if [ $? -eq 0 ]
+then
+	/system/gitcloner pigetnet/$reponame /opt/piget/$reponame
+else
+	/show/colecho "No repo founded" $ERR
+	exit 1
+fi
+/show/console

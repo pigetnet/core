@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+	/show/messagebox "/pi/removeDesktop"
+	/show/usageDescription "Remove all desktop applications (WARNING THIS TAKES MORE THAN 30 MINUTES)"
+	/show/usage '/pi/removeDesktop'
+	/show/example '/pi/removeDesktop'
+else
+	/show/description "Remove Desktop applications"
+	/show/listecho "This can take a long time" $OK
+	apt-get remove -y --auto-remove --purge libx11-.*
+	apt-get autoremove -y
+fi

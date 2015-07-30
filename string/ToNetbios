@@ -2,22 +2,22 @@
 #Check if arguments correctly set
 
 if [[ $# -eq 1 ]]; then
-	#Remove uppercase and accents
-	. stripAccents $1
-	. upperToLower $NewString
-	. ToAlphaNumeric $NewString
-	. Trim $NewString
-	NewString=$(echo $NewString|cut -c1-16)
+	#Conform to netbios standard
+	. /string/stripAccents $1 # No accent
+	. /string/upperToLower $NewString #No case
+	. /string/ToAlphaNumeric $NewString #No special characters
+	. /string/Trim $NewString #No white space
+	NewString=$(echo $NewString|cut -c1-16) #No more than 16 characters
 
 	#Check if variable is empty
 	if [[ -z $NewString ]]; then
-		echo "RESET TO DEFAULT"
+		/show/listecho "No name provided RESET TO DEFAULT" $WARN
 		export NewString="raspberrypi"
 	else
 		export NewString=$NewString
 	fi
 else
-	echo "RESET TO DEFAULT"
+	/show/listecho "No name provided : RESET TO DEFAULT" $WARN
 	export NewString="raspberrypi"
 fi
 

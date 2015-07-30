@@ -1,0 +1,11 @@
+#!/bin/bash
+if [[ $1 != "--help" ]];then
+	/show/colecho "-> INTERNET [DOWN]" $ERR
+	route del default
+else
+	/show/messagebox "/net/internetOff"
+	/show/usageDescription "Remove default route to gateway"
+	/show/usage "/net/internetOff"
+	/show/example "/net/internetOff"
+fi
+

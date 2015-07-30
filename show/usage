@@ -1,0 +1,4 @@
+#!/bin/bash
+#Display usage
+/show/nlbecho "Usage:" $ERR;echo "$1"
+

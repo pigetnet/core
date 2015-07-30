@@ -1,9 +1,0 @@
-#!/bin/bash
-cd $1
-smbname=$(smbGetName)
-description "Display Installation on $smbname"
-oldpid=$(ps axf | grep "SimpleHTTPServer" | grep -v grep | awk '{print  $1}')
-kill -9 $oldpid
-
-nohup python -m SimpleHTTPServer 314 &>/dev/null &
-

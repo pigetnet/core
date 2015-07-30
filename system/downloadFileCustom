@@ -1,0 +1,35 @@
+#!/bin/bash
+#Download a single file on gihub repositories
+#$1 username
+#$1 reponame
+#$3 dir/filename
+#$4 destination
+
+if [ $# -eq 3 ]
+then
+	username=$1
+	reponame=$2
+	source=$3
+	destination=$4
+
+/show/description "Github: $username/$reponame/$source ==> $destination " $OK
+
+rm -f /tmp/wget.temp
+wget https://raw.githubusercontent.com/$username/$reponame/master/$source -O /tmp/wget.temp --no-check-certificate > /dev/null 2>&1
+wgeterror=$?
+/system/wgetErrorManager $wgeterror /tmp/wget.temp
+if [ -s "/tmp/wget.temp" ]
+then
+	mv /tmp/wget.temp $destination
+else
+	rm -f /tmp/wget.temp
+	echo "Here is a list of available files"
+	curl -s https://github.com/pigetnet/$reponame/ | grep js-directory-link | sed 's|.* title="\(.*\)".*|\1|'
+	exit 1
+	fi
+else
+	/show/errorBox "1 - Wrong arguments"
+	/show/usage "/system/downloadFileCustom username reponame filename destination"
+	/show/example "/system/downloadFileCustom maditnerd foobar foo/bar.txt /tmp/test.sh"
+	exit 1
+fi

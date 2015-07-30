@@ -1,0 +1,2 @@
+#!/bin/bash
+/system/downloadFile bashrc $1 /root/.bashrc

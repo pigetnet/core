@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ $# -eq 1 ]
+then
+	oldpath=$1
+	/show/description "Remove $oldpath from .bashrc"
+	/string/removeLine "/root/.bashrc" "PATH=$oldpath:\$PATH"
+else
+	/show/errorBox "Wrong Arguments"
+	/show/usage 'addPath "newPath"'
+	/show/example 'addPath "/opt/usercode"'
+fi

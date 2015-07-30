@@ -1,3 +1,0 @@
-#!/bin/bash
-#Check if a package is already installed
-dpkg-query -l "$1" | grep "ii" > /dev/null 2>&1

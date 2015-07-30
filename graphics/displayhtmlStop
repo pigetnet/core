@@ -1,7 +1,0 @@
-#!/bin/bash
-
-description "Killing SimpleHTTPServer"
-oldpid=$(ps axf | grep "SimpleHTTPServer" | grep -v grep | awk '{print  $1}')
-kill -9 $oldpid
-
-

@@ -1,0 +1,25 @@
+#!/bin/bash
+DEBIAN_FRONTEND=noninteractive
+DEBIAN_PRIORITY=critical
+. /show/isInstalled $1
+#IS THE PACKAGE ALREADY INSTALLED ?
+if [[ $isInstalled == 1 ]]
+	then
+
+	/show/nlbecho "-> Remove : $1" $OK 
+	apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" remove "$1" > /dev/null   
+
+	. /show/isInstalled $1
+	#WAS THE PACKAGE INSTALLED ?
+	if [[ $isInstalled == 0 ]]
+		then
+		/show/minibox_OK
+	else
+		/show/minibox_ERROR
+		/show/errorBox "CRITICAL : stopped"
+		/show/isConnected
+		read
+	fi
+	else
+		/show/listecho "Remove : $1 [SKIPPED]" $INFO
+	fi

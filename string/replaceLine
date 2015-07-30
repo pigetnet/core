@@ -15,18 +15,18 @@ elseAddAfterString="$4"
 
 if [ $# -eq 4 ];then
 	#Get Line
-	. getLine "$filename" "$stringToSearch"
+	. /string/getLine "$filename" "$stringToSearch"
 	line=$NewString
 	if [ $NewString != -1 ]
 	then
-		nlbecho "Replace Line $stringToSearch at $line with $stringToReplace" $OK;minibox_OK
+		/show/listecho "In $filename : Replace l$line -- $stringToSearch... with $stringToReplace" $OK
 		sed -i "${line}s+.*+$stringToReplace+" $filename
 	else
-		nlbecho "Add after line $elseAddAfterString" $WARN;minibox_WARNING
-		addAfterLine "$filename" "$elseAddAfterString" "$stringToReplace"
+		/show/nlbecho "In $filename : Replace l? -- $elseAddAfterString" $WARN;/show/minibox_WARNING
+		/string/addAfterLine "$filename" "$elseAddAfterString" "$stringToReplace"
 	fi
 else
-	errorBox "Wrong Arguments"
-	usage 'replaceLine "Filename" "StringToSearch" "StringToReplace" "ElseAddAfterString"'
-	example 'replaceLine "/etc/hosts" "127.0.0.1" "127.0.0.1 raspberrypi" "ff02::2         ip6-allrouters"'
+	/show/errorBox "Wrong Arguments"
+	/show/usage 'replaceLine "Filename" "StringToSearch" "StringToReplace" "ElseAddAfterString"'
+	/show/example 'replaceLine "/etc/hosts" "127.0.0.1" "127.0.0.1 raspberrypi" "ff02::2         ip6-allrouters"'
 fi

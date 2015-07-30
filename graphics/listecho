@@ -1,4 +1,0 @@
-#!/bin/bash
-# generate a list
-nlbecho "->" $OK
-echo $1

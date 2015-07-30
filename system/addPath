@@ -1,0 +1,14 @@
+#!/bin/bash
+#
+if [ $# -eq 1 ]
+then
+	newpath=$1
+	/show/description "Add $newpath to /root/.bashrc"
+	/string/replaceLine "/root/.bashrc" "PATH=\$PATH:$newpath" "PATH=\$PATH:$newpath" "PATH=\$PATH:/opt/piget/core/string"
+	export PATH=$PATH:$newpath
+else
+	/show/errorBox "Wrong Arguments"
+	/show/usageDescription "Add a path into /root/.bashrc"
+	/show/usage '/string/addPath "newPath"'
+	/show/example '/string/addPath "/opt/usercode"'
+fi

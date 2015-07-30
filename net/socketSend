@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ $# -eq 2 ];then
+	port=$1
+	message=$2
+	echo $message > /dev/tcp/127.0.0.1/$port
+else
+	/show/messagebox "/net/socketSend"
+	/show/usageDescription "Send text to a socket"
+	/show/usage '/net/socketSend message port'
+	/show/example '/net/socketSend "hello world" 9060'
+fi

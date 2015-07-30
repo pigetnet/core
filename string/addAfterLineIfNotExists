@@ -11,19 +11,19 @@ stringToAdd="$3"
 
 if [ $# -eq 3 ];then
 	#Get Line
-	. getLine "$filename" "$stringToSearch2"
+	. /string/getLine "$filename" "$stringToSearch2"
 	lineToFind=$NewString
 	if [ $lineToFind != -1 ]
 	then
-		. getLine "$filename" "$stringToAdd"
+		. /string/getLine "$filename" "$stringToAdd"
 		lineToNotFind=$NewString
 		if [ $lineToNotFind -eq -1 ];then
-			nlbecho "Add after line $stringToSearch2 at $lineToFind $stringToAdd" $OK;minibox_OK
+			/show/nlbecho "Add after line $stringToSearch2 at $lineToFind $stringToAdd" $OK;/show/minibox_OK
 			sed -i "${lineToFind} a $stringToAdd" $filename
 		fi
 	fi
 else
-	errorBox "Wrong Arguments"
-	usage 'addAfterLineIfNotExists "Filename" "StringToSearch" "StringToAdd"'
-	example 'addAfterLineIfNotExists "/etc/hosts" "127.0.0.1" "127.0.0.1 raspberrypi"'
+	/show/errorBox "Wrong Arguments"
+	/show/usage '/string/addAfterLineIfNotExists "Filename" "StringToSearch" "StringToAdd"'
+	/show/example '/string/addAfterLineIfNotExists "/etc/hosts" "127.0.0.1" "127.0.0.1 raspberrypi"'
 fi

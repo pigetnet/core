@@ -1,0 +1,3 @@
+#!/bin/bash
+#Generate a messagebox
+echo -e $INFO"___________ $1"

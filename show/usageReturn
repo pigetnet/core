@@ -1,0 +1,3 @@
+#!/bin/bash
+#Display usage return
+/show/nlbecho "Return:" $WARN;echo "$1"

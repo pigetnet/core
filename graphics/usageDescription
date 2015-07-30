@@ -1,3 +1,0 @@
-#!/bin/bash
-nlbecho "Description:" $PICOLOR;echo "$1"
-

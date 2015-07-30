@@ -1,0 +1,19 @@
+#!/bin/bash
+#Create a directory recursively (if it doesn't exists)
+if [ -d "$directory" ]
+then
+	/show/nlbecho "CREATE DIRECTORY $directory"
+	/show/minibox_SKIP
+else
+	mkdir -p $1
+	if [[ $? == 0 ]]
+		then
+			/show/nlbecho "CREATED DIRECTORY"
+			/show/minibox_OK
+		else
+			/show/errorBox $?
+			echo "CANNOT CREATE DIRECTORY"
+			/show/errorBox " "
+		exit 0
+	fi
+fi

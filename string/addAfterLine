@@ -12,7 +12,7 @@ if [ $# -eq 3 ];then
 	echo $stringToReplace
 	sed -i 's+'"$addAfterString"'+'"$addAfterString"'\n'"$stringToReplace"'+' $filename
 else
-	errorBox "Wrong Arguments"
-	usage "addAfterLine filename addAfterString stringToReplace"
-	example 'addAfterLine "/etc/hosts" "raspberrypi" "192.168.0.254 router"'
+	/show/errorBox "Wrong Arguments"
+	/show/usage "/string/addAfterLine filename addAfterString stringToReplace"
+	/show/example '/string/addAfterLine "/etc/hosts" "raspberrypi" "192.168.0.254 router"'
 fi

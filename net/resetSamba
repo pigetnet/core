@@ -1,0 +1,43 @@
+#!/bin/bash
+if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+	/show/messagebox "/net/resetSamba"
+	/show/usageDescription "reset samba configuration (all shares will be invisible)"
+	/show/usage "/net/resetSamba [NAME] (default:raspberrypi)"
+	/show/example "/net/resetSamba raspberrypi"
+else
+if [ -f /etc/samba/smb.conf ];then
+
+#Check if hostname is compatible with netbios
+. /string/ToNetbios $1
+NEW_HOSTNAME=$NewString
+/show/description "Reset samba with $NEW_HOSTNAME"
+/show/listecho "Reset /etc/samba/smb.conf" $OK
+#Backup smb.conf
+/system/autoBackup /etc/samba/smb.conf
+
+cat <<\EOF > /etc/samba/smb.conf &&
+#======================= Global Settings =======================
+[global]
+        workgroup = WORKGROUP
+        browseable = yes
+        
+        load printers = no
+		printing = bsd
+		printcap name = /dev/null
+		disable spoolss = yes
+
+#======================= Name =========================
+        #Name of your Raspberry Pi
+        netbios name = TOREPLACE
+EOF
+
+
+/string/replaceLine "/etc/samba/smb.conf" "netbios name =" "        netbios name = $NEW_HOSTNAME" "\[global\]"
+
+/system/restart samba
+
+else
+	/show/nlbecho "Samba is not installed" $WARN;/show/minibox_SKIP
+fi
+
+fi

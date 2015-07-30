@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ $# -eq 1 ] && [[ $1 != "--help" ]];then
+	/show/colecho "-> INTERNET ROUTER --> [ $1 ]" $OK
+	ip route replace default via $1
+	/show/isConnected
+else
+	/show/messagebox "/net/internetOn"
+	/show/usageDescription "Recreate default route to gateway"
+	/show/usage "/net/internetOn GATEWAY_IP"
+	/show/example "/net/internetOn 192.168.1.1"
+fi
+
+
+

@@ -1,0 +1,3 @@
+#!/bin/bash
+/show/listecho "Restarting $1" $OK
+service $1 restart

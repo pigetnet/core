@@ -1,5 +1,0 @@
-#!/bin/bash
-description "Remove Desktop"
-messagebox "This should takes no more than 15 minutes"
-apt-get remove -y --auto-remove --purge libx11-.*
-apt-get autoremove -y

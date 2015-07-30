@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ $# -eq 1 ];then
+	dir=$1
+	if [[ ! -d $dir ]];then
+	 mkdir $dir
+	fi
+else
+	/show/errorBox "Wrong Arguments"
+fi

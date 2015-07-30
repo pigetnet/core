@@ -1,0 +1,10 @@
+#!/bin/bash
+IsPackageLine="$(apt-cache show $1|wc -l 2>/dev/null)"
+if [ $IsPackageLine -eq 0 ];then
+	isPackage=0
+else
+	isPackage=1
+fi
+
+
+

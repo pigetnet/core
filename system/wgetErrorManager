@@ -1,0 +1,23 @@
+#!/bin/bash
+filename=$2
+wgeterror=$1
+if [[ -f $filename ]]
+        then
+
+		case $wgeterror in
+			0)
+			/show/nlbecho "file downloaded" $OK;/show/minibox_OK
+			;;
+
+			2)
+			/show/errorBox "Wrong wget commands"
+			;;
+
+			*)
+			rm -f $filename
+			/show/errorBox "$wgeterror - File not founded on Github"
+			;;
+		esac
+else
+        /show/errorBox "$wgeterror - Wrong filename"
+fi

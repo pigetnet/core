@@ -1,0 +1,4 @@
+#!/bin/bash
+/show/description "APT: Fix lock error"
+rm -vf /var/cache/apt/archives/lock
+rm -vf /var/lib/dpkg/lock

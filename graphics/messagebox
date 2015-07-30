@@ -1,6 +1,0 @@
-#!/bin/bash
-#Generate a messagebox
-echo -e $INFO"____________________________________"
-echo $1
-echo -e $INFO"____________________________________"
-echo -e $NORMAL

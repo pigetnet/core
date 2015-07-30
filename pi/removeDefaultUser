@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+	/show/messagebox "/pi/removeDefaultUser"
+	/show/usageDescription "Remove pi user (if it is not logged)"
+	/show/usage '/pi/removeDefaultUser'
+	/show/example '/pi/removeDefaultUser'
+else
+	/system/removeAccount pi
+fi

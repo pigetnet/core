@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+	/show/messagebox "/pi/removeRaspiNotice"
+	/show/usageDescription "remove notice to launch raspi-config at terminal boot"
+	/show/usage '/pi/removeRaspiNotice'
+	/show/example '/pi/removeRaspiNotice'
+else
+	/show/nlbecho "-> Remove raspi-config notice on bash startup" $OK
+	if [ -e "/etc/profile.d/raspi-config.sh" ];then
+		/show/minibox_OK
+		rm -f /etc/profile.d/raspi-config.sh
+	else
+		/show/minibox_SKIP
+	fi
+fi

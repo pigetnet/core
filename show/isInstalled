@@ -1,0 +1,8 @@
+#!/bin/bash
+#Check if a package is already installed
+check=$(grep -A1 -Fx "Package: $1" /var/lib/dpkg/status|tail -n 1)
+if [[ "$check" == "Status: install ok installed" ]];then
+	isInstalled=1
+else
+	isInstalled=0
+fi

@@ -1,0 +1,4 @@
+#!/bin/bash
+# generate a list
+/show/nlbecho "->" $OK
+/show/colecho "$1" $2

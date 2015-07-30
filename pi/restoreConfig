@@ -1,0 +1,11 @@
+#!/bin/bash
+/show/description "Get backup if available in /boot/piget/config /boot/piget/data"
+if [ -e /boot/piget/config ];then
+	cp -R /boot/piget/config /opt/user/config
+fi
+
+if [ -e /boot/piget/data ];then
+	cp -R /boot/piget/data /opt/user/data
+fi
+
+/system/checkPermissions

@@ -1,0 +1,36 @@
+#!/bin/bash
+#Clone a gitrepo on pigetnet on github
+#$1 repo/file
+
+if [ $# -eq 1 ]
+then
+	reponame=$1
+else
+	/show/errorBox "1 - Wrong arguments"
+	/show/usage "removeModule reponame"
+	/show/example "removeModule samba"
+	exit 1
+fi
+
+/show/description "Removing /opt/piget/$reponame"
+/show/console
+if [ -d "/opt/piget/$reponame" ];then
+	if [ ! -d "/opt/piget/$reponame/core/install" ];then
+		if [ ! -d "/opt/piget/$reponame/piget" ];then
+			if [ ! -d "/opt/piget/$reponame/etc" ];then
+				rm -rf /opt/piget/$reponame
+				/system/removePath /opt/piget/$reponame
+			else
+				/show/colecho "You were really close to delete everything" $ERR
+			fi
+		else
+			/show/colecho "You were really close to delete piget" $ERR
+		fi
+	else
+		/show/colecho "No module specified" $ERR
+	fi
+else
+	/show/colecho "Directory does not exists" $ERR
+	exit 1
+fi
+/show/console

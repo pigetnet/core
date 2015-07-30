@@ -11,15 +11,15 @@ stringToReplace="$3"
 
 if [ $# -eq 3 ];then
 	#Get Line
-	. getLine "$filename" "$stringToSearch"
+	. /string/getLine "$filename" "$stringToSearch"
 	line=$NewString
 	if [ $NewString != -1 ]
 	then
-		nlbecho "Replace Line $stringToSearch at $line with $stringToReplace" $OK;minibox_OK
+		/show/nlbecho "Replace Line $stringToSearch at $line with $stringToReplace" $OK;/show/minibox_OK
 		sed -i "${line}s+.*+$stringToReplace+" $filename
 	fi
 else
-	errorBox "Wrong Arguments"
-	usage 'replaceLine "Filename" "StringToSearch" "StringToReplace"'
-	example 'replaceLine "/etc/hosts" "127.0.0.1" "127.0.0.1 raspberrypi"'
+	/show/errorBox "Wrong Arguments"
+	/show/usage 'replaceLine "Filename" "StringToSearch" "StringToReplace"'
+	/show/example 'replaceLine "/etc/hosts" "127.0.0.1" "127.0.0.1 raspberrypi"'
 fi

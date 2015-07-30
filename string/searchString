@@ -4,5 +4,5 @@ cat $1 |grep -q $2
 found=$?
 if [ $found == 0 ]
 then
-	listecho "$2 founded"
+	/show/listecho "$2 founded"
 fi

@@ -1,3 +1,0 @@
-#!/bin/bash
-chmod +x /boot/piget/projects/$1.sh
-/boot/piget/projects/$1.sh

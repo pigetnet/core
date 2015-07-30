@@ -1,0 +1,5 @@
+#!/bin/bash
+/show/description "APT-GET LOG"
+/show/listecho "Display /var/log/pat/term.log (PRESS [CTRL-C] to quit)" $OK
+tail -f /var/log/apt/term.log
+

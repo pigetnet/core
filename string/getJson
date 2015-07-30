@@ -1,5 +1,6 @@
 #!/usr/bin/python
-#http://stackoverflow.com/questions/1955505/parsing-json-with-sed-and-awk
-import json,sys
+# http://stackoverflow.com/questions/1955505/parsing-json-with-sed-and-awk
+import json
+import sys
 obj = json.load(sys.stdin)
 print obj[sys.argv[1]]

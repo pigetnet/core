@@ -1,0 +1,24 @@
+#!/bin/bash
+#Automatically backup a file into /boot/piget/backups
+
+if [ $# -eq 1 ];then
+	filename=$1
+	basename=$(basename $filename)
+	timestamp=$(date +%Y%m%d)'_'$(date +%H%M%S)
+	if [ -e $filename ];then
+		if [ -e /boot/piget/backups ];then
+			cp $filename /boot/piget/backups/$basename'.backup.'$timestamp
+		else
+			/show/nlbecho "/boot/piget/backups doesn't exists";/show/minibox_WARNING
+			/system/createDir /boot/piget/backups
+			cp $filename /boot/piget/backups/$basename'.backup.'$timestamp
+		fi
+	else
+		/show/nlbecho "$filename doesn't exists, I can't back it up";/show/minibox_ERROR
+	fi
+else
+	/show/errorBox "Wrong Arguments"
+	/show/usageDescription "Backup a file to /boot/piget/backups"
+	/show/usage 'autoBackup fileToBackup'
+	/show/example 'autoBackup /etc/hosts'
+fi

@@ -1,0 +1,16 @@
+#!/bin/bash
+if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+	/show/messagebox "/pi/backup"
+	/show/usageDescription "Launch backup script at /boot/piget/scripts/backup.sh"
+	/show/usage '/pi/backup'
+	/show/example '/pi/backup'
+else
+	/show/description "Backup project"
+	if [ -e /boot/piget/scripts/backup.sh ];then
+		/show/listecho "Launching /boot/piget/scripts/backup.sh" $OK
+		chmod +x /boot/piget/scripts/backup.sh
+		/boot/piget/scripts/backup.sh
+	else
+		/show/errorBox "No backup founded at /boot/piget/scripts/backup.sh"
+	fi
+fi

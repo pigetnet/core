@@ -9,17 +9,17 @@ stringToAdd="$2"
 
 if [ $# -eq 2 ];then
 	#Get Line
-	. getLine "$filename" "$stringToAdd"
+	. /string/getLine "$filename" "$stringToAdd"
 	line=$NewString
 	if [ $NewString != -1 ]
 	then
-		nlbecho "Nothing to do"$OK;minibox_OK
+		/show/nlbecho "Nothing to do"$OK;/show/minibox_OK
 	else
-		nlbecho "Add line $stringToAdd" $WARN;minibox_WARNING
+		/show/nlbecho "Add line $stringToAdd" $WARN;/show/minibox_WARNING
 		echo "$stringToAdd" | sudo tee -a $filename
 	fi
 else
-	errorBox "Wrong Arguments"
-	usage 'addLine "Filename" "StringToAdd"'
-	example 'addLine "/etc/apt/sources.list" "deb http://apt.pilight.org/ stable main"'
+	/show/errorBox "Wrong Arguments"
+	/show/usage '/string/addLine "Filename" "StringToAdd"'
+	/show/example '/string/addLine "/etc/apt/sources.list" "deb http://apt.pilight.org/ stable main"'
 fi

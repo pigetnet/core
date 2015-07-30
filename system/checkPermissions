@@ -1,0 +1,5 @@
+#!/bin/bash
+/show/description "Check permissions for config files in /opt/user/config"
+chmod 700 -Rv /opt/user/config
+chown -Rv www-data:www-data /opt/user/config
+

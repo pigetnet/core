@@ -9,15 +9,15 @@ stringToSearch=$2
 if [ $# -eq 2 ];then
 	line=$(cat $filename |grep -n "$stringToSearch"|awk '{print $1}'| head -n 1)
 	if [ -z $line ];then
- 		nlbecho "Line not founded" $ERR;minibox_WARNING
+ 		#/show/nlbecho "Line not founded" $ERR;/show/minibox_WARNING
  		export NewString=-1
 	else
 		export NewString=$(echo $line|cut -d: -f1)
-		nlbecho "Line founded at $NewString" $OK;minibox_OK
+		#/show/nlbecho "Line founded at $NewString" $OK;/show/minibox_OK
 	fi
 else
- 	errorBox "Wrong arguments"
-	usage "getLine fileToRead StringToSearch"
-	example 'getLine "/etc/rc.local" "# Print"'
+ 	/show/errorBox "Wrong arguments"
+	/show/usage "/string/getLine fileToRead StringToSearch"
+	/show/example '/string/getLine "/etc/rc.local" "# Print"'
 	exit 1
 fi

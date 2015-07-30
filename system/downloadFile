@@ -1,0 +1,32 @@
+#!/bin/bash
+#Download a simple file on pigetnet gihub repositories
+#$1 repo/file
+#$2 dir/filename
+
+if [ $# -eq 3 ]
+then
+	reponame=$1
+	source=$2
+	destination=$3
+
+/show/description "Github: pigetnet/$reponame/$source ==> $destination " $OK
+
+rm -f /tmp/wget.temp
+wget https://raw.githubusercontent.com/pigetnet/$reponame/master/$source -O /tmp/wget.temp --no-check-certificate > /dev/null 2>&1
+wgeterror=$?
+/system/wgetErrorManager $wgeterror /tmp/wget.temp
+if [ -s "/tmp/wget.temp" ]
+then
+	mv /tmp/wget.temp $destination
+else
+	rm -f /tmp/wget.temp
+	echo "Here is a list of available files"
+	curl -s https://github.com/pigetnet/$reponame/ | grep js-directory-link | sed 's|.* title="\(.*\)".*|\1|'
+	exit 1
+	fi
+else
+	/show/errorBox "1 - Wrong arguments"
+	/show/usage "/system/downloadFile reponame filename destination"
+	/show/example "/system/downloadFile core graphics/colecho /tmp/test.sh"
+	exit 1
+fi

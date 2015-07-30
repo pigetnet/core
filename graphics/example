@@ -1,4 +1,0 @@
-#!/bin/bash
-#Display an example
-nlbecho "Example:" $OK;echo "$1"
-
