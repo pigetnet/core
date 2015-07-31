@@ -6,9 +6,13 @@
 for D in /opt/piget/*; do
 	if [ -d "${D}" ]; then
 		moduleName=$(basename "${D}")
-		echo $moduleName   # your processing here
-		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git fetch --all
-		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git reset --hard origin/master
-		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git pull origin master
+		/show/listecho "UPDATE : $moduleName" $OK   # your processing here
+		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git fetch --all > /dev/null 2>&1 
+		/show/listecho "FETCH : $?" $OK
+		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git reset --hard origin/master > /dev/null 2>&1 
+		/show/listecho "RESET : $?" $OK
+		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git pull origin master > /dev/null 2>&1 
+		/show/listecho "PULL  : $?" $OK
 	fi
 done
+
