@@ -1,0 +1,51 @@
+#!/bin/bash
+/show/description "Use wifi (wlan0) as an hotspot"
+
+#DHCP
+/system/downloadModule dhcpd
+/do/dhcpd/wlan0asHotSpot
+
+#INTERFACES
+/show/description "Configure wifi with static address (192.168.42.1)"
+
+/show/listecho "Turn off wlan0" $OK
+ifdown wlan0
+/show/listecho "Modify /etc/network/interfaces"
+/system/autoBackup "/etc/network/interfaces"
+cat <<\EOF > /etc/network/interfaces &&
+# WIFI as HOTSPOT
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+
+iface wlan0 inet static
+  address 192.168.42.1
+  netmask 255.255.255.0
+
+up iptables-restore < /etc/iptables.ipv4.nat
+EOF
+
+# Bridge (iptables/sysctl)
+/show/description "BRIDGE ETH0 => WLAN0"
+/show/listecho "Modify /etc/sysctl.conf" $OK
+/system/autoBackup "/etc/sysctl.conf"
+/string/replaceLineIfExists "/etc/sysctl.conf" "net.ipv4.ip_forward=1" "net.ipv4.ip_forward=1"
+sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+
+/show/listecho "Setup iptables (firewall)" $OK
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+iptables -A FORWARD -i eth0 -o wlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i wlan0 -o eth0 -j ACCEPT
+/show/listecho "Save iptables" $OK
+sh -c "iptables-save > /etc/iptables.ipv4.nat"
+
+#HOSTAPD
+/system/downloadModule hostapd
+/do/hostapd/install
+
+/show/listecho "Reset wlan0 to 192.168.42.1" $OK
+ifconfig wlan0 192.168.42.1
+
