@@ -2,23 +2,18 @@
 export DEBIAN_FRONTEND=noninteractive
 /show/isConnected
 
-/show/messagebox "Update everything"
-/show/console
+/show/description "Update everything"
 
-/show/messagebox "Update Applications with apt-get"
+
+/show/listecho "Update Applications with apt-get" $OK
 #Update package
 apt-get -q -y update
 apt-get -q -y upgrade
 
-/show/messagebox "Update firmware with rpi-update"
+/show/listecho "Update firmware with rpi-update" $OK
 #Update firmware
 /system/install rpi-update
 rpi-update
 
-/show/messagebox "Update PiGet with git"
-#Update Piget modules
-/system/PiGetUpdate
-
-/show/messagebox "Update wiringPi with git"
-#Upgrade WiringPi (if installed)
-git --work-tree=/opt/wiringPi --git-dir=/opt/wiringPi/.git pull origin master
+/show/listecho "Update all git repositories" $OK
+/system/updateAllGitRepo
