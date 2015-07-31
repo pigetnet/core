@@ -5,9 +5,13 @@
 
 /show/description "PIGET : Update all modules"
 
-for D in /opt/piget/*; do
-	if [ -d "${D}" ]; then
-		moduleName=$(basename "${D}")
+. /show/isConnected
+
+if [ $isConnected -eq 1 ];then
+
+	for D in /opt/piget/*; do
+		if [ -d "${D}" ]; then
+			moduleName=$(basename "${D}")
 		/show/nlbecho "-> UPDATE : $moduleName" $OK   # your processing here
 		
 		if [ -d "/opt/piget/$moduleName/.git" ];then
@@ -41,4 +45,4 @@ for D in /opt/piget/*; do
 		fi
 	fi
 done
-
+fi
