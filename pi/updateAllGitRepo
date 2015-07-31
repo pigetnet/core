@@ -1,8 +1,13 @@
 #!/bin/bash
 /show/description "PIGET : Update all git repositories on the system"
-find / -name .git -type d -prune | while read d; do
-	d=$(dirname $d)
-	if [ -d "$d" ]; then
+
+. /show/isConnected
+
+if [ $isConnected -eq 1 ];then
+
+	find / -name .git -type d -prune | while read d; do
+		d=$(dirname $d)
+		if [ -d "$d" ]; then
 		/show/nlbecho "-> UPDATE : $d" $OK   # your processing here
 		
 		cd "$d" && remoteUrl=$(cat ./.git/config |grep "url"|awk '{print $3}')
@@ -29,3 +34,4 @@ find / -name .git -type d -prune | while read d; do
 		fi
 	fi
 done
+fi
