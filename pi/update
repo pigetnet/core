@@ -1,19 +1,25 @@
 #!/bin/bash
-export DEBIAN_FRONTEND=noninteractive
-/show/isConnected
+if [ $# -eq 1 ] ;then
+	if [$1 -eq "-q"];then
+		export DEBIAN_FRONTEND=noninteractive
+	fi
+fi
 
-/show/description "Update everything"
+. /show/isConnected
 
+if [ $isConnected -eq 1 ];then
+	/show/description "Update everything"
+	
+	/show/listecho "Update Applications with apt-get" $OK
+	#Update package
+	debconf-apt-progress -- apt-get -q -y update
+	debconf-apt-progress -- apt-get -q -y upgrade
 
-/show/listecho "Update Applications with apt-get" $OK
-#Update package
-apt-get -q -y update
-apt-get -q -y upgrade
+	/show/listecho "Update firmware with rpi-update" $OK
+	#Update firmware
+	/system/install rpi-update
+	rpi-update
 
-/show/listecho "Update firmware with rpi-update" $OK
-#Update firmware
-/system/install rpi-update
-rpi-update
-
-/show/listecho "Update all git repositories" $OK
-/pi/updateAllGitRepo
+	/show/listecho "Update all git repositories" $OK
+	/pi/updateAllGitRepo
+fi
