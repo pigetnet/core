@@ -3,16 +3,33 @@
 #http://stackoverflow.com/questions/4000613/bash-for-each-directory
 #http://stackoverflow.com/questions/1125968/force-git-to-overwrite-local-files-on-pull
 
+/show/description "PIGET : Update all modules"
+
 for D in /opt/piget/*; do
 	if [ -d "${D}" ]; then
 		moduleName=$(basename "${D}")
-		/show/listecho "UPDATE : $moduleName" $OK   # your processing here
-		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git fetch --all > /dev/null 2>&1 
-		/show/listecho "FETCH : $?" $OK
-		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git reset --hard origin/master > /dev/null 2>&1 
-		/show/listecho "RESET : $?" $OK
-		git --work-tree=/opt/piget/$moduleName --git-dir=/opt/piget/$moduleName/.git pull origin master > /dev/null 2>&1 
-		/show/listecho "PULL  : $?" $OK
+		/show/nlbecho "-> UPDATE : $moduleName" $OK   # your processing here
+		
+		cd "${D}" && remoteUrl=$(cat ./.git/config |grep "url"|awk '{print $3}')
+		cd "${D}" && remoteHash=$(git ls-remote $remoteUrl|head -n1|awk '{print $1}')
+		cd "${D}" && localHash=$(git rev-parse origin/master)
+
+		if [[ "$remoteHash" == "$localHash" ]];then
+			/show/minibox_SKIP
+		else
+			cd "${D}" && git fetch --all > /dev/null 2>&1 
+			fetchStatus=$?
+			cd "${D}" && lastcomment=$(git reset --hard origin/master | awk '{$1="";$2="";$3="";$4="";$5="";print $0;}') > /dev/null 2>&1 
+			resetStatus=$?
+			cd "${D}" && git pull origin master > /dev/null 2>&1 
+			pullStatus=$?
+			if [[ $fetchStatus -eq 0 ]] && [[ $resetStatus -eq 0 ]] && [[ $pullStatus -eq 0 ]];then
+				/show/minibox_OK
+				/show/colecho "COMMENT - $lastcomment"
+			else
+				/show/minibox_WARNING
+			fi
+	fi
 	fi
 done
 
