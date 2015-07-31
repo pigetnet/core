@@ -16,4 +16,4 @@ apt-get -q -y upgrade
 rpi-update
 
 /show/listecho "Update all git repositories" $OK
-/system/updateAllGitRepo
+/pi/updateAllGitRepo
