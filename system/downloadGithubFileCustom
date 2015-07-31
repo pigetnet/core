@@ -29,7 +29,7 @@ else
 	fi
 else
 	/show/errorBox "1 - Wrong arguments"
-	/show/usage "/system/downloadFileCustom username reponame filename destination"
-	/show/example "/system/downloadFileCustom maditnerd foobar foo/bar.txt /tmp/test.sh"
+	/show/usage "/system/downloadGithubFileCustom username reponame filename destination"
+	/show/example "/system/downloadGithubFileCustom maditnerd foobar foo/bar.txt /tmp/test.sh"
 	exit 1
 fi

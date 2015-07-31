@@ -1,2 +1,2 @@
 #!/bin/bash
-/system/downloadFile bashrc $1 /root/.bashrc
+/system/downloadGithubFile bashrc $1 /root/.bashrc

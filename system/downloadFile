@@ -1,32 +1,34 @@
 #!/bin/bash
-#Download a simple file on pigetnet gihub repositories
-#$1 repo/file
-#$2 dir/filename
+#Download a single file on gihub repositories
+#$1 username
+#$1 reponame
+#$3 dir/filename
+#$4 destination
 
-if [ $# -eq 3 ]
+if [ $# -eq 2 ]
 then
-	reponame=$1
-	source=$2
-	destination=$3
+	url=$1
+	destination=$2
 
-/show/description "Github: pigetnet/$reponame/$source ==> $destination " $OK
+/show/nlbecho "-> HTTP: $url ==> $destination " $OK
 
 rm -f /tmp/wget.temp
-wget https://raw.githubusercontent.com/pigetnet/$reponame/master/$source -O /tmp/wget.temp --no-check-certificate > /dev/null 2>&1
+wget $url -O /tmp/wget.temp --no-check-certificate > /dev/null 2>&1
 wgeterror=$?
 /system/wgetErrorManager $wgeterror /tmp/wget.temp
 if [ -s "/tmp/wget.temp" ]
 then
 	mv /tmp/wget.temp $destination
+	/show/minibox_OK
 else
 	rm -f /tmp/wget.temp
-	echo "Here is a list of available files"
-	curl -s https://github.com/pigetnet/$reponame/ | grep js-directory-link | sed 's|.* title="\(.*\)".*|\1|'
+	/show/minibox_ERROR
+	read
 	exit 1
 	fi
 else
 	/show/errorBox "1 - Wrong arguments"
-	/show/usage "/system/downloadFile reponame filename destination"
-	/show/example "/system/downloadFile core graphics/colecho /tmp/test.sh"
+	/show/usage "/system/downloadFile url destination"
+	/show/example "/system/downloadFile http://www.foobar.com/file.zip /tmp/foobar.zip"
 	exit 1
 fi

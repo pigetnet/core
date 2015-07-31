@@ -15,7 +15,7 @@ if [[ -f $filename ]]
 
 			*)
 			rm -f $filename
-			/show/errorBox "$wgeterror - File not founded on Github"
+			/show/errorBox "$wgeterror - File not founded"
 			;;
 		esac
 else
