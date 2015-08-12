@@ -4,5 +4,5 @@
 /show/description "Installing driver for wifi"
 wget $(echo "https://dl.dropboxusercontent.com/u/80256631/mt7601-"`uname -r | awk '{sub(/\+/,"")}{print}'`"-"`uname -v | awk '{sub (/#/,"")}{print $1}'`).tar.gz -O /tmp/wifiDriver.tar.gz
 tar -xvf /tmp/wifiDriver.tar.gz -C /tmp/
-/tmp/install.sh
+cd /tmp;/tmp/install.sh
 
