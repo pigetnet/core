@@ -1,0 +1,16 @@
+#!/bin/bash
+/show/description "Welcome to PiGet"
+/show/listecho "You can install a module using /system/downloadModule"
+/show/listecho "You can prepare your Raspberry Pi with /pi/"
+/show/listecho "You can rename your Raspberry with /pi/name mynewname"
+/show/listecho "Every modules commands are inside /do/"
+/show/messagebox "Commons commands"
+/show/listecho "Modules have commands in common"
+/show/listecho "/do/module/install : install module"
+/show/listecho "/do/module/settings : open configuration file"
+/show/listecho "/do/module/setup : Interactive setup"
+/show/listecho "/do/module/start : Start module"
+/show/listecho "/do/module/stop : Stop module"
+/show/messagebox "For more information and a list of availables modules go to http://www.piget.net"
+/show/colecho "Have fun and make awesome stuff" $OK
+

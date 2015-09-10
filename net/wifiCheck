@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Checking for dropping issues due to power limitations"
+cat /var/log/messages |grep "imuxsock rate-limiting"
