@@ -2,6 +2,6 @@
 
 # Create a description box, Use it to describe your SCRIPT
 echo -ne $WARN
-echo "-------------------------- $1 --------------------------"
+echo "---- $1 ----"
 echo -ne $NORMAL
 
