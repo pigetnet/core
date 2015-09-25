@@ -1,0 +1,23 @@
+#!/bin/bash
+# Install/Update WiringPi
+
+/show/description "WiringPi Pi Installation"
+/system/install git-core
+
+/show/nlbecho "By default WiringPi will be installed in" 
+/show/colecho "/opt/wiringPi/" $ERR
+
+rm -rf /opt/wiringPi
+cd /opt/
+git clone git://git.drogon.net/wiringPi wiringPi
+
+/show/messagebox "Build wiringpi"
+/show/console
+cd /opt/wiringPi/
+./build
+/show/console
+
+/show/colecho "WiringPi installed!" $WARN
+echo "To compile a C++ program with it"
+echo "Type:"
+/show/colecho "gcc program.cpp -o program -lwiringPi" $PICOLOR

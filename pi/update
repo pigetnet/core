@@ -15,10 +15,10 @@ if [ $isConnected -eq 1 ];then
 	debconf-apt-progress -- apt-get -q -y update
 	debconf-apt-progress -- apt-get -q -y upgrade
 
-	/show/listecho "Update firmware with rpi-update" $OK
+	#/show/listecho "Update firmware with rpi-update" $OK
 	#Update firmware
-	/system/install rpi-update
-	rpi-update
+	#/system/install rpi-update
+	#rpi-update
 
 	/show/listecho "Update all git repositories" $OK
 	/pi/updateAllGitRepo

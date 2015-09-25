@@ -1,0 +1,5 @@
+#!/bin/bash
+/show/description "rpi-update"
+/show/messagebox "Updating firmware"
+/system/install/rpi-update
+rpi-update

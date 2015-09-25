@@ -1,0 +1,9 @@
+#!/bin/bash
+/show/description "Install WiringPi 2 (for python)"
+/show/messagebox "written by Gordon 'Drogon' Henderson"
+/show/messagebox "packaged for Python by Phil 'Gadgetoid' Howard"
+/system/install python-dev
+/system/install python-pip
+pip install wiringpi2
+
+
