@@ -12,7 +12,7 @@ else
 	exit 1
 fi
 
-/show/description "Removing /opt/piget/$reponame"
+/show/description "Removing /do/$reponame"
 /show/console
 if [ -d "/opt/piget/$reponame" ];then
 	if [ ! -d "/opt/piget/$reponame/core/install" ];then

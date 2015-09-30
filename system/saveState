@@ -1,0 +1,10 @@
+#!/bin/bash
+if [ $# -eq 3 ];then
+	module=$1
+	state=$2
+	description=$3
+	/system/makedir /user/state
+	/system/makedir /user/state/$module
+	echo $state > /user/state/$module/state
+	echo $description > /user/state/$module/description
+fi

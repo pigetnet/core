@@ -1,0 +1,41 @@
+#!/bin/bash
+clear
+/show/description "Processes --- PID --- Command"
+#
+ps hfx \
+|grep -v "; next"  										\
+|grep -v  "/show/programs"								\
+|grep -v "ps hfx"										\
+|grep -v "\_ awk"										\
+|awk '$2="";$3="";$4="";1'								\
+|grep -Pv "\[(.*?)\]"                                   \
+|grep -v "udevd --daemon"                               \
+|grep -v "/usr/sbin/ifplugd -i" 						\
+|grep -v "/sbin/getty 38400"							\
+|grep -v "/usr/sbin/cron"								\
+|grep -v "/usr/sbin/rsyslogd -c5"						\
+|grep -v "/bin/login -f tty1"							\
+|grep -v "\-bash"										\
+|sed -e 's/^[[:space:]]*//'								\
+|awk '/\/usr\/sbin\/nmbd -D/ { print "SAMBA .............. " $0 ; next }1'\
+|awk '/\/usr\/sbin\/smbd -D/ { print "SAMBA .............. " $0 ; next }1'\
+|awk '/\/usr\/local\/bin\/rcpu 8111/ { print "Remote CPU webserver .............. " $0 ; next }1'\
+|awk '/startpar -f -- rCPU/ { print "	Remote CPU webserver .............. " $0; next }1' \
+|awk '/php-fpm: master process/ { print"PHP .............. " $0 ; next }1' \
+|awk '/nginx: master process/ { print"NGINX .............. " $0 ; next }1' \
+|awk '/\/bin\/supervisord/ { print"Supervisor .............. "  $0 ; next }1' \
+|awk '/mjpeg-streamer\/stream/ { print "mjpeg-streamer .............. " $0 ; next }1' \
+|awk '/mjpg-streamer-experimental\/mjpg_streamer -o/ { print "	mjpeg-streamer .............. " $0 ; next }1' \
+|awk '/\/usr\/sbin\/sshd/ { print "SSHd .............. " $0 ; next }1' \
+|awk '/gpioCommand\/python\/gpioCommand.py/ { print"gpioCommand .............. "  $0 ; next }1' \
+|awk '/pilightCommand\/python\/pilightCommand.py/ { print"pilightCommand .............. "  $0 ; next }1' \
+|awk '/\/sbin\/dhcpcd/ { print "DHCP server  .............. "  $0 ; next }1' \
+|awk '/\/sbin\/getty -L ttyAMA0/ { print "Serial console  .............. " $0 ; next }1' \
+|awk '/usr\/local\/sbin\/pilight-daemon/ { print "Pilight .............. " $0 ; next }1' \
+|awk '/sshd: root@pts/ { print "	SSH console .............. " $0 ; next }1' \
+										
+#Remove kernel process
+#Remove udev - Linux dynamic device management
+#Remove ifplugd - Link detection daemon for ethernet devices for loopback
+#Remove getty virtual console tty1/6 CTRL-ALT-F1 -> CTRL-ALT-F6
+#Remove last line

@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ $# -eq 1 ];then
+module=$1
+	if [ -e /user/state/$module/state ];then
+		cat /user/state/$1/state
+	else
+		echo "-1"
+	fi
+fi

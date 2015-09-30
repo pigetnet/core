@@ -12,7 +12,7 @@ else
 	exit 1
 fi
 
-/show/description "Github: pigetnet/$reponame => /opt/piget/$reponame"
+/show/description "Github: pigetnet/$reponame => /do/$reponame"
 /show/isGithubRepo "pigetnet" $reponame
 if [ $? -eq 0 ]
 then
