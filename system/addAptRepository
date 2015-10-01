@@ -3,16 +3,18 @@
 #http://askubuntu.com/questions/197564/how-do-i-add-a-line-to-my-etc-apt-sources-list
 
 
-if [ $# -eq 2 ]
-repo=$1
-key=$2
+if [ $# -ge 1 ]
 then
+	repo=$1
+	key=$2
 	/show/description "Add custom repositories $repo into sources.list"
 	/system/autoBackup /etc/apt/sources.list
 	/string/addLine "/etc/apt/sources.list" "$repo"
-	cat /etc/apt/sources.list
-	/show/description "Add key $key"
-	wget -O - $key | apt-key add -
+	/show/file /etc/apt/sources.list
+	if [ $# -eq 2 ];then
+		/show/description "Add key $key"
+		wget -O - $key | apt-key add -
+	fi
 else
 	/show/errorBox "Wrong Arguments"
 	/show/usageDescription "add an APT Repository"
