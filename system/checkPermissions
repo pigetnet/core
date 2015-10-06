@@ -2,4 +2,5 @@
 /show/description "Check permissions for config files in /opt/user/config"
 chmod 700 -R /opt/user/config
 chown -R www-data:www-data /opt/user/config
-
+chmod 700 -R /opt/user/data
+chown -R www-data:www-data /opt/user/data
