@@ -1,0 +1,46 @@
+#!/bin/sh
+# now set up an init.d script
+script=$1
+
+/show/description "Execute $script at next boot"
+
+if [ $# -eq 1 ];then
+  if [ -e $script ];then
+cat <<EOF > /etc/init.d/userscript &&
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          userscript at startup
+# Required-Start:
+# Required-Stop:
+# Default-Start: 2 3 4 5 S
+# Default-Stop:
+# Short-Description: Execute $1 at startup once
+# Description:
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+case "\$1" in
+  start)
+    log_daemon_msg "Starting $script" &&
+    $script &&
+    rm /etc/init.d/userscript &&
+    update-rc.d userscript remove &&
+    log_end_msg $?
+    ;;
+  *)
+    echo "Usage: \$0 start" >&2
+    exit 3
+    ;;
+esac
+EOF
+
+#/show/file /etc/init.d/userscript
+chmod +x /etc/init.d/userscript &&
+update-rc.d -f userscript defaults > /dev/null 2>&1
+else
+  echo "Script doesn't exists"
+fi
+else
+  echo "arguments: script"
+fi

@@ -6,4 +6,7 @@ if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
 	/show/example '/pi/removeDefaultUser'
 else
 	/system/removeAccount pi
+	if [ $? -eq 8 ];then
+		/system/scriptOnNextReboot "/pi/removeDefaultUser"
+	fi
 fi
