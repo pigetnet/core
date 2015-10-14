@@ -1,7 +1,16 @@
 #!/bin/bash
 #Check if internet is connected
-/show/nlbecho "-> INTERNET:" $OK
-ping -c1 www.wikipedia.org > /dev/null 2>&1 && internet=1 || internet=0 
+
+if [ $# -eq 1 ];then
+	url=$1
+	/show/nlbecho "-> $url:" $OK
+
+else
+	/show/nlbecho "-> INTERNET:" $OK
+	url="www.wikipedia.org"
+fi
+
+ping -c1 $url > /dev/null 2>&1 && internet=1 || internet=0 
 if [[ $internet == 1 ]]
 	then
 		/show/minibox_OK
