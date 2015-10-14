@@ -1,0 +1,5 @@
+#!/bin/bash
+/system/downloadModule $1
+if [ -e /do/$1/install ];then
+	/do/$1/install
+fi
