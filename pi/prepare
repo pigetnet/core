@@ -1,5 +1,6 @@
 /pi/resizeSD
 /pi/removeDesktop
 /pi/removeRaspiNotice
+/pi/addRoot
 /pi/removeDefaultAccount
 /pi/update

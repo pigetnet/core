@@ -5,7 +5,7 @@
 #$3 dir/filename
 #$4 destination
 
-if [ $# -eq 3 ]
+if [ $# -eq 4 ]
 then
 	username=$1
 	reponame=$2

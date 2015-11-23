@@ -1,12 +1,18 @@
 #!/bin/bash
-if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
-	/show/messagebox "/pi/removeDefaultUser"
-	/show/usageDescription "Remove pi user (if it is not logged)"
-	/show/usage '/pi/removeDefaultUser'
-	/show/example '/pi/removeDefaultUser'
-else
-	/system/removeAccount pi
-	if [ $? -eq 8 ];then
-		/system/scriptOnNextReboot "/pi/removeDefaultUser"
+isRootEnable=$(passwd -S|awk '{print $2}')
+
+if [[ $isRootEnable == "P" ]];then
+	if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+		/show/messagebox "/pi/removeDefaultUser"
+		/show/usageDescription "Remove pi user (if it is not logged)"
+		/show/usage '/pi/removeDefaultUser'
+		/show/example '/pi/removeDefaultUser'
+	else
+		/system/removeAccount pi
+		if [ $? -eq 8 ];then
+			/system/scriptOnNextReboot "/pi/removeDefaultUser"
+		fi
 	fi
+else
+	/show/colecho "ROOT IS NOT ENABLE, ERASING DEFAULT ACCOUNT WILL BLOCKED YOU FROM ACCESSING YOUR RASPBERRY PI" $ERR
 fi

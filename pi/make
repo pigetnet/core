@@ -1,9 +1,9 @@
 #!/bin/bash
 if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
-	/show/messagebox "/pi/project"
+	/show/messagebox "/pi/make"
 	/show/usageDescription "Launch install script at /boot/piget/scripts/install.sh"
-	/show/usage '/pi/project'
-	/show/example '/pi/project'
+	/show/usage '/pi/make'
+	/show/example '/pi/make'
 else
 	/show/description "Starting project"
 	if [ -e /boot/piget/scripts/install.sh ];then
@@ -12,6 +12,7 @@ else
 		/boot/piget/scripts/install.sh
 	else
 		/show/errorBox "No installer founded at /boot/piget/scripts/install.sh"
+		/show/colecho "You can download one with /pi/download" $OK
 	fi
 fi
 
