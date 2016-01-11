@@ -1,0 +1,32 @@
+#!/bin/bash
+if [[ $# -eq 1 ]];then
+
+	d=$1
+
+	if [[ -d $d ]];then
+		/show/nlbecho "-> UPDATE : $d" $OK   # your processing here
+
+                cd "$d" && remoteUrl=$(cat ./.git/config |grep "url"|awk '{print $3}')
+                cd "$d" && remoteHash=$(git ls-remote $remoteUrl|head -n1|awk '{print $1}')
+                cd "$d" && localHash=$(git rev-parse origin/master)
+
+    	    if [[ "$remoteHash" == "$localHash" ]];then
+        	        /show/minibox_SKIP
+            else
+        		cd "$d" && git fetch --all > /dev/null 2>&1
+            	        fetchStatus=$?
+                	cd "$d" && lastcomment=$(git reset --hard origin/master | awk '{$1="";$2="";$3="";$4="";$5="";print $0;}') > /dev/null 2>&1
+                	resetStatus=$?
+                	cd "$d" && pullLog=$(git pull origin master) > /dev/null 2>&1
+                	pullStatus=$?
+                	if [[ $fetchStatus -eq 0 ]] && [[ $resetStatus -eq 0 ]] && [[ $pullStatus -eq 0 ]];then
+                		/show/minibox_OK
+                        	/show/colecho "COMMENT - $lastcomment"
+                	else
+                        	/show/minibox_WARNING
+                        	/show/colecho "Warning message from git pull" $WARN
+                        	echo $pullLog
+                	fi
+             fi
+	fi
+fi
