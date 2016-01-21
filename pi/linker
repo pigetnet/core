@@ -1,0 +1,8 @@
+#!/bin/bash
+if [[ $# -eq 2 ]];then
+scriptToLink=$1
+link=$2
+	if [[ -f $scriptToLink ]];then
+		ln -sv $scriptToLink /usr/local/bin/$link
+	fi
+fi
