@@ -1,6 +1,6 @@
 #!/bin/bash
 # https://raymii.org/s/tutorials/Silent-automatic-apt-get-upgrade.html
-export DEBIAN_FRONTEND=noninteractive
+#export DEBIAN_FRONTEND=noninteractive
 export DEBIAN_PRIORITY=critical
 PACKAGE=$1
 . /show/isInstalled $PACKAGE
@@ -9,9 +9,9 @@ if [ $# -eq 1 ] && [[ $1 != "--help" ]];then
 #IS THE PACKAGE ALREADY INSTALLED ?
 if [[ $isInstalled -eq 0 ]];then
 	/show/nlbecho "-> Install: $PACKAGE" $OK
-	debconf-apt-progress -- apt-get -q -y -o "Dpkg::Progress-Fancy=1" -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" install "$PACKAGE"
+	#debconf-apt-progress -- apt-get -q -y -o "Dpkg::Progress-Fancy=1" -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" install "$PACKAGE"
 	#apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" install "$PACKAGE"
-
+	debconf-apt-progress -- apt-get install -q -y $PACKAGE
 	. /show/isInstalled $PACKAGE
 	#WAS THE PACKAGE INSTALLED ?
 	if [[ $isInstalled -eq 1 ]];then
@@ -27,7 +27,7 @@ if [[ $isInstalled -eq 0 ]];then
 			/show/colecho "-> Package state:$check" $ERR
 			/show/colecho "-> apt-get install diagnosis" $ERR
 			apt-get install
-			aptitude reinstall debconf 
+			#aptitude reinstall debconf 
 			/show/isConnected
 			/show/colecho "UNABLE TO CONTINUE" $ERR
 			read

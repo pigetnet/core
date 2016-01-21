@@ -1,5 +1,5 @@
 #!/bin/bash
-DEBIAN_FRONTEND=noninteractive
+#DEBIAN_FRONTEND=noninteractive
 DEBIAN_PRIORITY=critical
 . /show/isInstalled $1
 #IS THE PACKAGE ALREADY INSTALLED ?
@@ -7,8 +7,8 @@ if [[ $isInstalled == 1 ]]
 	then
 
 	/show/nlbecho "-> Remove : $1" $OK 
-	apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" remove "$1" > /dev/null   
-
+	#apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" remove "$1" > /dev/null   
+	debconf-apt-progress -- apt-get remove -q -y $1
 	. /show/isInstalled $1
 	#WAS THE PACKAGE INSTALLED ?
 	if [[ $isInstalled == 0 ]]
