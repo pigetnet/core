@@ -39,9 +39,9 @@ if [ $isConnected -eq 1 ];then
 			fi
 		else
 			/show/minibox_ERROR
-			/show/colecho "Module seems broken, redownloading it" $WARN
-			rm -rf /opt/piget/$moduleName
-			/system/downloadModule $moduleName
+			/show/colecho "Module $moduleName not saved or broken" $WARN
+			#rm -rf /opt/piget/$moduleName
+			#/system/downloadModule $moduleName
 		fi
 	fi
 done
