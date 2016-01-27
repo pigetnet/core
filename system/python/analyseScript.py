@@ -17,6 +17,7 @@ global interactive
 global variables
 global fileExistsCheck
 global arguments
+global longdescriptionTable
 
 description = ""
 usage = ""
@@ -33,6 +34,7 @@ interactive = False
 variables = []
 fileExistsCheck = []
 arguments = []
+longdescriptionTable = []
 
 
 def removeCommand(text, pattern):
@@ -64,11 +66,12 @@ def analyseFile(fileToCheck):
     global variables
     global fileExistsCheck
     global arguments
+    global longdescriptionTable
 
     installedProgram = []
     with open(fileToCheck) as f:
         content = f.readlines()
-       
+
     for line in content:
         if '/show/usageDescription' in line:
             description = removeCommand(line, "/show/usageDescription")
@@ -91,23 +94,28 @@ def analyseFile(fileToCheck):
             installCommand = removeCommand(line, "apt-get install")
             longdescription += "   " + str(nb_subtitle) + ". -- Install: " + installCommand + "\n"
             installedProgram.append(installCommand)
-        
+
         if '/show/description' in line:
             nb_title = nb_title + 1
             nb_subtitle = 0
             longdescription += str(nb_title) + "." + " " + removeCommand(line, "/show/description") + "\n"
+            longdescriptionTable.append([str(nb_title) + "." + " " + removeCommand(line, "/show/description"), ""])
 
         if '/show/colecho "' in line:
             nb_subtitle = nb_subtitle + 1
             longdescription += "   " + str(nb_subtitle) + ". " + removeCommand(line, "/show/colecho") + "\n"
+            longdescriptionTable.append([str(nb_subtitle) + ". " + removeCommand(line, "/show/colecho"), ""])
 
         if '/show/listecho' in line:
             nb_subtitle = nb_subtitle + 1
             longdescription += "   " + str(nb_subtitle) + ". " + removeCommand(line, "/show/listecho") + "\n"
+            longdescriptionTable.append([str(nb_subtitle) + ". " + removeCommand(line, "/show/listecho"), ""])
 
         if '/show/askUser' in line:
             nb_subtitle = nb_subtitle + 1
             longdescription += "   " + str(nb_subtitle) + ". -- Ask user: " + removeCommand(line, ". /show/askUser") + "\n"
+            longdescriptionTable.append([str(nb_subtitle) + ". -- Ask user: " + removeCommand(line, ". /show/askUser"), ""])
+
             interactive = True
 
         # Check for variables
@@ -169,7 +177,6 @@ def displayText():
         print "-------------------"
         print arguments
 
-
     if len(installedProgram) >= 1:
         print ""
         print "Installed Programs"
@@ -201,11 +208,11 @@ def displayText():
         print fileExistsCheck
 
 
-def saveToMarkdown():
+def saveDetailedToMarkdown():
     markdownTable = []
     markdown = ""
     headers = [fileToCheck, ""]
-                
+
     if info != "":
         markdownTable.append(["Info", info])
     else:
@@ -213,10 +220,10 @@ def saveToMarkdown():
 
     if description != "":
         markdownTable.append(["Description", description])
-    
+
     if usage != "":
         markdownTable.append(["Usage", usage])
-    
+
     if example != "":
         markdownTable.append(["Example", example])
 
@@ -257,24 +264,45 @@ def saveToMarkdown():
             fileCheckString += filecheck + ", "
         markdownTable.append(["File exists", filecheck])
 
-    markdown = tabulate(markdownTable, headers, tablefmt="pipe")
-    
-    if longdescription != "":
-        markdown += "\n"
-        markdown += longdescription
-        markdown += "\n"
+    if len(longdescriptionTable) >= 1:
+        for longDescription in longdescriptionTable:
+            markdownTable.append(longDescription)
 
+    markdown = tabulate(markdownTable, headers, tablefmt="pipe")
     print markdown
 
+def saveToMarkdown():
+    markdownTable = []
+    markdown = ""
+    headers = [fileToCheck, ""]
+
+
+    if description != "":
+         markdownTable.append(["Description", description])
+
+    if example != "":
+        markdownTable.append(["Example", example])
+
+    if info != "":
+        markdownTable.append(["Info", info])
+    else:
+        markdownTable.append(["Info", "[alpha] [undocumented]"])
+
+    markdown = tabulate(markdownTable, headers, tablefmt="pipe")
+    print markdown
 
 if len(sys.argv) == 2:
     fileToCheck = sys.argv[1]
-    
+
     if os.path.isfile(fileToCheck):
         analyseFile(fileToCheck)
         saveToMarkdown()
         # saveToReadMe(wg)
     else:
-        print "No script named" + fileToCheck
+        if os.path.isdir(fileToCheck):
+            analyseDir(fileToCheck)
+            saveDirToMarkdown()
+        else:
+            print "No script named" + fileToCheck
 else:
     print "Usage: /system/analyseScript /pi/install"

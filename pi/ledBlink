@@ -1,1 +1,13 @@
-modprobe ledtrig_heartbeat;echo heartbeat >/sys/class/leds/led0/trigger
+#!/bin/bash
+
+if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+  /show/messagebox "$0"
+  /show/info '[release]'
+  /show/usageDescription 'Make the green led blink'
+  /show/usage "$0"
+else
+	modprobe ledtrig_heartbeat;echo heartbeat >/sys/class/leds/led0/trigger
+fi
+
+
+

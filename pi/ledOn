@@ -1,3 +1,12 @@
 #!/bin/bash
-echo none >/sys/class/leds/led0/trigger;echo 1 >/sys/class/leds/led0/brightness
+if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+  /show/messagebox "$0"
+  /show/info '[release]'
+  /show/usageDescription 'Turn on the green led'
+  /show/usage "$0"
+else
+	echo none >/sys/class/leds/led0/trigger;echo 1 >/sys/class/leds/led0/brightness
+fi
+
+
 

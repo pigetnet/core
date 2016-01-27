@@ -1,1 +1,15 @@
-echo mmc0 >/sys/class/leds/led0/trigger
+#!/bin/bash
+if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+  /show/messagebox "$0"
+  /show/info '[release]'
+  /show/usageDescription 'Reset the green led to SDcard activity'
+  /show/usage "$0"
+else
+	echo mmc0 >/sys/class/leds/led0/trigger
+fi
+
+
+
+
+
+
