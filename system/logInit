@@ -1,0 +1,4 @@
+#!/bin/bash
+scriptName=$1
+echo "" >> /tmp/piget.log 2>&1
+echo "$scriptName -----" >> /tmp/piget.log 2>&1

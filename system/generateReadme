@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ -d $dir ];then
+	/system/python/generateReadme.py $dir
+fi

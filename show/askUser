@@ -1,22 +1,14 @@
 #!/bin/bash
 
-if [ $# -eq 1 ];then
-	question=$1
-	read -r -p "$question:" answer
-
-	if [ -z $answer ]
-		then
-		{
-			/show/colecho "No answer provided" $ERR
-			exit 1
-		}
-	fi
-
-	export USERANSWER=$answer
-else
-	/show/errorBox "Wrong Arguments"
-	/show/usageDescription "Ask an answer to an terminal user"
-	/show/usage ". /show/askUser question"
+if [ $# -eq 0 ] || [ $# -ge 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox "/show/askUser"
+	/show/info "[interactive] [alpha]"
+	/show/usageDescription 'Ask an question and return the answer'
+	/show/usage '. /show/askUser question'
 	/show/example '. /show/askUser "What Time is it?"'
-	/show/usageReturn "\$USERANSWER"
+	/show/usageReturn '$ASKUSER'
+else
+	question=$1
+	read -r -p "$question: " answer
+	export ASKUSER=$answer
 fi

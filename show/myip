@@ -1,2 +1,5 @@
 #!/bin/bash
-echo $SSH_CLIENT|awk '{print $1}'
+# http://aplawrence.com/Basics/find_client_ip.html
+
+# echo $SSH_CLIENT|awk '{print $1}'
+last -i|awk '{print $3}'|head -n1
