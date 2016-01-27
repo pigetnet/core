@@ -1,9 +1,0 @@
-#!/bin/bash
-if [[ $# -eq 0 ]] || [[ $1 == "--help" ]];then
-	/show/messagebox "/pi/download"
-	/show/usageDescription "Download an install script from pigetMake"
-	/show/usage '/pi/download repo'
-	/show/example '/pi/download minimal'
-else
-	/system/downloadGithubFileCustom "pigetMake" "$1" "install.sh" "/boot/piget/scripts/install.sh"
-fi

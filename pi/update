@@ -1,6 +1,11 @@
 #!/bin/bash
 
-if [ $# -ge 3 ] || [ $# -le 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+  /show/messagebox "$0"
+  /show/info '[beta] [long]'
+  /show/usageDescription 'Update apt-get and Piget'
+  /show/usage "$0"
+else
 	. /show/isConnected
 
 	if [ $isConnected -eq 1 ];then
@@ -13,4 +18,5 @@ if [ $# -ge 3 ] || [ $# -le 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];th
 
 		/show/listecho "Update PiGet" $OK
 		/pi/updatePiget
+	fi
 fi

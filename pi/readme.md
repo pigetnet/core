@@ -1,23 +1,8 @@
-| /pi/backup   |                                                       |
-|:-------------|:------------------------------------------------------|
-| Description  | Launch backup script at /boot/piget/scripts/backup.sh |
-| Example      | /pi/backup                                            |
-| Info         | [alpha] [undocumented]                                |
-
-| /pi/download   |                                           |
-|:---------------|:------------------------------------------|
-| Description    | Download an install script from pigetMake |
-| Example        | /pi/download minimal                      |
-| Info           | [alpha] [undocumented]                    |
-
-| /pi/downloadModule   |                        |
-|:---------------------|:-----------------------|
-| Example              | downloadModule samba   |
-| Info                 | [alpha] [undocumented] |
-
-| /pi/install   |                        |
-|:--------------|:-----------------------|
-| Info          | [alpha] [undocumented] |
+| /pi/install   |                                                         |
+|:--------------|:--------------------------------------------------------|
+| Description   | Download a module at github.com/pigetnet and install it |
+| Example       | /pi/install samba                                       |
+| Info          | [beta]                                                  |
 
 | /pi/installWiringPi   |                        |
 |:----------------------|:-----------------------|
@@ -27,25 +12,31 @@
 |:----------------------------|:-----------------------|
 | Info                        | [alpha] [undocumented] |
 
-| /pi/ledBlink   |                        |
-|:---------------|:-----------------------|
-| Info           | [alpha] [undocumented] |
+| /pi/ledBlink   |                          |
+|:---------------|:-------------------------|
+| Description    | Make the green led blink |
+| Info           | [release]                |
 
 | /pi/ledOff   |                        |
 |:-------------|:-----------------------|
-| Info         | [alpha] [undocumented] |
+| Description  | Turn off the green led |
+| Info         | [release]              |
 
-| /pi/ledOn   |                        |
-|:------------|:-----------------------|
-| Info        | [alpha] [undocumented] |
+| /pi/ledOn   |                       |
+|:------------|:----------------------|
+| Description | Turn on the green led |
+| Info        | [release]             |
 
-| /pi/ledReset   |                        |
-|:---------------|:-----------------------|
-| Info           | [alpha] [undocumented] |
+| /pi/ledReset   |                                        |
+|:---------------|:---------------------------------------|
+| Description    | Reset the green led to SDcard activity |
+| Info           | [release]                              |
 
-| /pi/linker   |                        |
-|:-------------|:-----------------------|
-| Info         | [alpha] [undocumented] |
+| /pi/linker   |                                                  |
+|:-------------|:-------------------------------------------------|
+| Description  | create a link to a command inside /usr/local/bin |
+| Example      | /pi/linker /pi/ledOn turn_on_led                 |
+| Info         | [beta] [2 args]                                  |
 
 | /pi/make    |                                                         |
 |:------------|:--------------------------------------------------------|
@@ -75,37 +66,37 @@
 | Example             | /pi/removeDesktop                                                         |
 | Info                | [alpha] [undocumented]                                                    |
 
-| /pi/removeRaspiNotice   |                                                       |
-|:------------------------|:------------------------------------------------------|
-| Description             | remove notice to launch raspi-config at terminal boot |
-| Example                 | /pi/removeRaspiNotice                                 |
-| Info                    | [alpha] [undocumented]                                |
+| /pi/removeRaspiNotice   |                                                 |
+|:------------------------|:------------------------------------------------|
+| Description             | remove notice to use raspi-config on connection |
+| Info                    | [release]                                       |
 
-| /pi/resizeSD   |                        |
-|:---------------|:-----------------------|
-| Info           | [alpha] [undocumented] |
+| /pi/resizeSD   |                                                               |
+|:---------------|:--------------------------------------------------------------|
+| Description    | Expand SDcard on next boot using raspi-config unattended mode |
+| Info           | [release] [reboot]                                            |
 
-| /pi/restoreConfig   |                        |
-|:--------------------|:-----------------------|
-| Info                | [alpha] [undocumented] |
+| /pi/timeZone   |                         |
+|:---------------|:------------------------|
+| Description    | Modify timezone         |
+| Info           | [release] [interactive] |
 
-| /pi/timeZone   |                        |
-|:---------------|:-----------------------|
-| Info           | [alpha] [undocumented] |
+| /pi/update   |                          |
+|:-------------|:-------------------------|
+| Description  | Update apt-get and Piget |
+| Info         | [beta] [long]            |
 
-| /pi/update   |                        |
-|:-------------|:-----------------------|
-| Info         | [alpha] [undocumented] |
-
-| /pi/updateAllGitRepo   |                        |
-|:-----------------------|:-----------------------|
-| Info                   | [alpha] [undocumented] |
+| /pi/updateAllGitRepo   |                                           |
+|:-----------------------|:------------------------------------------|
+| Description            | Update all git repositories on the system |
+| Info                   | [alpha] [caution]                         |
 
 | /pi/updateGitRepo   |                        |
 |:--------------------|:-----------------------|
 | Info                | [alpha] [undocumented] |
 
-| /pi/updatePiget   |                        |
-|:------------------|:-----------------------|
-| Info              | [alpha] [undocumented] |
+| /pi/updatePiget   |                                                   |
+|:------------------|:--------------------------------------------------|
+| Description       | Update all piget modules (this can erase changes) |
+| Info              | [beta] [caution]                                  |
 
