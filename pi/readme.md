@@ -7,6 +7,7 @@
 | Description   | Download a module at github.com/pigetnet and install it |
 | Example       | /pi/install samba                                       |
 | Info          | [beta]                                                  |
+| Arguments     | 1:moduleName,                                           |
 
 | /pi/installWiringPi   |                        |
 |:----------------------|:-----------------------|

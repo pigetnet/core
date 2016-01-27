@@ -1,11 +1,13 @@
-| /pi/install   |                                                         |
-|:--------------|:--------------------------------------------------------|
-| Info          | [beta]                                                  |
-| Description   | Download a module at github.com/pigetnet and install it |
-| Usage         | /pi/install module                                      |
-| Example       | /pi/install samba                                       |
-| Modules       | if [ -e /do/$1/install ];then, /do/$1/install,          |
-| System        | /system/downloadModule $1,                              |
+| /pi/install   |                                                                  |
+|:--------------|:-----------------------------------------------------------------|
+| Info          | [beta]                                                           |
+| Description   | Download a module at github.com/pigetnet and install it          |
+| Usage         | /pi/install module                                               |
+| Example       | /pi/install samba                                                |
+| Arguments     | 1:moduleName,                                                    |
+| Variables     | moduleName=$1,                                                   |
+| Modules       | if [ -e /do/$moduleName/install ];then, /do/$moduleName/install, |
+| System        | /system/downloadModule $moduleName,                              |
 
 | /pi/installWiringPi                               |                           |
 |:--------------------------------------------------|:--------------------------|
@@ -85,6 +87,10 @@
 | /pi/prepare   |                        |
 |:--------------|:-----------------------|
 | Info          | [alpha] [undocumented] |
+
+| /pi/readme.md   |                        |
+|:----------------|:-----------------------|
+| Info            | [alpha] [undocumented] |
 
 | /pi/removeDefaultUser                                                                            |                                                                               |
 |:-------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------|
