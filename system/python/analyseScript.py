@@ -293,16 +293,15 @@ def saveToMarkdown():
 
 if len(sys.argv) == 2:
     fileToCheck = sys.argv[1]
-
     if os.path.isfile(fileToCheck):
         analyseFile(fileToCheck)
         saveToMarkdown()
-        # saveToReadMe(wg)
     else:
-        if os.path.isdir(fileToCheck):
-            analyseDir(fileToCheck)
-            saveDirToMarkdown()
-        else:
-            print "No script named" + fileToCheck
+        print "No script named" + fileToCheck
+elif len(sys.argv) == 3 and sys.argv[2] == "--verbose":
+    fileToCheck = sys.argv[1]
+    if os.path.isfile(fileToCheck):
+        analyseFile(fileToCheck)
+        saveDetailedToMarkdown()
 else:
     print "Usage: /system/analyseScript /pi/install"
