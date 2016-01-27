@@ -1,3 +1,7 @@
+| /pi/doc.md   |                        |
+|:-------------|:-----------------------|
+| Info         | [alpha] [undocumented] |
+
 | /pi/install   |                                                         |
 |:--------------|:--------------------------------------------------------|
 | Description   | Download a module at github.com/pigetnet and install it |
@@ -37,6 +41,7 @@
 | Description  | create a link to a command inside /usr/local/bin |
 | Example      | /pi/linker /pi/ledOn turn_on_led                 |
 | Info         | [beta] [2 args]                                  |
+| Arguments    | 1:scriptToLink, 2:link,                          |
 
 | /pi/make    |                                                         |
 |:------------|:--------------------------------------------------------|
@@ -49,6 +54,7 @@
 | Description | Rename your Raspberry Pi using avahi/samba |
 | Example     | /pi/name raspberrypi                       |
 | Info        | [alpha] [undocumented]                     |
+| Arguments   | 1:NEW_HOSTNAME,                            |
 
 | /pi/prepare   |                        |
 |:--------------|:-----------------------|
@@ -94,6 +100,7 @@
 | /pi/updateGitRepo   |                        |
 |:--------------------|:-----------------------|
 | Info                | [alpha] [undocumented] |
+| Arguments           | 1:d,                   |
 
 | /pi/updatePiget   |                                                   |
 |:------------------|:--------------------------------------------------|

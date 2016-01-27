@@ -288,6 +288,12 @@ def saveToMarkdown():
     else:
         markdownTable.append(["Info", "[alpha] [undocumented]"])
 
+    if len(arguments) >= 1:
+        argumentString = ""
+        for argument in arguments:
+            argumentString += argument + ", "
+        markdownTable.append(["Arguments", argumentString])
+
     markdown = tabulate(markdownTable, headers, tablefmt="pipe")
     print markdown
 
