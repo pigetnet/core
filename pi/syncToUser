@@ -6,7 +6,7 @@ if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
 	/show/usage "$0"
 else
 
-	/show/listecho "Sync Configuration : LOCAL ==> user" $WARN
+	/show/listecho "Sync Configuration : LOCAL ==> user" $INFO
 	cd /user/config/piget/external
 
 	FILES=$(find ./ -type f -name '*.*')

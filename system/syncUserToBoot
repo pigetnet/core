@@ -5,7 +5,7 @@ if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
 	/show/usageDescription 'Save /user/config/piget/ into /boot/piget/'
 	/show/usage "$0"
 else
-	/show/listecho "Sync Configuration : user ==> boot" $WARN
+	/show/listecho "Sync Configuration : user ==> boot" $INFO
 	rm -rf /boot/piget/config
 	cp -r /user/config/piget /boot/piget/config
 fi
