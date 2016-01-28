@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox "$0"
+	/show/info '[beta] [danger]'
+	/show/usageDescription 'Restore configuration from /boot/piget to / [Dangerous]'
+	/show/usage "$0"
+else
+	/show/description "Restore configuration from /boot/piget/"
+	/show/listecho "/boot/piget/config ==> /user/config/piget"
+	rm -rf /user/config/piget
+	cp -R /boot/piget/config /user/config/piget
+	/show/listecho "/boot/piget/config/external ==> / "
+fi
