@@ -1,0 +1,11 @@
+#!/bin/bash
+if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox "$0"
+	/show/info '[alpha] [WIP] [danger] [dev]'
+	/show/usageDescription 'Save /user/config/piget/ into /boot/piget/'
+	/show/usage "$0"
+else
+	/show/listecho "Sync Configuration : user ==> boot" $WARN
+	rm -rf /boot/piget/config
+	cp -r /user/config/piget /boot/piget/config
+fi
