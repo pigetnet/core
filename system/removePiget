@@ -1,0 +1,19 @@
+#!/bin/bash
+
+/show/description "This will erase Piget and all users data! Backup first!"
+. /show/continuePrompt
+/show/listecho "Remove symbolic link" $ERR
+rm /do
+rm /pi
+rm /system
+rm /show
+rm /string
+rm /net
+/show/listecho "Remove Boot Files" $OK
+rm -rf /boot/piget
+/show/listecho "Remove Users Files" $OK
+rm -rf /opt/user
+/show/listecho "Remove Piget core and modules" $OK
+rm -rf /opt/piget
+
+
