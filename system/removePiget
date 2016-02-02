@@ -6,14 +6,16 @@
 rm /do
 rm /pi
 rm /system
-rm /show
 rm /string
 rm /net
+rm /user
 /show/listecho "Remove Boot Files" $OK
 rm -rf /boot/piget
 /show/listecho "Remove Users Files" $OK
 rm -rf /opt/user
 /show/listecho "Remove Piget core and modules" $OK
 rm -rf /opt/piget
+rm /show #Remove it last so it can still display messages
+rm /root/.bashrc #Remove root banner
 
-
+#Your pi should be as before piget installation
