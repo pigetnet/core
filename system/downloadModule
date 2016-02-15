@@ -2,23 +2,30 @@
 #Clone a gitrepo on pigetnet on github
 #$1 repo/file
 
-if [ $# -eq 1 ]
-then
-	reponame=$1
+if [ $# -ge 2 ] || [[ $# -eq 0 ]] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+    /show/messagebox "$0"
+    /show/info '[dev] [beta]'
+    /show/usageDescription 'Download a module on github.com'
+    /show/usage "$0 module or user/module"
+    /show/example "$0 samba or maditnerd/example"
 else
-	/show/errorBox "1 - Wrong arguments"
-	/show/usage "downloadModule reponame"
-	/show/example "downloadModule samba"
-	exit 1
-fi
+    reponame=$1
+    if [[ $reponame == *"/"* ]];then
+        echo "Custom detected"
+        username=${reponame%/*}
+        reponame=${reponame#*/}
+    else
+        username="pigetnet"
+    fi
+    /show/description "Github: $username/$reponame => /do/$reponame"
+    /show/isGithubRepo $username $reponame
 
-/show/description "Github: pigetnet/$reponame => /do/$reponame"
-/show/isGithubRepo "pigetnet" $reponame
-if [ $? -eq 0 ]
-then
-	/system/gitcloner pigetnet/$reponame /opt/piget/$reponame
-else
-	/show/colecho "No repo founded" $ERR
-	exit 1
+    if [ $? -eq 0 ]
+    then
+        /system/gitcloner $username/$reponame /opt/piget/$reponame
+    else
+        /show/colecho "No repo founded" $ERR
+        exit 1
+    fi
+    /show/console
 fi
-/show/console
