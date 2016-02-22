@@ -1,0 +1,2 @@
+#!/bin/bash
+last |grep "still logged in"|wc -l

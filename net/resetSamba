@@ -22,9 +22,9 @@ cat <<\EOF > /etc/samba/smb.conf &&
         browseable = yes
         
         load printers = no
-		printing = bsd
-		printcap name = /dev/null
-		disable spoolss = yes
+	printing = bsd
+	printcap name = /dev/null
+	disable spoolss = yes
 
 #======================= Name =========================
         #Name of your Raspberry Pi
