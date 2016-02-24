@@ -1,3 +1,4 @@
 #!/bin/bash
-/show/listecho "Restarting $1" $OK
-/etc/init.d/$1 restart
+# /show/listecho "Restarting $1" $OK
+/etc/init.d/$1 restart >> /tmp/restart.log
+# echo $?

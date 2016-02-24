@@ -1,11 +1,13 @@
 #!/bin/bash
+# 
+
 # If no arguments is provided we check if it was set inside bootstrap
 if [ $# -ge 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
-	/show/messagebox "/pi/name"
+    /show/messagebox "$0"
 	/show/info "[beta]"
 	/show/usageDescription "Rename your Raspberry Pi using avahi/samba"
-	/show/usage "/pi/name [newname] (default:/boot/piget/config/name.txt)"
-	/show/example "/pi/name raspberrypi"
+	/show/usage "$0 [newname] (default:/boot/piget/config/name.txt)"
+	/show/example "$0 raspberrypi"
 else
 
 	#If no arguments is given
@@ -20,13 +22,12 @@ else
 			. /string/ToNetbios "$NEW_HOSTNAME"
 			NEW_HOSTNAME=$NewString
 
-			/show/description "Raspberry Pi Name : $NEW_HOSTNAME"
-			/show/listecho "Using /boot/piget/config/name.txt" $OK
+			
+			# /show/listecho "Using /boot/piget/config/name.txt" $OK
 		else
 		#If there isn't a /boot/piget/config/name.txt default to raspberry pi
 			NEW_HOSTNAME=raspberrypi
-			/show/description "Raspberry Pi Name : $NEW_HOSTNAME"
-			/show/listecho "Using default" $WARN
+			# /show/listecho "Using default" $WARN
 		fi
 	else
 		#If a name is provided
@@ -42,7 +43,7 @@ else
 			. /string/ToNetbios "$NEW_HOSTNAME"
 			
 			NEW_HOSTNAME=$NewString
-			/show/description "Raspberry Pi Name : $NEW_HOSTNAME"
+			# /show/listecho "Raspberry Pi Name : $NEW_HOSTNAME" $OK
 		else
 			/show/errorBox "Too many arguments"
 			/show/usageDescription "Rename your Raspberry Pi using avahi/samba"
@@ -53,6 +54,7 @@ else
 	fi
 
 	if [ -n "$NEW_HOSTNAME" ];then
+		/show/description "[Name] $(/show/smbGetName) --> $NEW_HOSTNAME"
 		# Check if samba and avahi is installed
 		/system/install samba
 		/system/install avahi-daemon
@@ -61,8 +63,10 @@ else
 		/net/resetHost $NEW_HOSTNAME
 
 		###### SAMBA
-		/show/description "Samba Name : $NEW_HOSTNAME"
+		# /show/listecho "Samba Name : $NEW_HOSTNAME" $1
 		/string/replaceLine "/etc/samba/smb.conf" "netbios name =" "        netbios name = $NEW_HOSTNAME" "\[global\]"
 		/system/restart samba
+		echo -e "Type $ERR /pi/start $NORMAL to refresh $OK name $NORMAL"
+		
 	fi
 fi

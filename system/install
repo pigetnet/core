@@ -34,8 +34,8 @@ if [[ $isInstalled -eq 0 ]];then
 		fi
 		
 	fi
-else
-	/show/listecho "Install: $PACKAGE [SKIPPED]" $INFO
+# else
+	# /show/listecho "Install: $PACKAGE [SKIPPED]" $INFO
 fi
 else
 	echo "HELP REQUIRED"
