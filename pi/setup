@@ -1,0 +1,12 @@
+#!/bin/bash
+/pi/resizeSD
+clear
+/show/description "Prepare your Raspberry Pi"
+
+renameMessage="\
+Give a name to your raspberry pi
+"
+
+newhostname=$(whiptail --inputbox "$renameMessage" --title "[PI] Name" 0 0 3>&1 1>&2 2>&3)
+echo $newhostname
+#/pi/name $newhostname

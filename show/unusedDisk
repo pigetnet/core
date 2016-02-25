@@ -1,0 +1,2 @@
+#!/bin/bash
+parted /dev/mmcblk0 unit GB print free | grep 'Free Space' | tail -n1 | awk '{print $3}'

@@ -1,9 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/messagebox "$0"
-  /show/info '[release] [reboot]'
+  /show/info '[release] [reboot] [danger]'
   /show/usageDescription 'Expand SDcard on next boot using raspi-config unattended mode'
   /show/usage "$0"
 else
-	raspi-config --expand-rootfs
+	unusedDisk=$(/show/unusedDisk)
+	if [[ ! $unusedDisk == "0.00GB" ]];then
+		raspi-config --expand-rootfs
+	fi
 fi

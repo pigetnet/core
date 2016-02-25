@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ $# -ge 2 ] || [ $# -eq 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox "$0"
+	/show/info "[alpha] [dev]"
+	/show/usageDescription "Generate a script to be edited on Windows"
+	/show/usage "$0 script"
+	/show/example "$0 /do/example/install"
+else
+	script=$1
+	/show/description "[CREATE SCRIPT] $script"
+	
+	if [ ! -f "$script" ];then
+		echo "#!/bin/bash" > $script
+		chmod +x $script
+		/show/listecho "Type: nano $script to edit it" $OK	
+	else
+		/show/listecho "Script already existed" $ERR
+	fi
+fi
