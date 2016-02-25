@@ -1,0 +1,20 @@
+#!/bin/bash
+colorNumber=$(cat /root/.bashrc |grep PS1|cut -f1 -d"m"|awk -F[ '{ print $NF }')
+
+case $colorNumber in
+	32 )
+		colorName="green" ;;
+	39 )
+		colorName="gray" ;;
+	31 )
+		colorName="red" ;;
+	35 )
+		colorName="pink" ;;
+	34 )
+		colorName="blue" ;;
+	33 )
+		colorName="yellow" ;;
+	* )
+		colorName="undefined" ;;
+esac
+echo $colorName

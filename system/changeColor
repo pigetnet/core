@@ -1,0 +1,34 @@
+#!/bin/bash
+currentColor=$(/system/getColorNumber)
+
+colorName=$1
+colorNumber=31
+
+if [ -z $colorName ];then
+	colorName="red"
+fi
+
+if [ $colorName == "green" ];then
+	colorNumber=32
+fi
+
+if [ $colorName == "gray" ];then
+	colorNumber=39
+fi
+
+if [ $colorName == "pink" ];then
+	colorNumber=35
+fi
+
+if [ $colorName == "blue" ];then
+	colorNumber=34
+fi
+
+if [ $colorName == "yellow" ];then
+	colorNumber=33
+fi
+
+/show/description "[TERMINAL COLOR] $colorName ($colorNumber)"
+
+sed -i "s/\["$currentColor"m/\["$colorNumber"m/" /root/.bashrc 
+echo -e "Type $ERR /pi/start $NORMAL to refresh $OK color $NORMAL"

@@ -3,10 +3,31 @@
 clear
 /show/description "Prepare your Raspberry Pi"
 
+
 renameMessage="\
 Give a name to your raspberry pi
 "
+HOSTNAME=$(cat /etc/hostname)
+newHostname=$(whiptail --title "Prepare your Raspberry Pi" --inputbox "Current name: $HOSTNAME" --title "Name" 0 0 3>&1 1>&2 2>&3)
+if [ ! -z $newHostname ];then
+	/pi/name $newHostname
+fi
 
-newhostname=$(whiptail --inputbox "$renameMessage" --title "[PI] Name" 0 0 3>&1 1>&2 2>&3)
-echo $newhostname
-#/pi/name $newhostname
+newPassword=$(whiptail --title "Prepare your Raspberry Pi" --inputbox "User: pi" --title "Terminal password" 0 0 3>&1 1>&2 2>&3)
+
+if [ ! -z $newPassword ];then
+	/system/password pi $newPassword
+fi
+
+currentColor=$(/system/getColor)
+
+optionsColor=$(whiptail --title "Prepare your Raspberry Pi" --menu "Current Color:$currentColor" 0 0 0 \
+		"red" "" \
+		"gray" "" \
+		"pink" "" \
+		"blue" "" \
+		"yellow" "" \
+		"green" "" 3>&1 1>&2 2>&3)
+if [ ! -z $optionsColor ];then
+	/system/changeColor $optionsColor
+fi

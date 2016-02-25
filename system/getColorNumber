@@ -1,0 +1,4 @@
+#!/bin/bash
+colorNumber=$(cat /root/.bashrc |grep PS1|cut -f1 -d"m"|awk -F[ '{ print $NF }')
+
+echo $colorNumber
