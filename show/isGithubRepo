@@ -5,7 +5,7 @@ repo=$2
 curl -silent https://api.github.com/repos/$username/$repo|grep "Not Found"
 
 if [ $? -eq 1 ];then
-	/show/nlbecho "-> Repo exists" $OK;/show/minibox_OK
+	# /show/nlbecho "-> Repo exists" $OK;/show/minibox_OK
 	exit 0
 else
 	/show/errorBox "$? - Repo $username/$repo doesn't exists"

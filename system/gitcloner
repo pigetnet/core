@@ -1,12 +1,19 @@
 #!/bin/bash
-/show/listecho "Clone $1 inside $2" $OK
-git clone --depth=1 https://github.com/$1 $2
-giterror=$?
+
+repo=$1
+directory=$2
+
+if [ ! -d $directory ];then
+	git clone --depth=1 https://github.com/$repo $directory > /dev/null
+	giterror=$?
+fi
 # echo $giterror
-if [[ $giterror == 128 ]]
-	then
-	/show/nlbecho "-> ALREADY CLONED" $WARN
-	/show/minibox_SKIP
+# if [[ $giterror == 128 ]]
+#	then
+	# /show/listecho "---> ALREADY CLONED" $WARN
+	# /show/minibox_SKIP
 	# /show/messagebox "Update $1"
 	# git --work-tree=$2 --git-dir=$2/.git pull origin master
-fi
+#else
+#	/show/listecho "Clone $1 inside $2" $OK
+#fi

@@ -11,13 +11,13 @@ if [ $# -ge 2 ] || [[ $# -eq 0 ]] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];
 else
     reponame=$1
     if [[ $reponame == *"/"* ]];then
-        echo "Custom detected"
+        #echo "Custom detected"
         username=${reponame%/*}
         reponame=${reponame#*/}
     else
         username="pigetnet"
     fi
-    /show/description "Github: $username/$reponame => /do/$reponame"
+    /show/description "[GITHUB] $username/$reponame => /do/$reponame"
     /show/isGithubRepo $username $reponame
 
     if [ $? -eq 0 ]
@@ -27,5 +27,4 @@ else
         /show/colecho "No repo founded" $ERR
         exit 1
     fi
-    /show/console
 fi

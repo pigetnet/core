@@ -11,54 +11,40 @@ if [ $# -ge 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
 else
 
 	OLD_HOSTNAME=$(/show/smbGetName)
+	NEW_HOSTNAME=$OLD_HOSTNAME
 	#If no arguments is given
-	if [ $# -eq 0 ]
-	then
+	if [ $# -eq 0 ];then
 		# Get hostname from /boot/piget/config/name.txt
-		if [ -f /boot/piget/config/name.txt ]
-		then
+		if [ -f /boot/piget/config/name.txt ];then
 			NEW_HOSTNAME=$(cat /boot/piget/config/name.txt)
-			#Convert Name to Netbios convention to ensure compatibility
-			#If no hostname was provided will be reset to default (raspberrypi)
-			. /string/ToNetbios "$NEW_HOSTNAME"
-			NEW_HOSTNAME=$NewString
-
-			
-			# /show/listecho "Using /boot/piget/config/name.txt" $OK
-		else
-		#If there isn't a /boot/piget/config/name.txt default to raspberry pi
-			NEW_HOSTNAME=raspberrypi
-			# /show/listecho "Using default" $WARN
 		fi
 	else
 		#If a name is provided
-		if [ $# -eq 1 ]
-		then	
-			NEW_HOSTNAME=$1
-			
-			#Copy new hostname inside /boot/piget/config/name.txt
-			echo $NEW_HOSTNAME > /boot/piget/config/name.txt
-			
-			#Convert Name to Netbios convention to ensure compatibility
-			#If no hostname was provided will be reset to default (raspberrypi)
-			. /string/ToNetbios "$NEW_HOSTNAME"
-			
-			NEW_HOSTNAME=$NewString
-			# /show/listecho "Raspberry Pi Name : $NEW_HOSTNAME" $OK
-		else
-			/show/errorBox "Too many arguments"
-			/show/usageDescription "Rename your Raspberry Pi using avahi/samba"
-			/show/usage "/pi/name [newname] (default:/boot/piget/config/name.txt)"
-			/show/example "/pi/name raspberrypi"
-			exit 1
+		if [ $# -eq 1 ];then	
+			NEW_HOSTNAME=$1			
 		fi
 	fi
 
 	if [ -n "$NEW_HOSTNAME" ];then
-		/show/description "[Name] $OLD_HOSTNAME --> $NEW_HOSTNAME"
+
 		# Check if samba and avahi is installed
 		/system/install samba
 		/system/install avahi-daemon
+
+		#Save hostname
+		#Convert Name to Netbios convention to ensure compatibility
+		#If no hostname was provided will be reset to default (raspberrypi)
+		. /string/ToNetbios "$NEW_HOSTNAME"
+		NEW_HOSTNAME=$NewString
+		
+		#Copy new hostname inside /boot/piget/config/name.txt
+		echo $NEW_HOSTNAME > /boot/piget/config/name.txt
+
+		if [ $# -ne 0 ];then
+			/show/description "[Name] $OLD_HOSTNAME --> $NEW_HOSTNAME"
+			echo -e "Type $ERR /pi/start $NORMAL to refresh $OK name $NORMAL"
+		fi
+		
 
 		###### HOSTNAME / HOSTS
 		/net/resetHost $NEW_HOSTNAME
@@ -67,7 +53,6 @@ else
 		# /show/listecho "Samba Name : $NEW_HOSTNAME" $1
 		/string/replaceLine "/etc/samba/smb.conf" "netbios name =" "        netbios name = $NEW_HOSTNAME" "\[global\]"
 		/system/restart samba
-		echo -e "Type $ERR /pi/start $NORMAL to refresh $OK name $NORMAL"
-		
+	
 	fi
 fi
