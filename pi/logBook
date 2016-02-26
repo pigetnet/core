@@ -1,0 +1,40 @@
+#!/bin/bash
+
+wifi=$(/net/isWifi)
+name=$(/show/name)
+modules=$(/show/modules)
+timeStamp=$(date)
+
+. /show/ipInterface eth0
+ip_eth0=$ipAddr
+. /show/ipInterface wlan0
+ip_wlan0=$ipAddr
+
+cat <<EOF > /boot/piget/logBook.txt
+Raspberry Pi Journal - $timeStamp
+--------------------
+ 
+Log
+--------------------
+What does you Raspberry Pi do ? Write it here
+-------------------
+ 
+Electronics
+-------------------
+Write here if you have electronics components plugged on the Raspberry Pi
+-------------------
+ 
+Network
+-------------------
+Name: $name
+WIFI: $ip_wlan0
+Ethernet: $ip_eth0
+-------------------
+ 
+List of modules
+-------------------
+$modules
+-------------------
+EOF
+
+nano /boot/piget/logBook.txt

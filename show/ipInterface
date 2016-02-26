@@ -1,0 +1,7 @@
+#!/bin/bash
+interface=$1
+ipAddr=$(ip -f inet -o addr show $interface|cut -d\  -f 7 | cut -d/ -f 1)
+if [ ${#ipAddr} -eq 0 ];then
+	ipAddr="no"
+fi
+

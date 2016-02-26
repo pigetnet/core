@@ -31,4 +31,3 @@ fi
 /show/description "[TERMINAL COLOR] $colorName ($colorNumber)"
 
 sed -i "s/\["$currentColor"m/\["$colorNumber"m/" /root/.bashrc 
-echo -e "Type $ERR /pi/start $NORMAL to refresh $OK color $NORMAL"

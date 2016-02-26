@@ -1,0 +1,3 @@
+#!/bin/bash
+isConnected=$(iwconfig $interface 2>/dev/null |grep "Not-Associated"|wc -l)
+echo $isConnected
