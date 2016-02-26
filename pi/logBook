@@ -1,5 +1,7 @@
 #!/bin/bash
 
+/system/install dos2unix
+
 wifi=$(/net/isWifi)
 name=$(/show/name)
 modules=$(/show/modules)
@@ -9,6 +11,8 @@ timeStamp=$(date)
 ip_eth0=$ipAddr
 . /show/ipInterface wlan0
 ip_wlan0=$ipAddr
+
+/show/description "[CREATE LOG] /boot/piget/logBook.txt"
 
 cat <<EOF > /boot/piget/logBook.txt
 Raspberry Pi Journal - $timeStamp
@@ -37,4 +41,7 @@ $modules
 -------------------
 EOF
 
-nano /boot/piget/logBook.txt
+unix2dos /boot/piget/logBook.txt > /dev/null 2>&1
+
+/show/listecho "Type nano /boot/piget/logBook.txt to modify log" $OK
+
