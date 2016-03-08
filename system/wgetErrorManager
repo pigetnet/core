@@ -6,18 +6,18 @@ if [[ -f $filename ]]
 
 		case $wgeterror in
 			0)
-			/show/nlbecho "file downloaded" $OK;/show/minibox_OK
+			
 			;;
 
 			2)
-			/show/errorBox "Wrong wget commands"
+			/show/listecho "Wrong wget commands" $ERR
 			;;
 
 			*)
 			rm -f $filename
-			/show/errorBox "$wgeterror - File not founded"
+			/show/listecho "File not founded" $ERR
 			;;
 		esac
 else
-        /show/errorBox "$wgeterror - Wrong filename"
+        /show/listecho "Wrong filename" $ERR
 fi

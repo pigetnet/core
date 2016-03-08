@@ -2,31 +2,31 @@
 #Download a simple file on pigetnet gihub repositories
 #$1 repo/file
 #$2 dir/filename
-
-if [ $# -eq 3 ]
-then
+if [ $# -ne 3 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox "$0"
+	/show/info "[beta] [service] [systemctl]"
+	/show/usageDescription "Download a file on github"
+	/show/usage "$0 repo source destination"
+	/show/example "$0 pigetnet/smb piget /etc/samba/smb.conf"
+else
 	reponame=$1
 	source=$2
 	destination=$3
 
-/show/description "Github: pigetnet/$reponame/$source ==> $destination " $OK
+	# /show/listecho "Github: pigetnet/$reponame/$source ==> $destination " $OK
 
-rm -f /tmp/wget.temp
-wget https://raw.githubusercontent.com/pigetnet/$reponame/master/$source -O /tmp/wget.temp --no-check-certificate > /dev/null 2>&1
-wgeterror=$?
-/system/wgetErrorManager $wgeterror /tmp/wget.temp
-if [ -s "/tmp/wget.temp" ]
-then
-	mv /tmp/wget.temp $destination
-else
 	rm -f /tmp/wget.temp
-	echo "Here is a list of available files"
-	curl -s https://github.com/pigetnet/$reponame/ | grep js-directory-link | sed 's|.* title="\(.*\)".*|\1|'
-	exit 1
+	wget https://raw.githubusercontent.com/$reponame/master/$source -O /tmp/wget.temp --no-check-certificate > /dev/null 2>&1
+	wgeterror=$?
+	/system/wgetErrorManager $wgeterror /tmp/wget.temp
+
+	if [ -e "/tmp/wget.temp" ]
+	then
+		mv /tmp/wget.temp $destination
+	else
+		rm -f /tmp/wget.temp
+		/show/listecho "Here is a list of available files" $OK
+		curl -s https://github.com/$reponame/ | grep js-directory-link | sed 's|.* title="\(.*\)".*|\1|'
+		exit 1
 	fi
-else
-	/show/errorBox "1 - Wrong arguments"
-	/show/usage "/system/downloadGithubFile reponame filename destination"
-	/show/example "/system/downloadGithubFile core graphics/colecho /tmp/test.sh"
-	exit 1
 fi
