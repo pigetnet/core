@@ -11,7 +11,7 @@ if [[ $isInstalled -eq 0 ]];then
 	/show/nlbecho "-> Install: $PACKAGE" $OK
 	#debconf-apt-progress -- apt-get -q -y -o "Dpkg::Progress-Fancy=1" -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" install "$PACKAGE"
 	#apt-get -q -y -o "Dpkg::Options::=--force-confdef" -o "Dpkg::Options::=--force-confold" install "$PACKAGE"
-	debconf-apt-progress -- apt-get install -q -y $PACKAGE
+	debconf-apt-progress -- apt-get install -q -y "$PACKAGE"
 	. /show/isInstalled $PACKAGE
 	#WAS THE PACKAGE INSTALLED ?
 	if [[ $isInstalled -eq 1 ]];then

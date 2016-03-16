@@ -1,0 +1,9 @@
+#!/bin/bash
+#Install nodejs (adafruit installer)
+if [ ! -e /usr/local/bin/node ];then
+        /show/listecho "Install nodejs (adafruit)" $OK
+        curl -sLS https://apt.adafruit.com/add | bash
+        /system/install node
+        nodeversion=$(node -v)
+        /show/listecho "Node version $nodeversion" $OK
+fi
