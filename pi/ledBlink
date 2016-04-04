@@ -5,7 +5,12 @@ if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/usageDescription 'Make the green led blink'
   /show/usage "$0"
 else
-	modprobe ledtrig_heartbeat;echo heartbeat >/sys/class/leds/led0/trigger
+	if [ -d /sys/class/leds/led0 ];then
+			modprobe ledtrig_heartbeat;echo heartbeat >/sys/class/leds/led0/trigger
+	else
+			/show/listecho "As for now This doesn't works on a Raspberry Pi 3" $ERR
+			/show/listecho "try /pi/update to see if the issue is resolved" $OK
+	fi
 fi
 
 

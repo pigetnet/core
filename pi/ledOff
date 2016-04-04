@@ -6,5 +6,10 @@ if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/usageDescription 'Turn off the green led'
   /show/usage "$0"
 else
-	echo none >/sys/class/leds/led0/trigger;echo 0 >/sys/class/leds/led0/brightness
+	if [ -d /sys/class/leds/led0 ];then
+			echo none >/sys/class/leds/led0/trigger;echo 0 >/sys/class/leds/led0/brightness
+	else
+			/show/listecho "As for now This doesn't works on a Raspberry Pi 3" $ERR
+			/show/listecho "try /pi/update to see if the issue is resolved" $OK
+	fi
 fi
