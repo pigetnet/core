@@ -6,23 +6,24 @@ if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/usageDescription 'Download and install WiringPi (to manage GPIO)'
   /show/usage "$0"
 else
-	/show/description "WiringPi Pi Installation"
-	/system/install git-core
+	if [ -d "/opt/wiringPi" ];then
+			/show/description "[WiringPi] Installation"
+			/system/install git-core
 
-	/show/nlbecho "By default WiringPi will be installed in" 
-	/show/colecho "/opt/wiringPi/" $ERR
+			/show/nlbecho "By default WiringPi will be installed in" 
+			/show/colecho "/opt/wiringPi/" $ERR
 
-	rm -rf /opt/wiringPi
-	cd /opt/
-	git clone git://git.drogon.net/wiringPi wiringPi
+			cd /opt/
+			git clone git://git.drogon.net/wiringPi wiringPi
 
-	/show/messagebox "Build wiringpi"
-	/show/console
-	cd /opt/wiringPi/
-	./build
-	/show/console
-
-	/show/colecho "WiringPi installed!" $WARN
+			/show/messagebox "Build wiringpi"
+			cd /opt/wiringPi/
+			./build > /tmp/InstallwiringPi.log
+			/show/colecho "WiringPi installed!" $WARN
+	else
+		/show/description "[WiringPi] Check Update"
+		/opt/wiringPi/newVersion
+	fi
 	echo "To compile a C++ program with it"
 	echo "Type:"
 	/show/colecho "gcc program.cpp -o program -lwiringPi" $PICOLOR

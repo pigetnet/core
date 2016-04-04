@@ -1,23 +1,22 @@
 #!/bin/bash
 # Install/Update WiringPi
+if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+  /show/messagebox "$0"
+  /show/info '[beta]'
+  /show/usageDescription 'Download and install WiringPi (to manage GPIO)'
+  /show/usage "$0"
+else
+	if [ ! -d "/opt/wiringPi" ];then
+			/show/listecho "[WiringPi] Installation" $OK
+			/system/install git-core
 
-/show/description "WiringPi Pi Installation"
-/system/install git-core
+			git clone -q git://git.drogon.net/wiringPi /opt/wiringPi
 
-/show/nlbecho "By default WiringPi will be installed in" 
-/show/colecho "/opt/wiringPi/" $ERR
-
-rm -rf /opt/wiringPi
-cd /opt/
-git clone git://git.drogon.net/wiringPi wiringPi
-
-/show/messagebox "Build wiringpi"
-/show/console
-cd /opt/wiringPi/
-./build
-/show/console
-
-/show/colecho "WiringPi installed!" $WARN
-echo "To compile a C++ program with it"
-echo "Type:"
-/show/colecho "gcc program.cpp -o program -lwiringPi" $PICOLOR
+			cd /opt/wiringPi/
+			./build > /tmp/build_wiringPi.log
+			/show/colecho "installed" $OK
+	else
+		/show/listecho "[WiringPi] Check Update" $OK
+		cd /opt/wiringPi;./newVersion
+	fi
+fi
