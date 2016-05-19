@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# -eq 0 ];then
+	current_folder=$PWD
+else
+	current_folder=$1
+fi
+
+first=$(echo "$current_folder" | cut -d "/" -f2)
+second=$(echo "$current_folder" | cut -d "/" -f3)
+name=$(/show/smbGetName)
+if [[ $first == "do" ]];then
+	echo "\\\\$name\\piget\\$second"
+fi
+
+if [[ $first == "user" ]];then
+	echo "\\\\$name\\user\\$second"
+fi
