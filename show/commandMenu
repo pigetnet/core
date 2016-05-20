@@ -1,0 +1,94 @@
+#!/bin/bash
+
+menuConf=$1
+
+if [ -f $menuConf ];then
+	debug=0
+
+	#Variables
+	menuLine=0  #Line of file
+	optionsNb=0 #Options array length
+	commandNb=0
+	istitle=1
+	issubtitle=0
+	iscommand=0
+
+	decho(){
+		if [ $debug -eq 1 ];then
+			echo "$@"
+		fi
+	}
+
+	get_title(){
+		if [ $menuLine -eq 1 ];then
+			title=$line
+			decho "Title: $title"
+		fi
+	}
+
+	get_subtitle(){
+		if [ $menuLine -eq 2 ];then
+			subtitle="$line"
+			istitle=0
+			decho "SubTitle: $title"
+		fi
+	}
+
+	get_option(){
+		if [ $istitle -eq 0 ];then
+			if [ $iscommand -eq 0 ];then
+				decho "Option $commandNb --- $line"
+				options[ $optionsNb ]="$commandNb"
+				optionsNb=$((optionsNb+1))
+				options[ $optionsNb ]="$line"
+				optionsNb=$((optionsNb+1))
+				iscommand=1
+			else
+				decho "Command $commandNb --- $line"
+				commands[ $commandNb ]="$line"
+				iscommand=0
+				commandNb=$((commandNb+1))
+			fi
+		fi
+
+	}
+
+	#Source: triple_r
+	#http://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+	isnum() { awk -v a="$1" 'BEGIN {print (a == a + 0)}'; }
+
+	#Read configuration file
+	while read line
+	do
+		if [[ ! $line =~ [^[:space:]] ]] ; then
+			continue
+		fi
+
+				# echo $line
+				menuLine=$((menuLine+1))
+				get_option
+				get_subtitle
+				get_title
+
+	done < $menuConf
+
+			options[ $optionsNb ]="X"
+			optionsNb=$((optionsNb+1))
+			options[ $optionsNb ]="Exit"
+			optionsNb=$((optionsNb+1))
+
+			answer=$(whiptail --backtitle "PIGET MENU : madnerd.org" --title "$title" --menu "$subtitle" 0 0 0 "${options[@]}"  3>&1 1>&2 2>&3)
+
+			decho $answer
+			isnumber=$(isnum $answer)
+			if [ $isnumber -ne 1 ];then
+				echo "See you around!"
+			else
+				clear
+				/show/description ${commands[$answer]}
+				${commands[$answer]}
+			fi
+
+else
+	/show/listecho "Can't find menu : $menuConf" $ERR
+fi
