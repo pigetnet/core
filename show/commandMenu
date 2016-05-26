@@ -13,12 +13,20 @@ if [ -f $menuConf ];then
 	issubtitle=0
 	iscommand=0
 
+	# Associative Array (This will make Option selectable with a keyboard)
+	# By Mitch Frazier
+	# http://www.linuxjournal.com/content/bash-associative-arrays
+	declare -A commands
+	letters=('A' 'B' 'C' 'D' 'E' 'F' 'G' 'H' 'I' 'J' 'K' 'L' 'M' 'N' 'O' 'P' 'Q' 'R' 'S' 'T' 'U' 'V' 'W' 'Y' 'Z')
+
+	# Show debug echo
 	decho(){
 		if [ $debug -eq 1 ];then
 			echo "$@"
 		fi
 	}
 
+	#Get title (first line)
 	get_title(){
 		if [ $menuLine -eq 1 ];then
 			title=$line
@@ -26,6 +34,7 @@ if [ -f $menuConf ];then
 		fi
 	}
 
+	#Get subtitle (second line)
 	get_subtitle(){
 		if [ $menuLine -eq 2 ];then
 			subtitle="$line"
@@ -34,18 +43,19 @@ if [ -f $menuConf ];then
 		fi
 	}
 
+	#Other line (switch between option text then command)
 	get_option(){
 		if [ $istitle -eq 0 ];then
 			if [ $iscommand -eq 0 ];then
 				decho "Option $commandNb --- $line"
-				options[ $optionsNb ]="$commandNb"
+				options[ $optionsNb ]="${letters[$commandNb]}"
 				optionsNb=$((optionsNb+1))
 				options[ $optionsNb ]="$line"
 				optionsNb=$((optionsNb+1))
 				iscommand=1
 			else
 				decho "Command $commandNb --- $line"
-				commands[ $commandNb ]="$line"
+				commands[${letters[$commandNb]}]="$line"
 				iscommand=0
 				commandNb=$((commandNb+1))
 			fi
@@ -79,14 +89,18 @@ if [ -f $menuConf ];then
 
 			answer=$(whiptail --backtitle "PIGET MENU : madnerd.org" --title "$title" --menu "$subtitle" 0 0 0 "${options[@]}"  3>&1 1>&2 2>&3)
 
-			decho $answer
-			isnumber=$(isnum $answer)
-			if [ $isnumber -ne 1 ];then
-				echo "See you around!"
+			decho "ANSWER IS $answer"
+			#isnumber=$(isnum $answer)
+			if [[ $answer == "X" ]];then
+				/show/listecho "See you around!" $OK
 			else
-				clear
-				/show/description ${commands[$answer]}
-				${commands[$answer]}
+				if [[ $debug -eq 0 ]];then
+					clear
+					/show/description ${commands[$answer]}
+					${commands[$answer]}
+				else
+					/show/description ${commands[$answer]}				
+				fi
 			fi
 
 else
