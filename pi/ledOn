@@ -1,15 +1,19 @@
 #!/bin/bash
 if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/messagebox "$0"
-  /show/info '[release]'
+  /show/info '[release] [orangepi]'
   /show/usageDescription 'Turn on the green led'
   /show/usage "$0"
 else
 	if [ -d /sys/class/leds/led0 ];then
 			echo none >/sys/class/leds/led0/trigger;echo 1 >/sys/class/leds/led0/brightness
 	else
-			/show/listecho "As for now This doesn't works on a Raspberry Pi 3" $ERR
+		if [ -d /sys/class/leds/green_led ];then
+			 echo 255 >/sys/class/leds/green_led/brightness
+		else
+			/show/listecho "This doesn't seems to works on your board" $ERR
 			/show/listecho "try /pi/update to see if the issue is resolved" $OK
+		fi
 	fi
 fi
 
