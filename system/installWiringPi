@@ -7,12 +7,13 @@ if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/usageDescription 'Download and install WiringPi (to manage GPIO)'
   /show/usage "$0"
 else
+	hardware=$(/pi/getBoard)
+
 	if [ ! -d "/opt/wiringPi" ];then
 			/show/listecho "[WiringPi] Installation" $OK
 			/system/install git-core
 
 
-			hardware=$(/pi/getBoard)
 
 			if [[ $hardware == "orangepi" ]];then
 				git clone -q https://github.com/zhaolei/WiringOP.git -b h3 /opt/wiringPi
@@ -25,6 +26,11 @@ else
 			/show/colecho "installed" $OK
 	else
 		/show/listecho "[WiringPi] Check Update" $OK
-		cd /opt/wiringPi;./newVersion
+
+		if [[ $hardware == "orangepi" ]];then
+			echo "Update is not implemented on orangePi"
+		else
+			cd /opt/wiringPi;./newVersion
+		fi
 	fi
 fi
