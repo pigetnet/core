@@ -15,7 +15,7 @@ else
 			hardware=$(/pi/getBoard)
 
 			if [[ $hardware == "orangepi" ]];then
-				git clone -q https://github.com/orangepi-xunlong/WiringOP -b orangepi /opt/wiringPi
+				git clone -q https://github.com/zhaolei/WiringOP.git -b h3 /opt/wiringPi
 			else
 				git clone -q git://git.drogon.net/wiringPi /opt/wiringPi
 			fi
