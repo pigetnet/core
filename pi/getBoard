@@ -1,0 +1,8 @@
+#!/bin/bash
+hardware=$(cat  /proc/cpuinfo |grep "Hardware"|awk '{print $3}')
+
+if [[ $hardware == "sun8i" ]];then
+	echo "orangepi"
+else
+	echo "raspberrypi"
+fi
