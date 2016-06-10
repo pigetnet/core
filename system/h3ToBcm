@@ -54,7 +54,7 @@ case $1 in
 	16 )
 		echo "201";;
 	20 )
-		echo "201";;
+		echo "198";;
 	21 )
 		echo "199";;
 esac
