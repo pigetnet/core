@@ -2,7 +2,7 @@
 
 if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/messagebox "$0"
-  /show/info '[release]'
+  /show/info '[release] [orangepi]'
   /show/usageDescription 'Turn off the green led'
   /show/usage "$0"
 else

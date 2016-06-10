@@ -1,14 +1,14 @@
 #!/bin/bash
 if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/messagebox "$0"
-  /show/info '[release]'
+  /show/info '[release] [orangepi]'
   /show/usageDescription 'Reset the green led to SDcard activity'
   /show/usage "$0"
 else
 	if [ -d /sys/class/leds/led0 ];then
 			echo mmc0 >/sys/class/leds/led0/trigger
 	else
-			/show/listecho "As for now This doesn't works on a Raspberry Pi 3" $ERR
+			/show/listecho "As for now This doesn't works on your board" $ERR
 			/show/listecho "try /pi/update to see if the issue is resolved" $OK
 	fi
 fi
