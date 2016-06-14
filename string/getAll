@@ -1,0 +1,19 @@
+#!/bin/bash
+if [ $# -ne 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+  /show/messagebox "$0"
+  /show/info '[alpha] [1 args]'
+  /show/usageDescription 'get All fields of a configuration file'
+  /show/usage "$0 filename"
+  /show/example "$0 /string/getAll /boot/config.txt"
+else
+	file=$1
+	if [ -f $file ];then
+		configType=$(/string/getConfigFormat $file)
+
+		if [[ $configType == "CONFIG" ]];then
+			python /string/python/getConfig.py $file
+		fi
+	else
+		/show/listecho "File doesn't exists" $ERR
+	fi
+fi

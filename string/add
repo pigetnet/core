@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ $# -ne 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox "$0"
+	/show/info '[alpha] [2 args] [danger]'
+	/show/usageDescription 'Add a parameters in a configuration file'
+	/show/usage "$0 filename string_to_add"
+	/show/example "$0 /string/add /boot/config.txt dtparam=i2c1=on"
+
+else
+	file=$1
+	string_to_add=$2
+	if [ -f $file ];then
+		python /string/python/addConfig.py $file "$string_to_add"
+		exitcode=$?
+	else
+		/show/listecho "File doesn't exists" $ERR
+	fi
+fi

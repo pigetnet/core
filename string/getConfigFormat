@@ -1,0 +1,3 @@
+#!/bin/bash
+python /string/python/getConfigFormat.py $1
+
