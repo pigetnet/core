@@ -1,0 +1,26 @@
+#!/bin/bash
+echo "Remove all logs"
+read
+rm /var/log/*
+rm /var/log/apt/*
+rm /var/log/fsck/*
+rm /var/log/ntpstats/*
+rm /var/log/samba/*
+echo "Remove bash history for root and pi"
+read
+rm /home/pi/.bash_history
+rm /root/.bash_history
+
+echo "Check wifi password"
+read
+cat /etc/wpa_supplicant/wpa_supplicant.conf
+echo "Check user config"
+read
+ls /user/config
+echo "Check user folder"
+read
+ls /user/
+echo "Copy disk using win32diskImager now"
+echo "And shrink it with piShrink script on Linux"
+
+
