@@ -1,0 +1,9 @@
+#!/bin/bash
+file=$1
+if [ -f /user/state/$file ];then
+	cat /user/state/$file
+else
+	/show/colecho "[ERROR] : No state for $1" $ERR
+	/show/listecho "List of states" $OK
+	ls /user/state/
+fi

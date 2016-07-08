@@ -1,0 +1,9 @@
+#!/bin/bash
+# Source: http://stackoverflow.com/questions/13777387/check-for-ip-validity
+ip=$1
+if [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "1"
+else
+  echo "0"
+fi
+

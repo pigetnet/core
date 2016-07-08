@@ -1,8 +1,16 @@
 #!/bin/bash
 found=""
-cat $1 |grep -q $2
-found=$?
-if [ $found == 0 ]
-then
-	/show/listecho "$2 founded"
+file=$1
+string=$2
+if [ -f $file ];then
+	cat $1 |grep -q $2
+	found=$?
+
+	if [ $found -eq 0 ];then
+		echo "1"
+	else
+		echo "0"
+	fi
+else
+	echo "-1"
 fi
