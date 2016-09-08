@@ -1,0 +1,2 @@
+#!/bin/bash
+find /var/log -type f -name "*.log" -exec tee {} \; </dev/null

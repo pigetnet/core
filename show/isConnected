@@ -10,7 +10,7 @@ else
 	url="www.wikipedia.org"
 fi
 
-ping -c1 $url > /dev/null 2>&1 && internet=1 || internet=0 
+ping -c1 $url > /dev/null 2>&1 && internet=1 || internet=0
 if [[ $internet == 1 ]]
 	then
 		/show/minibox_OK
