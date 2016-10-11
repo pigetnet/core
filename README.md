@@ -13,7 +13,7 @@ curl -L piget.madnerd.org | sudo bash
 ```
 
 You can also download a ready-to-go image here:
-(to be add)
+[piget.zip](https://github.com/pigetnet/core/releases/download/v1.0/piget.zip)
 
 # Setup your Raspberry Pi
 We can setup our Raspberry Pi using a menu, by typing :
