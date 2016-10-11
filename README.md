@@ -20,6 +20,7 @@ We can setup our Raspberry Pi using a menu, by typing :
 ```
 /pi/setup
 ```
+![/pi/setup](https://github.com/pigetnet/core/raw/master/doc/pi-setup.png)
 
 *  Choose a name for your Raspberry Pi
 *  Choose a password for the terminal (user: pi)
@@ -86,7 +87,3 @@ Here is more details :
     * /opt/piget/core/string --> /string/ (String Manipulation)
     * /opt/piget/core/system --> /system/ (System scripts for modules)
 *   Setup time zone based on IP thanks to tzupdate.
-
-
-
-
