@@ -1,4 +1,4 @@
-Piget will allow us to automate software and components install on the Raspberry Pi   
+Piget is a repository for scripts to automate software and components installation on the Raspberry Pi   
 Instead of typing complex commands and modify configuration files, you can use short command instead.   
 
 Piget doesn't modify how your Raspberry Pi will works, it's only a bunch of scripts and symbolic links, if
@@ -13,7 +13,7 @@ curl -L piget.madnerd.org | sudo bash
 ```
 
 You can also download a ready-to-go image here:
-[piget.zip](https://github.com/pigetnet/core/releases/download/v1.0/piget.zip)
+[piget.zip](https://github.com/pigetnet/core/releases/download/v1.0/piget.zip)    
 
 # Setup your Raspberry Pi
 We can setup our Raspberry Pi using a menu, by typing :
