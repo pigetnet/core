@@ -29,8 +29,8 @@ Read a message from a socket
 ```
 
 # Hosts / interfaces files
-Change hostname in /etc/hostname and /etc/hosts
-Default reset name to /user/settings/pi/name.txt
+Change hostname in /etc/hostname and /etc/hosts    
+**Default :** reset name to /user/settings/pi/name.txt
 ```
 /net/resetHost
 /net/resetHost NAME
