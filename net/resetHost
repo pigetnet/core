@@ -3,22 +3,18 @@ if [ $# -ge 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
 	/show/messagebox "/net/resetHost"
 	/show/info "[beta] [network] [avahi] [bonjour]"
 	/show/usageDescription "Change name in /etc/hosts and /etc/hostname"
-	/show/usage "$0 [newname] (default:/boot/piget/config/name.txt)"
+	/show/usage "$0 [newname] (default:/user/settings/pi/name.txt)"
 	/show/example "$0 raspberrypi"
 	/show/return "NEW_HOSTNAME"
 else
 	#Check if name is a valid netbios name (for samba compatibility)
 	. /string/ToNetbios $1
 	NEW_HOSTNAME=$NewString
-	
 
-	# /show/listecho "Bonjour Name : $NEW_HOSTNAME.local" $OK
-
-	# Change /etc/hostname 
-	/system/autoBackup /etc/hostname
+	# Change /etc/hostname
 	echo $NEW_HOSTNAME > /etc/hostname
 
-	# Change /etc/hosts	
+	# Change /etc/hosts
 	/string/replaceLine "/etc/hosts" "127.0.1.1" "127.0.1.1 $NEW_HOSTNAME" "ff02::2         ip6-allrouters"
 	hostname $NEW_HOSTNAME
 	/system/restart avahi-daemon
