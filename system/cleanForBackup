@@ -14,13 +14,12 @@ rm /root/.bash_history
 echo "Check wifi password"
 read
 cat /etc/wpa_supplicant/wpa_supplicant.conf
-echo "Check user config"
+echo "Check user settings"
 read
-ls /user/config
+ls /user/settings
 echo "Check user folder"
 read
 ls /user/
-echo "Copy disk using win32diskImager now"
-echo "And shrink it with piShrink script on Linux"
+
 
 

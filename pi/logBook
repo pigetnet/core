@@ -12,9 +12,9 @@ ip_eth0=$ipAddr
 . /show/ipInterface wlan0
 ip_wlan0=$ipAddr
 
-/show/description "[CREATE LOG] /boot/piget/logBook.txt"
+/show/description "[CREATE LOG] /boot/logBook.txt"
 
-cat <<EOF > /boot/piget/logBook.txt
+cat <<EOF > /boot/logBook.txt
 Raspberry Pi Journal - $timeStamp
 --------------------
  
@@ -41,7 +41,7 @@ $modules
 -------------------
 EOF
 
-unix2dos /boot/piget/logBook.txt > /dev/null 2>&1
+unix2dos /boot/logBook.txt > /dev/null 2>&1
 
-/show/listecho "Type nano /boot/piget/logBook.txt to modify log" $OK
+/show/listecho "Type nano /boot/logBook.txt to modify log" $OK
 
