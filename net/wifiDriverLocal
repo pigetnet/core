@@ -1,6 +1,0 @@
-#!/bin/bash
-#From DougieLawson
-#https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=109034&hilit=+mt7601#p749749
-/show/description "Installing driver for wifi from /boot/piget/"
-tar -xvf /boot/piget/wifiDriver.tar.gz -C /tmp/
-cd /tmp;/tmp/install.sh
