@@ -1,6 +1,7 @@
 core/net
+--------
 
-This module manages network connection
+This sub-module manages network connection
 
 # Internet connection
 
@@ -15,9 +16,3 @@ Reconnect gateway
 /net/internetOn 192.168.0.254
 ```
 
-# WIFI
-
-Check if WIFI is connected
-```
-/net/isWifi
-```
