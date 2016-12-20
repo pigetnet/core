@@ -18,12 +18,15 @@ Reconnect gateway
 # Socket
 
 Send a message to a socket
+```
 /net/socketSend PORT MESSAGE
 /net/socketSend 80 "Hello World"
-
+```
 Read a message from a socket
+```
 /net/socketRead PORT
 /net/socketRead "Hello World"
+```
 
 # Hosts / interfaces files
 Change hostname in /etc/hostname and /etc/hosts
