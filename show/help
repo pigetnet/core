@@ -1,21 +1,31 @@
 #!/bin/bash
-
-if [ $# -eq 1 ];then
-	script=$1
-	/system/python/analyseScript.py $script
+if [ $# -ge 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[python] [analyseScript] [alpha]"
+	/show/usageDescription 'Automatically generate an help markdown table for a script'
+	/show/usage '/show/help script'
+	/show/example '/show/help /pi/name'
 else
-	/show/description "Welcome to PiGet"
-	/show/listecho "You can install a module using /system/downloadModule"
-	/show/listecho "You can prepare your Raspberry Pi with /pi/"
-	/show/listecho "You can rename your Raspberry with /pi/name mynewname"
-	/show/listecho "Every modules commands are inside /do/"
-	/show/messagebox "Commons commands"
-	/show/listecho "Modules have commands in common"
-	/show/listecho "/do/module/install : install module"
-	/show/listecho "/do/module/settings : open configuration file"
-	/show/listecho "/do/module/setup : Interactive setup"
-	/show/listecho "/do/module/start : Start module"
-	/show/listecho "/do/module/stop : Stop module"
-	/show/messagebox "For more information and a list of availables modules go to http://www.piget.net"
-
+	if [ $# -eq 1 ];then
+		if [ -f $1 ];then
+			script=$1
+			/system/python/analyseScript.py $script
+		else
+			/show/errorBox "File - $1 doesn't exists"
+		fi
+	else
+		/show/description "Welcome to PiGet"
+		/show/listecho "You can install a module using /pi/install"
+		/show/listecho "You can prepare your Raspberry Pi with commands inside /pi/"
+		/show/listecho "You can rename your Raspberry with /pi/name mynewname"
+		/show/listecho "Every modules commands are inside /do/"
+		/show/messagebox "Commons commands"
+		/show/listecho "Modules have commands in common"
+		/show/listecho "/do/module/install : install module"
+		/show/listecho "/do/module/settings : open configuration file"
+		/show/listecho "/do/module/setup : Interactive setup"
+		/show/listecho "/do/module/start : Start module"
+		/show/listecho "/do/module/stop : Stop module"
+		/show/messagebox "For more information and a list of availables modules go to http://www.github.com/pigetnet"
+	fi
 fi

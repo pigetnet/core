@@ -1,8 +1,22 @@
 #!/bin/bash
-folder=./
-if [ $# -eq 1 ];then
-	if [ -e $1 ];then
-		folder=$1
+if [ $# -ge 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[du] [beta]"
+	/show/usageDescription 'Display the size of a folder (or the current folder)'
+	/show/usage '/show/folderSize or /show/folderSize dir'
+	/show/example "/show/folderSize /etc"
+else
+	
+	#Check if folder is defined and if it exists
+	if [ $# -eq 1 ];then
+		if [ -e $1 ];then
+			folder=$1
+		else
+			/show/errorBox "Folder $1 doesn't exists"
+			exit 1
+		fi
+	else
+		folder=./
 	fi
+	du -h -s $folder|awk '{print $1}'
 fi
-du -h -s $folder|awk '{print $1}'

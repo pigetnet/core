@@ -1,12 +1,18 @@
 #!/bin/bash
-r=$(tput setaf 1)
-n=$(tput sgr 0)
-w=$(tput bold)
-g=$(tput setaf 2)
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[gpio] [beta]"
+	/show/usageDescription 'Pretty gpio display'
+	/show/usage '/show/gpio'
+else
+	r=$(tput setaf 1)
+	n=$(tput sgr 0)
+	w=$(tput bold)
+	g=$(tput setaf 2)
 
-# To remove colors just find/replace
-# 3.3V 3.3V
-# ${w}GND${n} ${w}GND${n}
+	# To remove colors just find/replace
+	# 3.3V 3.3V
+	# ${w}GND${n} ${w}GND${n}
 
 
 cat<<EOF
@@ -37,5 +43,6 @@ cat<<EOF
 +-----------+
 +    ${g}USB${n}    +
 +-----+-----+
-
 EOF
+
+fi

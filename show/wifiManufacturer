@@ -1,2 +1,0 @@
-#!/bin/bash
-lsusb -v |grep "802.11"

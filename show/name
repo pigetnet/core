@@ -1,13 +1,20 @@
 #!/bin/bash
-if [[ -f /etc/samba/smb.conf ]]
-	then
-		smbname=$(cat /etc/samba/smb.conf |grep "netbios name = ")
-	if [[ $? == 0 ]]
-	then
-		echo $smbname|sed 's/netbios name = //'
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[samba] [hostname] [beta]"
+	/show/usageDescription 'Show hostname using samba config file or hostname file'
+	/show/usage '/show/name'
+else 
+	if [[ -f /etc/samba/smb.conf ]]
+		then
+			smbname=$(cat /etc/samba/smb.conf |grep "netbios name = ")
+		if [[ $? == 0 ]]
+		then
+			echo $smbname|sed 's/netbios name = //'
+		else
+			cat /etc/hostname
+		fi
 	else
-	/show/ipAddress
-fi
-else
-	/show/ipAddress
+		cat /etc/hostname
+	fi
 fi

@@ -2,7 +2,7 @@
 
 if [ $# -eq 0 ] || [ $# -ge 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
 	/show/messagebox "/show/askUser"
-	/show/info "[interactive] [alpha]"
+	/show/info "[interactive] [beta]"
 	/show/usageDescription 'Ask an question and return the answer'
 	/show/usage '. /show/askUser question'
 	/show/example '. /show/askUser "What Time is it?"'

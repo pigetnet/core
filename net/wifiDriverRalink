@@ -1,7 +1,0 @@
-#!/bin/bash
-/show/description "Install drivers for ralink WI-FI dongle"
-/show/messagebox "List of USB devices connected"
-/show/wifiManufacturer
-/system/install firmware-ralink
-/show/listecho "Reboot to finish installation" $ERR
-

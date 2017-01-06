@@ -30,7 +30,7 @@ We can setup our Raspberry Pi using a menu, by typing :
 
 * Rename your Raspberry Pi
 ````
-/pi/name nom
+/pi/name name
 /pi/name madnerd
 ````
 * Change password
@@ -49,7 +49,7 @@ passwd pi
 /pi/install module
 /pi/install led
 ```
-* Display automatically generated help for a command
+* Display help for a command
 ```
 /show/help command
 /show/help /pi/name
@@ -60,24 +60,20 @@ YOu can find the script here : http://piget.madnerd.org
 The installer will
  *  update your Raspberry Pi
  *  install some dependencies
- *  setup scripts on Piget
+ *  setup Piget
  *  setup the time zone
 
 Here is more details :
 * Check your internet connectivity
 * Update Raspberry Pi :  (apt-get update / apt-get upgrade)
 * Install dependencies :  (git / python-pip / tabulate /  tzupdate )
-* Clone github.com/pigetnet/bootstrap on /boot/piget (This folder will allow us to setup our Raspberry Pi from the SD card)
-* Copy file structure /boostrap/piget/config/external/
-    * /etc/network/interfaces (Default Raspbian settings)
+* Copy bashrc banner
     * /home/pi/.bashrc (Terminal banner for user pi)
     * /root/.bashrc (Terminal banner for user root)
-    * Clone github.com/pigetnet/core on /opt/piget/core (This folder contains all core scripts on Piget)
-* Create folders /opt/user (settings and personal files)
-    * /opt/user/config (settings)
-    * /opt/user/scripts (user scripts)
-    * /opt/user/data (user data)
-    * /opt/user/state (saved states)
+ * Clone github.com/pigetnet/core on /opt/piget/core (This folder contains all core scripts on Piget)
+* Create folders 
+    * /opt/user (personal files)
+    * /opt/user/settings (settings)
 * Create symbolic links
     * /opt/user --> /user/ (User data)
     * /opt/piget --> /do/ (Piget modules)

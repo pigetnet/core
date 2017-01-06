@@ -1,9 +1,15 @@
 #!/bin/bash
-cd $1
-smbname=$(/show/smbGetName)
-/show/description "Display $1 on $smbname"
-oldpid=$(ps axf | grep "SimpleHTTPServer" | grep -v grep | awk '{print  $1}')
-kill -9 $oldpid
+if [ $# -ne 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[http] [python] [SimpleHHTPServer] [beta]"
+	/show/usageDescription 'Display a directory on port 314 (using pythonSmallServer)'
+	/show/usage '/show/displayhtml'
+else
+	cd $1
+	smbname=$(/show/smbGetName)
+	/show/description "Display $1 on $smbname"
+	oldpid=$(ps axf | grep "SimpleHTTPServer" | grep -v grep | awk '{print  $1}')
+	kill -9 $oldpid
 
-nohup python -m SimpleHTTPServer 314 &>/dev/null &
-
+	nohup python -m SimpleHTTPServer 314 &>/dev/null &
+fi

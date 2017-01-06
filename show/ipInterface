@@ -1,7 +1,15 @@
 #!/bin/bash
-interface=$1
-ipAddr=$(ip -f inet -o addr show $interface|cut -d\  -f 7 | cut -d/ -f 1)
-if [ ${#ipAddr} -eq 0 ];then
-	ipAddr="no"
+if [ $# -ne 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[ip] [beta]"
+	/show/usageDescription 'Save ip address from an interface into a variable'
+	/show/usage '. /show/ipInterface'
+	/show/example '. /show/ipInterface eth0'
+	/show/return '$ipAddr=192.168.0.13'
+else  
+	interface=$1
+	ipAddr=$(ip -f inet -o addr show $interface|cut -d\  -f 7 | cut -d/ -f 1)
+	if [ ${#ipAddr} -eq 0 ];then
+		ipAddr="no"
+	fi
 fi
-

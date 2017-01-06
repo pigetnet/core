@@ -1,9 +1,19 @@
 #!/bin/bash
-IsPackageLine="$(apt-cache show $1|wc -l 2>/dev/null)"
-if [ $IsPackageLine -eq 0 ];then
-	isPackage=0
+if [ $# -ne 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[apt-cache]"
+	/show/usageDescription 'Check if this is a apt-get package'
+	/show/usage '. /show/isPackage'
+	/show/example '. /show/isPackage samba'
+	/show/return '$isPackage=0 if not $isPackage=1 if it is'
 else
-	isPackage=1
+	package=$1
+	IsPackageLine="$(apt-cache show $package|wc -l 2>/dev/null)"
+	if [ $IsPackageLine -eq 0 ];then
+		isPackage=0
+	else
+		isPackage=1
+	fi
 fi
 
 

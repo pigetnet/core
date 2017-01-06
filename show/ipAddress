@@ -1,2 +1,10 @@
 #!/bin/bash
-hostname -I |cut -f1 -d' '
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[hostname] [beta]"
+	/show/usageDescription 'Display first IP address'
+	/show/usage '/show/ipAddress'
+	/show/example '/show/ipAddress'
+else  
+	hostname -I |cut -f1 -d' '
+fi

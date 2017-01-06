@@ -1,6 +1,0 @@
-#!/bin/bash
-#Verify if you are root
-/show/description "Fix wifi slowliness"
-/show/messagebox "Modify vm.min_free_kbytes"
-/system/autoBackup /etc/sysctl.conf
-/string/replaceLine "/etc/sysctl.conf" "vm.min_free_kbytes" "vm.min_free_kbytes = 32768" "vm.swappiness=1"

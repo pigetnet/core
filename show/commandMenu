@@ -1,108 +1,117 @@
 #!/bin/bash
 
-menuConf=$1
 
-if [ -f $menuConf ];then
-	debug=0
+if [ $# -ne 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[interactive] [whiptail] [beta]"
+	/show/usageDescription 'Create a whiptail menu based on a text configuration files'
+	/show/usage '/show/commandMenu menuFiles '
+	/show/example '/show/commandMenu /do/buttons/menu/buttons.conf'
+else
+	menuConf=$1
 
-	#Variables
-	menuLine=0  #Line of file
-	optionsNb=0 #Options array length
-	commandNb=0
-	istitle=1
-	issubtitle=0
-	iscommand=0
+	if [ -f $menuConf ];then
+		debug=0
 
-	# Associative Array (This will make Option selectable with a keyboard)
-	# By Mitch Frazier
-	# http://www.linuxjournal.com/content/bash-associative-arrays
-	declare -A commands
-	letters=('A' 'B' 'C' 'D' 'E' 'F' 'G' 'H' 'I' 'J' 'K' 'L' 'M' 'N' 'O' 'P' 'Q' 'R' 'S' 'T' 'U' 'V' 'W' 'Y' 'Z')
+		#Variables
+		menuLine=0  #Line of file
+		optionsNb=0 #Options array length
+		commandNb=0
+		istitle=1
+		issubtitle=0
+		iscommand=0
 
-	# Show debug echo
-	decho(){
-		if [ $debug -eq 1 ];then
-			echo "$@"
-		fi
-	}
+		# Associative Array (This will make Option selectable with a keyboard)
+		# By Mitch Frazier
+		# http://www.linuxjournal.com/content/bash-associative-arrays
+		declare -A commands
+		letters=('A' 'B' 'C' 'D' 'E' 'F' 'G' 'H' 'I' 'J' 'K' 'L' 'M' 'N' 'O' 'P' 'Q' 'R' 'S' 'T' 'U' 'V' 'W' 'Y' 'Z')
 
-	#Get title (first line)
-	get_title(){
-		if [ $menuLine -eq 1 ];then
-			title=$line
-			decho "Title: $title"
-		fi
-	}
-
-	#Get subtitle (second line)
-	get_subtitle(){
-		if [ $menuLine -eq 2 ];then
-			subtitle="$line"
-			istitle=0
-			decho "SubTitle: $title"
-		fi
-	}
-
-	#Other line (switch between option text then command)
-	get_option(){
-		if [ $istitle -eq 0 ];then
-			if [ $iscommand -eq 0 ];then
-				decho "Option $commandNb --- $line"
-				options[ $optionsNb ]="${letters[$commandNb]}"
-				optionsNb=$((optionsNb+1))
-				options[ $optionsNb ]="$line"
-				optionsNb=$((optionsNb+1))
-				iscommand=1
-			else
-				decho "Command $commandNb --- $line"
-				commands[${letters[$commandNb]}]="$line"
-				iscommand=0
-				commandNb=$((commandNb+1))
+		# Show debug echo
+		decho(){
+			if [ $debug -eq 1 ];then
+				echo "$@"
 			fi
-		fi
+		}
 
-	}
+		#Get title (first line)
+		get_title(){
+			if [ $menuLine -eq 1 ];then
+				title=$line
+				decho "Title: $title"
+			fi
+		}
 
-	#Source: triple_r
-	#http://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
-	isnum() { awk -v a="$1" 'BEGIN {print (a == a + 0)}'; }
+		#Get subtitle (second line)
+		get_subtitle(){
+			if [ $menuLine -eq 2 ];then
+				subtitle="$line"
+				istitle=0
+				decho "SubTitle: $title"
+			fi
+		}
 
-	#Read configuration file
-	while read line
-	do
-		if [[ ! $line =~ [^[:space:]] ]] ; then
-			continue
-		fi
-
-				# echo $line
-				menuLine=$((menuLine+1))
-				get_option
-				get_subtitle
-				get_title
-
-	done < $menuConf
-
-			options[ $optionsNb ]="X"
-			optionsNb=$((optionsNb+1))
-			options[ $optionsNb ]="Exit"
-			optionsNb=$((optionsNb+1))
-
-			answer=$(whiptail --backtitle "PIGET MENU : madnerd.org" --title "$title" --menu "$subtitle" 0 0 0 "${options[@]}"  3>&1 1>&2 2>&3)
-
-			decho "ANSWER IS $answer"
-			#isnumber=$(isnum $answer)
-			if [[ $answer == "X" ]];then
-				/show/listecho "See you around!" $OK
-			else
-				if [[ $debug -eq 0 ]];then
-					clear
-					/show/description ${commands[$answer]}
-					${commands[$answer]}
+		#Other line (switch between option text then command)
+		get_option(){
+			if [ $istitle -eq 0 ];then
+				if [ $iscommand -eq 0 ];then
+					decho "Option $commandNb --- $line"
+					options[ $optionsNb ]="${letters[$commandNb]}"
+					optionsNb=$((optionsNb+1))
+					options[ $optionsNb ]="$line"
+					optionsNb=$((optionsNb+1))
+					iscommand=1
 				else
-					/show/description ${commands[$answer]}				
+					decho "Command $commandNb --- $line"
+					commands[${letters[$commandNb]}]="$line"
+					iscommand=0
+					commandNb=$((commandNb+1))
 				fi
 			fi
 
-else
-	/show/listecho "Can't find menu : $menuConf" $ERR
+		}
+
+		#Source: triple_r
+		#http://stackoverflow.com/questions/806906/how-do-i-test-if-a-variable-is-a-number-in-bash
+		isnum() { awk -v a="$1" 'BEGIN {print (a == a + 0)}'; }
+
+		#Read configuration file
+		while read line
+		do
+			if [[ ! $line =~ [^[:space:]] ]] ; then
+				continue
+			fi
+
+					# echo $line
+					menuLine=$((menuLine+1))
+					get_option
+					get_subtitle
+					get_title
+
+		done < $menuConf
+
+				options[ $optionsNb ]="X"
+				optionsNb=$((optionsNb+1))
+				options[ $optionsNb ]="Exit"
+				optionsNb=$((optionsNb+1))
+
+				answer=$(whiptail --backtitle "PIGET MENU : madnerd.org" --title "$title" --menu "$subtitle" 0 0 0 "${options[@]}"  3>&1 1>&2 2>&3)
+
+				decho "ANSWER IS $answer"
+				#isnumber=$(isnum $answer)
+				if [[ $answer == "X" ]];then
+					/show/listecho "See you around!" $OK
+				else
+					if [[ $debug -eq 0 ]];then
+						clear
+						/show/description ${commands[$answer]}
+						${commands[$answer]}
+					else
+						/show/description ${commands[$answer]}				
+					fi
+				fi
+
+	else
+		/show/listecho "Can't find menu : $menuConf" $ERR
+	fi
 fi

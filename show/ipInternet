@@ -1,2 +1,10 @@
 #!/bin/bash
-wget http://ipecho.net/plain -O - -q ; echo
+# Source: http://unix.stackexchange.com/questions/294569/check-ip-address-of-a-linux-server-to-upload-the-file/294594
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[wget] [ipecho.net] [release]"
+	/show/usageDescription 'Show external ip'
+	/show/usage '. /show/ipInternet'
+else 	 
+	wget http://ipecho.net/plain -O - -q ; echo
+fi

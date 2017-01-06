@@ -1,7 +1,13 @@
 #!/bin/bash
-
-/show/description "Killing SimpleHTTPServer"
-oldpid=$(ps axf | grep "SimpleHTTPServer" | grep -v grep | awk '{print  $1}')
-kill -9 $oldpid
-
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[http] [python] [SimpleHHTPServer] [beta]"
+	/show/usageDescription 'Kill pythonSmallServer instances'
+	/show/usage '/show/displayhtmlStop'
+	/show/example "/show/displayhtmlStop"
+else
+	/show/description "Killing SimpleHTTPServer"
+	oldpid=$(ps axf | grep "SimpleHTTPServer" | grep -v grep | awk '{print  $1}')
+	kill -9 $oldpid
+fi
 

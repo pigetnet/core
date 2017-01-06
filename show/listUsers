@@ -1,3 +1,10 @@
 #!/bin/bash
 #Display lists of users
-cat /etc/passwd |grep "/bin/bash"|cut -d: -f1
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] ;then
+	/show/messagebox $0
+	/show/info "[/etc/passwd]"
+	/show/usageDescription 'List all users'
+	/show/usage '/show/listUsers'
+else
+	cat /etc/passwd |grep "/bin/bash"|cut -d: -f1
+fi

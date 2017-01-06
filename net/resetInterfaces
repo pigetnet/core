@@ -1,6 +1,0 @@
-#!/bin/bash
-/show/description "Reset interfaces to default"
-/show/listecho "Copy /boot/piget/config/network/interfaces to /etc/network/interfaces" $OK
-/system/autoBackup /etc/network/interfaces
-cp -f /boot/piget/config/network/interfaces /etc/network/interfaces
-

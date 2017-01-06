@@ -15,7 +15,7 @@ else
         username=${reponame%/*}
         reponame=${reponame#*/}
     else
-        username="pigetnet"
+        username=$(cat /user/settings/pi/repo.txt)
     fi
     /show/description "[GITHUB] $username/$reponame => /do/$reponame"
     /show/isGithubRepo $username $reponame

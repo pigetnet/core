@@ -2,21 +2,20 @@
 if [ $# -ge 2 ] || [[ $# -eq 0 ]] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
 	/show/messagebox "$0"
 	/show/info '[alpha] [WIP] [danger] [dev]'
-	/show/usageDescription 'Save configuration file into /user/config/piget/external nad /boot/piget/config/external'
+	/show/usageDescription 'Save configuration file into /user/settings/pi/files'
 	/show/usage "$0 file"
 	/show/usage "$0 /etc/samba/smb.conf"
 else
 	file=$1
 	if [ -f $file ];then
-		/show/listecho "$file ==> /user/config/piget/external$file" $OK
+		/show/listecho "$file ==> /user/settings/files$file" $OK
 		filename=$(basename $1)
 		dirname=$(dirname $1) 
 		# echo $filename
 		# echo $dirname
 		if [ ${dirname:0:1} == "/" ];then
-			mkdir -p /user/config/piget/external$dirname
-			cp $file /user/config/piget/external$dirname/$filename
-			/system/syncUserToBoot
+			mkdir -p /user/settings/pi/files
+			cp $file /user/settings/pi/$dirname/$filename
 		else
 			echo "Need absolute path"
 		fi
