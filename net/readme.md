@@ -1,7 +1,10 @@
 core/net
 --------
 
-This sub-module manages network connection
+This sub-module manages network connection    
+[Dev manual](https://github.com/pigetnet/core/blob/dev/net/doc/manual.md)    
+[Dev manual (long)](https://github.com/pigetnet/core/blob/dev/net/doc/manual_long.md)    
+
 
 # Internet connection
 

@@ -10,10 +10,6 @@
 | Example                   | /net/internetOn 192.168.1.1       |
 | Info                      | [alpha] [undocumented]            |
 
-| /do/core/net/readme.md   |                        |
-|:-------------------------|:-----------------------|
-| Info                     | [alpha] [undocumented] |
-
 | /do/core/net/resetHost   |                                             |
 |:-------------------------|:--------------------------------------------|
 | Description              | Change name in /etc/hosts and /etc/hostname |
