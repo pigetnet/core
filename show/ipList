@@ -1,3 +1,10 @@
 #!/bin/bash
 #Display all ip address
-echo $(hostname -I)
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[hostname] [release]"
+	/show/usageDescription 'Show all ip address'
+	/show/usage '/show/ipList'
+else 	 
+	echo $(hostname -I)
+fi

@@ -1,2 +1,9 @@
 #!/bin/bash
-echo "${SSH_CLIENT%% *}"
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[pinky] [release]"
+	/show/usageDescription 'Show ip of current ssh user'
+	/show/usage '/show/ipUser'
+else 
+	pinky|awk '{print $5}'|tail -n1
+fi

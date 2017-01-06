@@ -1,13 +1,21 @@
 #!/bin/bash
 #Check if github repo username/repo exists
-username=$1
-repo=$2
-curl -silent https://api.github.com/repos/$username/$repo|grep "Not Found"
-
-if [ $? -eq 1 ];then
-	# /show/nlbecho "-> Repo exists" $OK;/show/minibox_OK
-	exit 0
-else
-	/show/errorBox "$? - Repo $username/$repo doesn't exists"
-	exit 1
+if [ $# -ne 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[curl] [github.com] [official api]"
+	/show/usageDescription 'Check if a username/repo exists on github'
+	/show/usage '/show/isGithubRepo'
+	/show/example '/show/isGithubRepo ldleman yana-server'
+	/show/return "exitcode 1 if repo doesn't exists, 0 if it exists"
+else 
+	username=$1
+	repo=$2
+	curl -silent https://api.github.com/repos/$username/$repo|grep "Not Found"
+	if [ $? -eq 1 ];then
+		# /show/nlbecho "-> Repo exists" $OK;/show/minibox_OK
+		exit 0
+	else
+		/show/errorBox "$? - Repo $username/$repo doesn't exists"
+		exit 1
+	fi
 fi

@@ -1,2 +1,10 @@
 #!/bin/bash
-vcgencmd measure_temp|sed s/temp=//
+#Source : https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=34994
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[beta]"
+	/show/usageDescription 'Display CPU temperture in celsius'
+	/show/usage '/show/cpuTemp'
+else
+	vcgencmd measure_temp|sed s/temp=//
+fi

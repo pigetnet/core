@@ -1,7 +1,17 @@
 #!/bin/bash
-
-if [ $# -eq 1 ];then
-/show/colecho "~~~~~~~~~~~~~ $1 ~~~~~~~~~~~" $PICOLOR
-cat $1
-/show/colecho "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" $PICOLOR
+if [ $# -ne 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[cat] [beta]"
+	/show/usageDescription 'Display the content of a file'
+	/show/usage '/show/file filename'
+	/show/example "/show/file /etc/samba/smb.conf"
+else
+	filename=$1
+	if [ -f $filename ];then
+		/show/colecho "~~~~~~~~~~~~~ $1 ~~~~~~~~~~~" $PICOLOR
+		cat $1
+		/show/colecho "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" $PICOLOR
+	else
+		/show/errorBox "file -- $1 does not exists"
+	fi
 fi

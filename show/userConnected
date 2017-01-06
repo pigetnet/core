@@ -1,2 +1,10 @@
 #!/bin/bash
-last |grep "still logged in"|wc -l
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[df] [release]"
+	/show/usageDescription 'Show numbers of users logged into a terminal'
+	/show/usage '/show/userConnected'
+	/show/return 'Number of user connected'
+else 
+	last |grep "still logged in"|wc -l
+fi

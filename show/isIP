@@ -1,9 +1,17 @@
 #!/bin/bash
 # Source: http://stackoverflow.com/questions/13777387/check-for-ip-validity
-ip=$1
-if [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  echo "1"
-else
-  echo "0"
+if [ $# -ne 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[regular expression]"
+	/show/usageDescription 'Check if a variable is an ip address'
+	/show/usage '/show/isIP'
+	/show/example '/show/isIP 192.168.0.1'
+	/show/return '1 if it is ip , 0 if not'
+else 
+	ip=$1
+	if [[ $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+	  echo "1"
+	else
+	  echo "0"
+	fi
 fi
-

@@ -1,1 +1,9 @@
-date +%H:%M
+#!/bin/bash
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[date] [release]"
+	/show/usageDescription 'Show hour and minutes'
+	/show/usage '/show/time'
+else 
+	date +%H:%M
+fi

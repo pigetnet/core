@@ -1,2 +1,11 @@
 #!/bin/bash
-echo $(date +%H-%M-%S_%m-%d-%Y)
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[interactive] [beta]"
+	/show/usageDescription 'Display date formatted to be use in filename'
+	/show/usage '/show/date'
+	/show/example "15-00-09_01-06-2017"
+	/show/return 'HOUR-MINUTES-SECONDS_MONTH_DAY_YEAR'
+else
+	echo $(date +%H-%M-%S_%m-%d-%Y)
+fi
