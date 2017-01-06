@@ -1,6 +1,6 @@
 | /do/core/show/askUser                           |                                       |
 |:------------------------------------------------|:--------------------------------------|
-| Info                                            | [interactive] [alpha]                 |
+| Info                                            | [interactive] [beta]                  |
 | Description                                     | Ask an question and return the answer |
 | Usage                                           | Return $ASKUSER                       |
 | Example                                         | . /show/askUser What Time is it?      |
@@ -18,9 +18,13 @@
 
 | /do/core/show/commandMenu     |                                                                                                                                                                                                                                                                                                                                                                  |
 |:------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Info                          | [alpha] [undocumented]                                                                                                                                                                                                                                                                                                                                           |
+| Info                          | [interactive] [whiptail] [beta]                                                                                                                                                                                                                                                                                                                                  |
+| Description                   | Create a whiptail menu based on a text configuration files                                                                                                                                                                                                                                                                                                       |
+| Usage                         | /show/commandMenu menuFiles                                                                                                                                                                                                                                                                                                                                      |
+| Example                       | /show/commandMenu /do/buttons/menu/buttons.conf                                                                                                                                                                                                                                                                                                                  |
 | Arguments                     | 1:menuConf,                                                                                                                                                                                                                                                                                                                                                      |
 | Variables                     | menuConf=$1, title=$line, optionsNb=$((optionsNb+1)), optionsNb=$((optionsNb+1)), commandNb=$((commandNb+1)), menuLine=$((menuLine+1)), optionsNb=$((optionsNb+1)), optionsNb=$((optionsNb+1)), answer=$(whiptail --backtitle "PIGET MENU : madnerd.org" --title "$title" --menu "$subtitle" 0 0 0 "${options[@]}"  3>&1 1>&2 2>&3), #isnumber=$(isnum $answer), |
+| Modules                       | /show/example '/show/commandMenu /do/buttons/menu/buttons.conf',                                                                                                                                                                                                                                                                                                 |
 | 1. See you around!            |                                                                                                                                                                                                                                                                                                                                                                  |
 | 1. ${commands[$answer]}       |                                                                                                                                                                                                                                                                                                                                                                  |
 | 2. ${commands[$answer]}       |                                                                                                                                                                                                                                                                                                                                                                  |
@@ -35,13 +39,18 @@
 | Info                           | [alpha] [undocumented] |
 | 1. Stopped... $info            |                        |
 
-| /do/core/show/cpuTemp   |                        |
-|:------------------------|:-----------------------|
-| Info                    | [alpha] [undocumented] |
+| /do/core/show/cpuTemp   |                                   |
+|:------------------------|:----------------------------------|
+| Info                    | [beta]                            |
+| Description             | Display CPU temperture in celsius |
+| Usage                   | /show/cpuTemp                     |
 
-| /do/core/show/date   |                        |
-|:---------------------|:-----------------------|
-| Info                 | [alpha] [undocumented] |
+| /do/core/show/date   |                                              |
+|:---------------------|:---------------------------------------------|
+| Info                 | [interactive] [beta]                         |
+| Description          | Display date formatted to be use in filename |
+| Usage                | /show/date                                   |
+| Example              | 15-00-09_01-06-2017                          |
 
 | /do/core/show/description   |                        |
 |:----------------------------|:-----------------------|
@@ -49,17 +58,25 @@
 
 | /do/core/show/dir   |                        |
 |:--------------------|:-----------------------|
-| Info                | [alpha] [undocumented] |
+| Info                | [beta]                 |
+| Description         | Display current folder |
+| Usage               | /show/dir              |
+| Example             | /usr/bin               |
 
 | /do/core/show/displayhtml   |                                                                                                             |
 |:----------------------------|:------------------------------------------------------------------------------------------------------------|
-| Info                        | [alpha] [undocumented]                                                                                      |
+| Info                        | [http] [python] [SimpleHHTPServer] [beta]                                                                   |
+| Description                 | Display a directory on port 314 (using pythonSmallServer)                                                   |
+| Usage                       | /show/displayhtml                                                                                           |
 | Variables                   | smbname=$(/show/smbGetName), oldpid=$(ps axf | grep "SimpleHTTPServer" | grep -v grep | awk '{print  $1}'), |
 | 1. Display $1 on $smbname   |                                                                                                             |
 
 | /do/core/show/displayhtmlStop   |                                                                                |
 |:--------------------------------|:-------------------------------------------------------------------------------|
-| Info                            | [alpha] [undocumented]                                                         |
+| Info                            | [http] [python] [SimpleHHTPServer] [beta]                                      |
+| Description                     | Kill pythonSmallServer instances                                               |
+| Usage                           | /show/displayhtmlStop                                                          |
+| Example                         | /show/displayhtmlStop                                                          |
 | Variables                       | oldpid=$(ps axf | grep "SimpleHTTPServer" | grep -v grep | awk '{print  $1}'), |
 | 1. Killing SimpleHTTPServer     |                                                                                |
 
@@ -71,115 +88,160 @@
 |:------------------------|:-----------------------|
 | Info                    | [alpha] [undocumented] |
 
-| /do/core/show/file                             |                        |
-|:-----------------------------------------------|:-----------------------|
-| Info                                           | [alpha] [undocumented] |
-| 1. ~~~~~~~~~~~~~ $1 ~~~~~~~~~~~ $PICOLOR       |                        |
-| 2. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ $PICOLOR |                        |
+| /do/core/show/file                             |                                |
+|:-----------------------------------------------|:-------------------------------|
+| Info                                           | [cat] [beta]                   |
+| Description                                    | Display the content of a file  |
+| Usage                                          | /show/file filename            |
+| Example                                        | /show/file /etc/samba/smb.conf |
+| Arguments                                      | 1:filename,                    |
+| Variables                                      | filename=$1,                   |
+| 1. ~~~~~~~~~~~~~ $1 ~~~~~~~~~~~ $PICOLOR       |                                |
+| 2. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ $PICOLOR |                                |
 
-| /do/core/show/folderSize   |                        |
-|:---------------------------|:-----------------------|
-| Info                       | [alpha] [undocumented] |
-| Arguments                  | 1:folder,              |
-| Variables                  | folder=$1,             |
+| /do/core/show/folderSize   |                                                      |
+|:---------------------------|:-----------------------------------------------------|
+| Info                       | [du] [beta]                                          |
+| Description                | Display the size of a folder (or the current folder) |
+| Usage                      | /show/folderSize or /show/folderSize dir             |
+| Example                    | /show/folderSize /etc                                |
+| Arguments                  | 1:folder,                                            |
+| Variables                  | folder=$1,                                           |
 
 | /do/core/show/gpio   |                                                                        |
 |:---------------------|:-----------------------------------------------------------------------|
-| Info                 | [alpha] [undocumented]                                                 |
+| Info                 | [gpio] [beta]                                                          |
+| Description          | Pretty gpio display                                                    |
+| Usage                | /show/gpio                                                             |
 | Variables            | r=$(tput setaf 1), n=$(tput sgr 0), w=$(tput bold), g=$(tput setaf 2), |
 
-| /do/core/show/help                                       |                                                                                                                  |
-|:---------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| Info                                                     | [alpha] [undocumented]                                                                                           |
-| Arguments                                                | 1:script,                                                                                                        |
-| Variables                                                | script=$1,                                                                                                       |
-| System                                                   | /system/python/analyseScript.py $script, /show/listecho "You can install a module using /system/downloadModule", |
-| 1. Welcome to PiGet                                      |                                                                                                                  |
-| 1. You can install a module using /system/downloadModule |                                                                                                                  |
-| 2. You can prepare your Raspberry Pi with /pi/           |                                                                                                                  |
-| 3. You can rename your Raspberry with /pi/name mynewname |                                                                                                                  |
-| 4. Every modules commands are inside /do/                |                                                                                                                  |
-| 5. Modules have commands in common                       |                                                                                                                  |
-| 6. /do/module/install : install module                   |                                                                                                                  |
-| 7. /do/module/settings : open configuration file         |                                                                                                                  |
-| 8. /do/module/setup : Interactive setup                  |                                                                                                                  |
-| 9. /do/module/start : Start module                       |                                                                                                                  |
-| 10. /do/module/stop : Stop module                        |                                                                                                                  |
+| /do/core/show/help                                             |                                                            |
+|:---------------------------------------------------------------|:-----------------------------------------------------------|
+| Info                                                           | [python] [analyseScript] [alpha]                           |
+| Description                                                    | Automatically generate an help markdown table for a script |
+| Usage                                                          | /show/help script                                          |
+| Example                                                        | /show/help /pi/name                                        |
+| Arguments                                                      | 1:script,                                                  |
+| Variables                                                      | script=$1,                                                 |
+| System                                                         | /system/python/analyseScript.py $script,                   |
+| 1. Welcome to PiGet                                            |                                                            |
+| 1. You can install a module using /pi/install                  |                                                            |
+| 2. You can prepare your Raspberry Pi with commands inside /pi/ |                                                            |
+| 3. You can rename your Raspberry with /pi/name mynewname       |                                                            |
+| 4. Every modules commands are inside /do/                      |                                                            |
+| 5. Modules have commands in common                             |                                                            |
+| 6. /do/module/install : install module                         |                                                            |
+| 7. /do/module/settings : open configuration file               |                                                            |
+| 8. /do/module/setup : Interactive setup                        |                                                            |
+| 9. /do/module/start : Start module                             |                                                            |
+| 10. /do/module/stop : Stop module                              |                                                            |
 
-| /do/core/show/helpVerbose                                |                                                                                                                            |
-|:---------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------|
-| Info                                                     | [alpha] [undocumented]                                                                                                     |
-| Arguments                                                | 1:script,                                                                                                                  |
-| Variables                                                | script=$1,                                                                                                                 |
-| System                                                   | /system/python/analyseScript.py $script --verbose, /show/listecho "You can install a module using /system/downloadModule", |
-| 1. Welcome to PiGet                                      |                                                                                                                            |
-| 1. You can install a module using /system/downloadModule |                                                                                                                            |
-| 2. You can prepare your Raspberry Pi with /pi/           |                                                                                                                            |
-| 3. You can rename your Raspberry with /pi/name mynewname |                                                                                                                            |
-| 4. Every modules commands are inside /do/                |                                                                                                                            |
-| 5. Modules have commands in common                       |                                                                                                                            |
-| 6. /do/module/install : install module                   |                                                                                                                            |
-| 7. /do/module/settings : open configuration file         |                                                                                                                            |
-| 8. /do/module/setup : Interactive setup                  |                                                                                                                            |
-| 9. /do/module/start : Start module                       |                                                                                                                            |
-| 10. /do/module/stop : Stop module                        |                                                                                                                            |
+| /do/core/show/helpVerbose   |                                                                           |
+|:----------------------------|:--------------------------------------------------------------------------|
+| Info                        | [python] [analyseScript] [alpha] [verbose]                                |
+| Description                 | Automatically generate an help markdown table for a script (verbose mode) |
+| Usage                       | /show/help script                                                         |
+| Example                     | /show/help /pi/name                                                       |
+| Arguments                   | 1:script,                                                                 |
+| Variables                   | script=$1,                                                                |
+| System                      | /system/python/analyseScript.py $script --verbose,                        |
 
 | /do/core/show/info   |                        |
 |:---------------------|:-----------------------|
 | Info                 | [alpha] [undocumented] |
 
-| /do/core/show/ipAddress   |                        |
-|:--------------------------|:-----------------------|
-| Info                      | [alpha] [undocumented] |
+| /do/core/show/ip   |                          |
+|:-------------------|:-------------------------|
+| Info               | [hostname] [beta]        |
+| Description        | Display first IP address |
+| Usage              | /show/ipAddress          |
+| Example            | /show/ipAddress          |
+
+| /do/core/show/ipAddress   |                          |
+|:--------------------------|:-------------------------|
+| Info                      | [hostname] [beta]        |
+| Description               | Display first IP address |
+| Usage                     | /show/ipAddress          |
+| Example                   | /show/ipAddress          |
 
 | /do/core/show/ipInterface   |                                                                                          |
 |:----------------------------|:-----------------------------------------------------------------------------------------|
-| Info                        | [alpha] [undocumented]                                                                   |
+| Info                        | [ip] [beta]                                                                              |
+| Description                 | Save ip address from an interface into a variable                                        |
+| Usage                       | . /show/ipInterface                                                                      |
+| Example                     | . /show/ipInterface eth0                                                                 |
 | Arguments                   | 1:interface,                                                                             |
 | Variables                   | interface=$1, ipAddr=$(ip -f inet -o addr show $interface|cut -d\  -f 7 | cut -d/ -f 1), |
 
-| /do/core/show/ipInternet   |                        |
-|:---------------------------|:-----------------------|
-| Info                       | [alpha] [undocumented] |
+| /do/core/show/ipInternet   |                               |
+|:---------------------------|:------------------------------|
+| Info                       | [wget] [ipecho.net] [release] |
+| Description                | Show external ip              |
+| Usage                      | . /show/ipInternet            |
 
-| /do/core/show/ipList   |                        |
-|:-----------------------|:-----------------------|
-| Info                   | [alpha] [undocumented] |
+| /do/core/show/ipList   |                      |
+|:-----------------------|:---------------------|
+| Info                   | [hostname] [release] |
+| Description            | Show all ip address  |
+| Usage                  | /show/ipList         |
 
-| /do/core/show/ipUser   |                        |
-|:-----------------------|:-----------------------|
-| Info                   | [alpha] [undocumented] |
+| /do/core/show/ipUser   |                             |
+|:-----------------------|:----------------------------|
+| Info                   | [pinky] [release]           |
+| Description            | Show ip of current ssh user |
+| Usage                  | /show/ipUser                |
 
-| /do/core/show/isConnected   |                        |
-|:----------------------------|:-----------------------|
-| Info                        | [alpha] [undocumented] |
-| Arguments                   | 1:url,                 |
-| Variables                   | url=$1,                |
+| /do/core/show/isConnected   |                                       |
+|:----------------------------|:--------------------------------------|
+| Info                        | [ping] [wikipedia.org] [release]      |
+| Description                 | Ping a hostname or ping wikipedia.org |
+| Usage                       | . /show/isConnected                   |
+| Example                     | . /show/isConnected github.com        |
+| Arguments                   | 1:url,                                |
+| Variables                   | url=$1,                               |
 
-| /do/core/show/isGithubRepo   |                        |
-|:-----------------------------|:-----------------------|
-| Info                         | [alpha] [undocumented] |
-| Arguments                    | 1:username, 2:repo,    |
-| Variables                    | username=$1, repo=$2,  |
+| /do/core/show/isGithubRepo   |                                           |
+|:-----------------------------|:------------------------------------------|
+| Info                         | [curl] [github.com] [official api]        |
+| Description                  | Check if a username/repo exists on github |
+| Usage                        | /show/isGithubRepo                        |
+| Example                      | /show/isGithubRepo ldleman yana-server    |
+| Arguments                    | 1:username, 2:repo,                       |
+| Variables                    | username=$1, repo=$2,                     |
 
-| /do/core/show/isInstalled   |                                                                     |
-|:----------------------------|:--------------------------------------------------------------------|
-| Info                        | [alpha] [undocumented]                                              |
-| Variables                   | check=$(grep -A1 -Fx "Package: $1" /var/lib/dpkg/status|tail -n 1), |
+| /do/core/show/isInstalled   |                                                                                       |
+|:----------------------------|:--------------------------------------------------------------------------------------|
+| Info                        | [dpkg] [grep] [/var/lib/dpkg/status]                                                  |
+| Description                 | Check if a apt-get package is installed                                               |
+| Usage                       | /show/isInstalled                                                                     |
+| Example                     | /show/isInstalled samba                                                               |
+| Arguments                   | 1:package,                                                                            |
+| Variables                   | package=$1, check=$(grep -A1 -Fx "Package: $package" /var/lib/dpkg/status|tail -n 1), |
 
-| /do/core/show/isIP   |                        |
-|:---------------------|:-----------------------|
-| Info                 | [alpha] [undocumented] |
-| Arguments            | 1:ip,                  |
-| Variables            | ip=$1,                 |
+| /do/core/show/isIP   |                                      |
+|:---------------------|:-------------------------------------|
+| Info                 | [regular expression]                 |
+| Description          | Check if a variable is an ip address |
+| Usage                | /show/isIP                           |
+| Example              | /show/isIP 192.168.0.1               |
+| Arguments            | 1:ip,                                |
+| Variables            | ip=$1,                               |
 
-| /do/core/show/isPackage   |                        |
-|:--------------------------|:-----------------------|
-| Info                      | [alpha] [undocumented] |
+| /do/core/show/isPackage   |                                    |
+|:--------------------------|:-----------------------------------|
+| Info                      | [apt-cache]                        |
+| Description               | Check if this is a apt-get package |
+| Usage                     | . /show/isPackage                  |
+| Example                   | . /show/isPackage samba            |
+| Arguments                 | 1:package,                         |
+| Variables                 | package=$1,                        |
 
-| /do/core/show/isRoot   |                        |
-|:-----------------------|:-----------------------|
-| Info                   | [alpha] [undocumented] |
+| /do/core/show/isRoot   |                           |
+|:-----------------------|:--------------------------|
+| Info                   | [id]                      |
+| Description            | Check if the user is root |
+| Usage                  | /show/isRoot              |
+| Example                | /show/isRoot              |
 
 | /do/core/show/linebreak   |                        |
 |:--------------------------|:-----------------------|
@@ -190,13 +252,11 @@
 | Info                     | [alpha] [undocumented] |
 | 1. $1 $2                 |                        |
 
-| /do/core/show/listUsers   |                        |
-|:--------------------------|:-----------------------|
-| Info                      | [alpha] [undocumented] |
-
-| /do/core/show/log   |                        |
-|:--------------------|:-----------------------|
-| Info                | [alpha] [undocumented] |
+| /do/core/show/listUsers   |                 |
+|:--------------------------|:----------------|
+| Info                      | [/etc/passwd]   |
+| Description               | List all users  |
+| Usage                     | /show/listUsers |
 
 | /do/core/show/messagebox   |                        |
 |:---------------------------|:-----------------------|
@@ -222,13 +282,17 @@
 |:------------------------|:-----------------------|
 | Info                    | [alpha] [undocumented] |
 
-| /do/core/show/myip   |                        |
-|:---------------------|:-----------------------|
-| Info                 | [alpha] [undocumented] |
+| /do/core/show/myip   |                             |
+|:---------------------|:----------------------------|
+| Info                 | [pinky] [release]           |
+| Description          | Show ip of current ssh user |
+| Usage                | /show/ipUser                |
 
 | /do/core/show/name   |                                                             |
 |:---------------------|:------------------------------------------------------------|
-| Info                 | [alpha] [undocumented]                                      |
+| Info                 | [samba] [hostname] [beta]                                   |
+| Description          | Show hostname using samba config file or hostname file      |
+| Usage                | /show/name                                                  |
 | Variables            | smbname=$(cat /etc/samba/smb.conf |grep "netbios name = "), |
 
 | /do/core/show/nextline   |                        |
@@ -238,11 +302,6 @@
 | /do/core/show/nlbecho   |                        |
 |:------------------------|:-----------------------|
 | Info                    | [alpha] [undocumented] |
-
-| /do/core/show/programs           |                        |
-|:---------------------------------|:-----------------------|
-| Info                             | [alpha] [undocumented] |
-| 1. Processes --- PID --- Command |                        |
 
 | /do/core/show/return   |                        |
 |:-----------------------|:-----------------------|
@@ -256,22 +315,22 @@
 
 | /do/core/show/smbGetName   |                                                             |
 |:---------------------------|:------------------------------------------------------------|
-| Info                       | [alpha] [undocumented]                                      |
+| Info                       | [samba] [hostname] [beta]                                   |
+| Description                | Show hostname using samba config file or hostname file      |
+| Usage                      | /show/name                                                  |
 | Variables                  | smbname=$(cat /etc/samba/smb.conf |grep "netbios name = "), |
 
-| /do/core/show/state   |                        |
-|:----------------------|:-----------------------|
-| Info                  | [alpha] [undocumented] |
-| Arguments             | 1:module,              |
-| Variables             | module=$1,             |
+| /do/core/show/time   |                       |
+|:---------------------|:----------------------|
+| Info                 | [date] [release]      |
+| Description          | Show hour and minutes |
+| Usage                | /show/time            |
 
-| /do/core/show/time   |                        |
-|:---------------------|:-----------------------|
-| Info                 | [alpha] [undocumented] |
-
-| /do/core/show/unusedDisk   |                        |
-|:---------------------------|:-----------------------|
-| Info                       | [alpha] [undocumented] |
+| /do/core/show/unusedDisk   |                           |
+|:---------------------------|:--------------------------|
+| Info                       | [df] [release]            |
+| Description                | Show remaining disk space |
+| Usage                      | /show/unusedDisk          |
 
 | /do/core/show/usage   |                        |
 |:----------------------|:-----------------------|
@@ -281,11 +340,9 @@
 |:---------------------------------|:-----------------------|
 | Info                             | [alpha] [undocumented] |
 
-| /do/core/show/userConnected   |                        |
-|:------------------------------|:-----------------------|
-| Info                          | [alpha] [undocumented] |
-
-| /do/core/show/wifiManufacturer   |                        |
-|:---------------------------------|:-----------------------|
-| Info                             | [alpha] [undocumented] |
+| /do/core/show/userConnected   |                                              |
+|:------------------------------|:---------------------------------------------|
+| Info                          | [df] [release]                               |
+| Description                   | Show numbers of users logged into a terminal |
+| Usage                         | /show/userConnected                          |
 

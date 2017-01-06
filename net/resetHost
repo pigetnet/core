@@ -3,7 +3,7 @@ if [ $# -ge 2 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
 	/show/messagebox "/net/resetHost"
 	/show/info "[beta] [network] [avahi] [bonjour]"
 	/show/usageDescription "Change name in /etc/hosts and /etc/hostname"
-	/show/usage "$0 [newname] (default:/user/settings/pi/name.txt)"
+	/show/usage "$0 [newname]"
 	/show/example "$0 raspberrypi"
 	/show/return "NEW_HOSTNAME"
 else

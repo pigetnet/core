@@ -1,11 +1,10 @@
 #!/bin/bash
-if [[ $1 != "--help" ]];then
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox "/net/internetOff"
+	/show/info "[release] [danger] [network] [gateway]"
+	/show/usageDescription "Remove default gateway to simulate internet disconnection"
+	/show/usage "$0"
+else
 	/show/colecho "-> INTERNET [DOWN]" $ERR
 	route del default
-else
-	/show/messagebox "/net/internetOff"
-	/show/usageDescription "Remove default route to gateway"
-	/show/usage "/net/internetOff"
-	/show/example "/net/internetOff"
 fi
-

@@ -1,12 +1,13 @@
 #!/bin/bash
-if [ $# -eq 1 ];then
+if [ $# -ne 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+	/show/messagebox $0
+	/show/info "[exec] [socket] [local]"
+	/show/usageDescription "Read a socket"
+	/show/usage "$0 port"
+	/show/example "$0 22"
+else
 	port=$1
 	exec 3<>/dev/tcp/127.0.0.1/$port
 	read -r msg_in <&3
 	echo $msg_in
-else
-	/show/messagebox "/net/socketSend"
-	/show/usageDescription "Send text to a socket"
-	/show/usage '/net/socketSend message port'
-	/show/example '/net/socketSend "hello world" 9060'
 fi
