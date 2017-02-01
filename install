@@ -121,6 +121,8 @@ EOF
 		if [ ! -d /opt/user/settings ];then
 			echo "/opt/user/settings" >> /tmp/pigetInstall.log
 			mkdir /opt/user/settings
+			mkdir /opt/user/settings/pi
+			echo "pigetnet" > /opt/user/settings/pi/repo.txt
 			if [ $? -ne 0 ] ;then
 				echo "ERROR : /opt/user/settings wasn't created" >> /tmp/pigetInstall.log
 				echo -e "$ERR [ERR] : /opt/user/settings wasn't created $NORMAL"
