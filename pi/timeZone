@@ -2,7 +2,7 @@
 if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/messagebox "$0"
   /show/info '[release] [interactive]'
-  /show/usageDescription 'Modify timezone'
+  /show/usageDescription 'Setup timezone based on ip'
   /show/usage "$0"
 else
 	/show/description "Settings timezone"

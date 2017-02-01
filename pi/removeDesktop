@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $# -eq 1 ] && [[ $1 == "--help" ]];then
+if [ $# -ne 0 ] && [[ $1 == "--help" ]];then
 	/show/messagebox "/pi/removeDesktop"
 	/show/usageDescription "Remove all desktop applications (WARNING THIS TAKES MORE THAN 30 MINUTES)"
 	/show/usage '/pi/removeDesktop'

@@ -5,9 +5,11 @@ if [ $# -ge 1 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
   /show/usageDescription 'Turn on the green led'
   /show/usage "$0"
 else
+	#Raspberry Pi
 	if [ -d /sys/class/leds/led0 ];then
 			echo none >/sys/class/leds/led0/trigger;echo 1 >/sys/class/leds/led0/brightness
 	else
+		#Orange Pi
 		if [ -d /sys/class/leds/green_led ];then
 			 echo 255 >/sys/class/leds/green_led/brightness
 		else

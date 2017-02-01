@@ -1,5 +1,7 @@
 #!/bin/bash
-#Create a console box use it to show COMMAND OUTPUT
+# /show/info "[terminal] [display]"
+# /show/usageDescription 'display a row of green slash'
+# /show/example "//////////////////////"
 echo -ne $OK
 echo "/////////////////////"
 echo -ne $NORMAL

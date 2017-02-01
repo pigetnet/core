@@ -1,8 +1,15 @@
 #!/bin/bash
-hardware=$(cat  /proc/cpuinfo |grep "Hardware"|awk '{print $3}')
-
-if [[ $hardware == "sun8i" ]];then
-	echo "orangepi"
+if [ $# -ne 0 ] || [[ $1 == "--help" ]] || [ $(id -u) -ne 0 ];then
+  /show/messagebox "$0"
+  /show/info '[beta]'
+  /show/usageDescription 'Check if this is a Raspberry Pi or an Orange Pi'
+  /show/usage "$0"
 else
-	echo "raspberrypi"
+	hardware=$(cat  /proc/cpuinfo |grep "Hardware"|awk '{print $3}')
+
+	if [[ $hardware == "sun8i" ]];then
+		echo "orangepi"
+	else
+		echo "raspberrypi"
+	fi
 fi

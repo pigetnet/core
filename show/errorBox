@@ -1,5 +1,8 @@
 #!/bin/bash
-#Display an error box
+# /show/info "[terminal] [display]"
+# /show/usageDescription 'display an red error message'
+# /show/usage '/show/errorBox "ErrorMessage"'
+# /show/example '--- ERROR : Message ---'
 echo -ne $ERR
 echo "--- ERROR : $1 ---"
 echo -ne $NORMAL

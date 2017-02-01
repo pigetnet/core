@@ -13,10 +13,6 @@
 | Example                          | /net/internetOn 192.168.1.1              |
 | 1. -> INTERNET ROUTER --> [ $1 ] |                                          |
 
-| /do/core/net/readme.md   |                        |
-|:-------------------------|:-----------------------|
-| Info                     | [alpha] [undocumented] |
-
 | /do/core/net/resetHost   |                                             |
 |:-------------------------|:--------------------------------------------|
 | Info                     | [beta] [network] [avahi] [bonjour]          |
